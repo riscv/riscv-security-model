@@ -136,8 +136,8 @@ Isolation protects _resources_:
 Examples of isolation mechanisms include:
 
 * Privilege based isolation +
-More privileged software is able to enforce security guarantees for less
-privileged software.
+More privileged software is able to access some assets that can enforce security guarantees for less
+privileged software. For instance access to state used to set up virtual memory system is restriced by privilege level. 
 * Physical memory isolation +
 More privileged software controls memory access for less privileged software.
 * Domain isolation +
@@ -147,8 +147,9 @@ domain (without consent), regardless of privilege level. +
 lower privileged software in a different domain)
 * Virtualization +
 Virtualization creates and manages _virtual resources_ - compute, memory,
-devices - independent of actual physical hardware. A system, or individual
-domains, can be virtualized.
+devices - abstracted from actual physical hardware. A system, or individual
+domains, can be virtualized. This abstraction can be used to restrict a workload to run  
+with access to a defined set of resources, isolated from other workloads.
 
 On complex systems the TCB can grow large and become difficult to certify and
 attest.
@@ -169,11 +170,13 @@ RISC-V has a range of isolation mechanisms available and in development.
 
 [#cat_sr_sub_ism]
 [width=100%]
-[%header, cols="10,25,5,5,5,10"]
+[%header, cols="10,20,6,6,10,9"]
 |===
 | Technololgy
 | Use Case
-| Privilege level
+| Controlling + 
+Privilege +
+level
 | Memory 
 | Granularity
 | Limitations
@@ -184,7 +187,7 @@ RISC-V has a range of isolation mechanisms available and in development.
 | M
 | Physical
 | Fine Grained
-| Switching overhead, limited resource
+| Reprogramming and Switching overhead, Constrained resourcefootnote:[On switching domains, the PMP must be reprogrammed by M-Mode FW, and PMP entries may be limited in number.]
 
 | SPMP
 | OS managed code and data isolation by privilege level. +
@@ -192,7 +195,7 @@ RISC-V has a range of isolation mechanisms available and in development.
 | S
 | Physical
 | Fine Grained
-| Switching overhead, limited resource
+| Reprogramming and Switching overhead, Constrained resourcefootnote:[On switching domains, the SPMP must be reprogrammed by M-Mode FW, and PMP entries may be limited in number.]
 
 | Virtual Memory
 MMU
@@ -203,7 +206,7 @@ Host – Guest isolation (HS-VS)
 HS/VS
 | Virtual
 | Page Based
-|
+| Additional Table Walkfootnote:[The additional table walk required to fetch domain permissions may introduce a performance penalty, or require additional cached state.]
 
 | IOPMP
 | System Level PMP
@@ -212,17 +215,11 @@ HS/VS
 | Page Based
 |
 
-| Pointer Masking
-| Simple SW based memory tagging, memory range restriction
-| S U
-| Both
-| Coarse
-|
-
 | Smmpt, SDID
-| Supervisor domains and memory proteciton tables, building block for confidential computing, trusted execution. +
-S-S isolation
-| S
+| Supervisor domains and memory protection tables, building block for confidential computing, trusted execution. +
+S-S isolation +
+HS - HS isolation 
+| M
 | Physical
 | Page or larger
 | 
@@ -234,21 +231,12 @@ S-S isolation
 | Fine Grained
 | 
 
-| Memory Tagging
-| Faults on access to an incorrect TAG. 
-used for debug, garbage collection, security isolation 
-| S U
-| Virtual
-| tbd
-| Probabilistic, performance impact, +
-tag storage overhead
-
 | CHERI
 | Full Capability based access for memory safety and isolation
 | M S U
 | Both
 | Fine Grained
-| HW/SW impact
+| HW/SW impactfootnote:[CHERI requires extensive HW modifications, doubles pointer sizes, requires additional SW as well as recompilation and modificationof existing software. This may be offset by performance gains over alternative mechanisms and saving in other state such as PMP.]
 
 |===
 
@@ -433,14 +421,14 @@ Finally, this specification does not attempt to rate attacks by severity, or by 
 
 [#cat_sr_sub_lgc]
 [width=100%]
-[%header, cols="5,5,5,10,15,10"]
+[%header, cols="8,5,5,10,15,10"]
 |===
 | ID#
 | Threat
 | Type
 | Description
 | Current RISC-V mitigations
-| Planned RISC-V mitigations
+| Potentisl RISC-V mitigations
 
 | T_LGC_001
 | Unrestricted access
