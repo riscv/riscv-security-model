@@ -35,7 +35,7 @@ different supply chains. The security reference model uses the generic term
 _domain_ to identify an isolated environment, with at least some private 
 resources and execution state not accessible to at least some other domain(s).
 The figure above shows two examples, one with a single domain, the other with two domains for illustrative purposes but some
-use-cases can require more. The two domains are notionally labelled _hosting domain_ and _confidential domain_ but they have identical properites. _Workloads_ are run in a domain, and are isolated from each other within that domain. Isolation within a domain may be managed by a _runtime environment_ or a _domain security manager_.  Switching between domains may be managed by a _root domain security manager_.  
+use-cases can require more. The two domains are notionally labelled _hosting domain_ and _confidential domain_ but they have identical properties. _Workloads_ are run in a domain, and are isolated from each other within that domain. Isolation within a domain may be managed by a _runtime environment_ or a _domain security manager_.  Switching between domains may be managed by a _root domain security manager_.  
 Isolated domains at the software level are typically reflected in isolated domains at the system hardware level, where hardware resouces and _devices_ can be assigned or restricted to specific software domains. For example, device DMA transfers can be restricted to memory assigned to a particular domain. Additional platform services may be required in more complex systems. To illustrate this, _Platform QoS_ is shown in the two domain example.
 
 This specification does not imply or limit the number of domains or the type of use cases a RISC-V system can support. See
@@ -91,14 +91,14 @@ provide stronger protection against physical and logical attacks.
 The HW RoT acts as a _primary root of trust_ on the system.
 
 NOTE: It is common for secure systems to support multiple trust chains with
-their own root of trust. For example, a TPM can be a root of trust for UEFI
-boot flows within a runtime environment while a SIM can be a root of trust for
+their own Root of Trust. For example, a TPM can be a root of trust for UEFI
+boot flows within a runtime environment while a SIM can be a Root of Trust for
 user identity management. +
  +
 For the purpose of this document, these should be treated as _secondary roots of
 trust_. +
  +
-The HW RoT can manage the security life cycle of a secondary root of trust (booting etc).
+The HW RoT can manage the security life cycle of a secondary Root of Trust (booting etc).
 
 [#cat_sr_sub_rot]
 [width=100%]
@@ -117,7 +117,7 @@ The HW RoT can manage the security life cycle of a secondary root of trust (boot
 
 An example of a complex system is one with multiple, out-of-order, cache-coherent harts.
 
-An example of a simpler system is one with a single, in-order, hart such as in a microcontroller.
+An example of a simpler system is one with a single, in-order, Hart such as in a microcontroller.
 
 NOTE: In this document, the terms "FW RoT" and "HW RoT" will be used as defined
 above. The term "RoT" on its own can be used where a rule or a rationale applies
@@ -137,7 +137,7 @@ Examples of isolation mechanisms include:
 
 * Privilege based isolation +
 More privileged software is able to access some assets that can enforce security guarantees for less
-privileged software. For instance access to state used to set up virtual memory system is restriced by privilege level. 
+privileged software. For instance access to state used to set up virtual memory system is restricted by privilege level. 
 * Physical memory isolation +
 More privileged software controls memory access for less privileged software.
 * Domain isolation +
@@ -156,7 +156,7 @@ attest.
 
 Domain isolation enables confidential workloads to be separated from complex
 hosting software, including other workloads. The TCB of a confidential workload
-can be reduced to a domain security manager in a confidential domain, and the
+can be reduced to a Domain Security Manager in a confidential domain, and the
 RoT, while allowing the main runtime environment in a separate hosting domain
 to remain in control of resource management.
 
@@ -273,7 +273,7 @@ non-M-mode software.
 
 |===
 
-NOTE: When an invasive subsystem cannot be disabled for functional reasons, or runs across all privilege levels, the design must ensure security guarantees are maintained using appropriate techniques such as dedicated management networks, hardware enforced frequency/voltage limits   
+NOTE: When an invasive subsystem cannot be disabled for functional reasons, or runs across all privilege levels, the design must ensure security guarantees are maintained using appropriate techniques such as dedicated management networks, hardware-enforced frequency/voltage limits   
 
 ==== Event counters
 
@@ -337,7 +337,7 @@ domain, without consent.
 ==== Denial of service
 
 The RISC-V security model is primarily concerned with protection of assets, and not with providing service guarantees. However, a given
-use case may require service guarantees that extend to preventing denial of service (DoS) by a malicious workload. For instance, software in a virtual machine must not have the ability to bring down the cloud provider's infrastructure; a power management domain may require the ability to always react to thermal events etc. Other use cases may not consider DoS in their threat model - for instance where all platform software is considered trustworthy, or where denial of service by user provided software would only achieve denying service to that user.  
+use case may require service guarantees that extend to preventing denial of service (DoS) by a malicious workload. For instance, software in a virtual machine must not have the ability to bring down the cloud provider's infrastructure; a power management domain may require the ability to always respond to thermal events etc. Other use cases may not consider DoS in their threat model - for instance where all platform software is considered trustworthy, or where denial of service by user provided software would only achieve denying service to that user.  
 
 In use cases where preventing DoS is considered an objective, Higher privileged software must always be able to enforce its own resource management policy without interference, including scheduling, resource assignment and revocation policies.
 
@@ -430,7 +430,7 @@ Logical
 | Unauthorized direct access to resources in normal operation.
 a| * RISC-V privilege levels
 * RISC-V isolation (for example: PMP/ePMP, sPMP, MTT, supervisor domains)
-* RISC-V hardware enforced virtualization (H extension, MMU)
+* RISC-V hardware-enforced virtualization (H extension, MMU)
 | CHERI
 
 | T_LGC_002
@@ -439,7 +439,7 @@ a| * RISC-V privilege levels
 Logical
 | Attacks on speculative execution implementations.
 | Domain-bypass and Cross-domain attacks can be mitigated at a microarchitectural level by isolating predictive microarchitectural resources. Micro-architecture for RISC-V systems is implementation
-specific, and must consider such vulnerabilites. +
+specific, and must consider such vulnerabilities. +
  +
 This is an evolving area of research. +
  +
@@ -500,7 +500,7 @@ Capability based architecture, such as CHERI.
 | T_LGC_007
 | Architectural Covert Channel
 | Logical
-| Execution environment is unaware of, or doesnt swap/sanitize CSRs on context switch, creating covert communication channel between user threads or guest OSs
+| Execution environment is unaware of, or doesn't swap/sanitize CSRs on context switch, creating covert communication channel between user threads or guest OSs
 a| * Smstateen +
 * Ssstateen
 |
@@ -532,7 +532,7 @@ a| * Implement power analysis mitigations such as cryptographic masking, constan
 | Physical memory manipulation
 | Direct +
 Logical or physical
-| Using NVDIMMs (suceptible to remanence attack), interposers, or physical probing to read, record, replay or relocate data in physical memory.
+| Using NVDIMMs (susceptible to remanence attack), interposers, or physical probing to read, record, replay or relocate data in physical memory.
 a| * Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding.  
 * Supervisor domain ID, privilege level, or MPT attributes may be used to
 derive separate memory encryption contexts at domain or workload granularity
@@ -647,7 +647,7 @@ A security life cycle reflects the trustworthiness of a system during its
 lifetime and reflects the life cycle state of hardware provisioned assets.
 
 It can be extended as indicated below to cover additional security provisioning
-steps such as device onboarding, device activation, user management, and RMA (Return Merchandize Authorization)
+steps such as device onboarding, device activation, user management, and RMA (Return Merchandise Authorization)
 processes. These are use case or ecosystem specific and out of scope of this
 specification.
 
@@ -844,7 +844,7 @@ In the context of this document, a measurement is a record of a present state of
 Verification is a process of establishing that a measurement is correct
 (expected)
 
-When a system in a security provisioning state doesnt restrict loading to only authorized software, other protection measures such as physical access protection, or device registration would be required.
+When a system in a security provisioning state doesn't restrict loading to only authorized software, other protection measures such as physical access protection, or device registration would be required.
 
 A boot process is typically layered, allowing software to be measured and
 verified in stages. Different measurement and verification policies can be
