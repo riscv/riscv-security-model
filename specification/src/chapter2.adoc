@@ -91,14 +91,14 @@ provide stronger protection against physical and logical attacks.
 The HW RoT acts as a _primary root of trust_ on the system.
 
 NOTE: It is common for secure systems to support multiple trust chains with
-their own Root of Trust. For example, a TPM can be a root of trust for UEFI
-boot flows within a runtime environment while a SIM can be a Root of Trust for
+their own root of trust. For example, a TPM can be a root of trust for UEFI
+boot flows within a runtime environment while a SIM can be a root of trust for
 user identity management. +
  +
 For the purpose of this document, these should be treated as _secondary roots of
 trust_. +
  +
-The HW RoT can manage the security life cycle of a secondary Root of Trust (booting etc).
+The HW RoT can manage the security life cycle of a secondary root of trust (booting etc).
 
 [#cat_sr_sub_rot]
 [width=100%]
