@@ -373,7 +373,7 @@ In general, adversaries capable of mounting the following broad classes of
 attacks should be considered by system designers:
 
 * Logical +
-The attacker runs software on the same system as the victim, often as an unprivileged user. These attacks exploit logical or architectural vulnerabilities to compromise privileged software or co-resident applications..
+The attacker runs software on the same system as the victim, often as an unprivileged user. These attacks exploit logical or architectural vulnerabilities to compromise privileged software or co-resident applications.
 
 * Physical +
 The attacker has physical access to the system hosting the victim process. This enables invasive techniques such as probing, glitching, and disassembly, as well as local side-channel attacks like electromagnetic or power analysis.
@@ -469,7 +469,7 @@ Logical
 derive information about confidential assets.
 a| * Data-independent timing instructions (Zkt, Zkvt)
 * Performance counters restricted by privilege and isolation boundaries
-(sscofpmf, smcntrpmf,)
+(sscofpmf, smcntrpmf)
 |
 
 | T_LGC_005
@@ -492,8 +492,10 @@ a| * RISC-V pointer masking (Sspm, Supm) +
 * Landing pads (Zicfilp) +
 Memory Tagging
  +
-Memory safe programming, for example: +
-https:/www.cisa.gov/sites/default/files/2023-12/CSAC_TAC_Recommendations-Memory-Safety_Final_20231205_508.pdf +
+Memory safe programming +
++
+For example: +
+https://www.cisa.gov/sites/default/files/2023-12/CSAC_TAC_Recommendations-Memory-Safety_Final_20231205_508.pdf[Memory Safety] +
 | Architectural sandboxing, such as HFI. +
 Capability based architecture, such as CHERI.
 
@@ -842,7 +844,7 @@ Two complementary processes can be used to authorize software:
 In the context of this document, a measurement is a record of a present state of the system, which can be used by a remote party to verify the security state of the system. It is typically a cryptographic fingerprint, such as a running hash of memory combined with security lifecycle state and other attributes. Although depending on use case other kinds of measurements can be used.
 * Verification +
 Verification is a process of establishing that a measurement is correct
-(expected)
+(expected).
 
 When a system in a security provisioning state doesn't restrict loading to only authorized software, other protection measures such as physical access protection, or device registration would be required.
 
@@ -891,7 +893,7 @@ launching services which depend on the security platform.
 
 |===
 
-Verification ensures the system has loaded authorized software
+Verification ensures the system has loaded authorized software.
 
 [width=100%]
 [%header, cols="5,20"]
