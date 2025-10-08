@@ -448,8 +448,8 @@ https://meltdownattack.com/[Spectre and meltdown papers] +
 https://www.intel.com/content/www/us/en/developer/topic-technology/software-security-guidance/processors-affected-consolidated-product-cpu-model.html[Intel
 security guidance] +
 https://developer.arm.com/documentation/#cf-navigationhierarchiesproducts=Arm%20Security%20Center,Speculative%20Processor%20Vulnerability[Arm speculative
-vulnerability]
-| Fence.t, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
+vulnerability] +
+Fence.t, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
 
 | T_LGC_003
 | Interface abuse
