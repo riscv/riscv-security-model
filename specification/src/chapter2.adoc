@@ -414,14 +414,14 @@ Finally, this specification does not attempt to rate attacks by severity, or by 
 
 [#cat_sr_sub_lgc]
 [width=100%]
-[%header, cols="8,5,5,10,15,10"]
+[%header, cols="8,5,5,10,15,15"]
 |===
 | ID#
 | Threat
 | Type
 | Description
 | Current RISC-V mitigations
-| Potentisl RISC-V mitigations
+| Potential RISC-V mitigations
 
 | T_LGC_001
 | Unrestricted access
@@ -438,18 +438,18 @@ a| * RISC-V privilege levels
 | Chained +
 Logical
 | Attacks on speculative execution implementations.
-| Domain-bypass and Cross-domain attacks can be mitigated at a microarchitectural level by isolating predictive microarchitectural resources. Micro-architecture for RISC-V systems is implementation
+a| * Domain-bypass and Cross-domain attacks can be mitigated at a microarchitectural level by isolating predictive microarchitectural resources. Micro-architecture for RISC-V systems is implementation
 specific, and must consider such vulnerabilities. +
  +
-This is an evolving area of research. +
+* This is an evolving area of research. +
  +
  For example: +
 https://meltdownattack.com/[Spectre and meltdown papers] +
 https://www.intel.com/content/www/us/en/developer/topic-technology/software-security-guidance/processors-affected-consolidated-product-cpu-model.html[Intel
 security guidance] +
 https://developer.arm.com/documentation/#cf-navigationhierarchiesproducts=Arm%20Security%20Center,Speculative%20Processor%20Vulnerability[Arm speculative
-vulnerability] +
-Fence.t, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
+vulnerability]
+| Fence.t, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
 
 | T_LGC_003
 | Interface abuse
@@ -459,7 +459,7 @@ Logical
 elevate privilege or to gain unauthorized access to resources.
 a| * RISC-V privilege levels
 * RISC-V isolation
-| High assurance cryptography
+| High assurance cryptography can isolate key material from SW
 
 | T_LGC_004
 | Event counting
