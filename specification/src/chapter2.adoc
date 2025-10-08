@@ -339,8 +339,7 @@ domain, without consent.
 The RISC-V security model is primarily concerned with protection of assets, and not with providing service guarantees. However, a given
 use case may require service guarantees that extend to preventing denial of service (DoS) by a malicious workload. For instance, software in a virtual machine must not have the ability to bring down the cloud provider's infrastructure; a power management domain may require the ability to always react to thermal events etc. Other use cases may not consider DoS in their threat model - for instance where all platform software is considered trustworthy, or where denial of service by user provided software would only achieve denying service to that user.  
 
-In use cases where DoS is considered an objective, Higher privileged software must always be able to enforce its own resource
-management policy without interference, including scheduling, resource assignment and revocation policies.
+In use cases where preventing DoS is considered an objective, Higher privileged software must always be able to enforce its own resource management policy without interference, including scheduling, resource assignment and revocation policies.
 
 Similarly, a hosting domain owning resource allocation and host management across a system normally has to be able to enforce its own policies across domains. Other domains should not be able to deny service to the hosting domain, or to other domains.
  
@@ -357,7 +356,8 @@ Similarly, a hosting domain owning resource allocation and host management acros
 privileged software, or other isolated workloads at the same privilege level.
 
 | SR_DOS_002
-| Software in one domain SHOULD NOT be able to deny service to software in a different domain
+| Software in one domain MUST NOT be able to deny service to software in a different domain, 
+irrespective of privilege level
 
 |===
 
@@ -373,16 +373,13 @@ In general, adversaries capable of mounting the following broad classes of
 attacks should be considered by system designers:
 
 * Logical +
-The attacker and the victim are both processes on the same system.
+The attacker runs software on the same system as the victim, often as an unprivileged user. These attacks exploit logical or architectural vulnerabilities to compromise privileged software or co-resident applications..
 
 * Physical +
-The victim is a process on a system, and the attacker has physical access to
-the same system. For example: probing, interposers, glitching, and disassembly.
+The attacker has physical access to the system hosting the victim process. This enables invasive techniques such as probing, glitching, and disassembly, as well as local side-channel attacks like electromagnetic or power analysis.
 
 * Remote +
-The victim is a process on a system, and the attacker does not have physical or
-logical access to the system. For example, radiation or power fluctuations, or
-protocol level attacks on connected services.
+The attacker does not have physical or logical access to the victim system and interacts solely over a network. Examples include protocol-level attacks on exposed services and remote side-channel attacks that exploit timing or resource usage observable through network interactions or shared infrastructure.
 
 At an implementation level there can be further distinctions, for example the degree of proximity required to execute a remote or a physical attack as defined above. However, this document does not make any finer grained distinctions other than logical, physical and remote.
 
@@ -410,7 +407,7 @@ This specification is primarily concerned with ISA level mitigations against log
 
 Physical or remote attacks in general need to be addressed at system, protocol or governance level, and can require additional non-ISA mitigations. However, some ISA level mitigations can also help provide some mitigation against physical or remote attacks and this is indicated in the tables below.
 
-Finally, this specification does not attempt to rate attacks by severity, or by adversary skill level. Ratings tend to depend on use case specific threat models and requirements.
+Finally, this specification does not attempt to rate attacks by severity, or by adversary skill level. Ratings tend to depend on use case specific threat models and requirements. 
 
 
 ==== Logical
@@ -441,9 +438,8 @@ a| * RISC-V privilege levels
 | Chained +
 Logical
 | Attacks on speculative execution implementations.
-| Known (documented) attacks, except Spectre v1, are specific to particular
-micro-architectures. Micro-architecture for RISC-V systems is implementation
-specific, but must not introduce such vulnerabilities. +
+| Domain-bypass and Cross-domain attacks can be mitigated at a microarchitectural level by isolating predictive microarchitectural resources. Micro-architecture for RISC-V systems is implementation
+specific, and must consider such vulnerabilites. +
  +
 This is an evolving area of research. +
  +
@@ -453,7 +449,7 @@ https://www.intel.com/content/www/us/en/developer/topic-technology/software-secu
 security guidance] +
 https://developer.arm.com/documentation/#cf-navigationhierarchiesproducts=Arm%20Security%20Center,Speculative%20Processor%20Vulnerability[Arm speculative
 vulnerability]
-| Fence.t, or similar future extensions, may at least partially mitigate against Spectre v1.
+| Fence.t, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
 
 | T_LGC_003
 | Interface abuse
@@ -471,9 +467,9 @@ a| * RISC-V privilege levels
 Logical
 | For example, timing processes across privilege or isolation boundaries to
 derive information about confidential assets.
-a| * Data-independent timing instructions
+a| * Data-independent timing instructions (Zkt, Zkvt)
 * Performance counters restricted by privilege and isolation boundaries
-(sscofpmf, smcntrpmf)
+(sscofpmf, smcntrpmf,)
 |
 
 | T_LGC_005
@@ -484,16 +480,17 @@ Logical
 control flow to code controlled by an attacker.
 a| * Shadow stacks (Zicfiss)
 * Landing pads (Zicfilp)
-| CHERI, +
+| Capability based architecture, such as CHERI, +
   Memory Tagging
 
 | T_LGC_006
 | Memory safety
 | Logical
 | Unauthorized access to resources within an isolated component. For example, pointer or allocation errors (temporal memory safety), or buffer overflows (spatial memory safety).
-a| * RISC-V pointer masking (J-extension) +
+a| * RISC-V pointer masking (Sspm, Supm) +
 * Shadow stacks (Zicfiss) +
 * Landing pads (Zicfilp) +
+Memory Tagging
  +
 Memory safe programming, for example: +
 https:/www.cisa.gov/sites/default/files/2023-12/CSAC_TAC_Recommendations-Memory-Safety_Final_20231205_508.pdf +
@@ -527,7 +524,7 @@ a| * Smstateen +
 | Direct or indirect +
 Physical or remote
 | For example, observing radiation, power line patterns, or temperature.
-a| * Implement robust power management and radiation control
+a| * Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs.  
 * Data Independent Execution Latency (Zkt, Zvkt)
 
 
@@ -535,13 +532,11 @@ a| * Implement robust power management and radiation control
 | Physical memory manipulation
 | Direct +
 Logical or physical
-a| * Using NVDIMM, interposers, or physical probing to read, record, or replay
-physical memory.
-a| * Implement robust memory error detection, cryptographic memory protection,
-or physical tamper resistance.
-* Supervisor domain ID, privilege level, or MPT attributes, may be used to
-derive memory encryption contexts at domain or workload granularity
-* Provide a degree of tamper resistance.
+| Using NVDIMMs (suceptible to remanence attack), interposers, or physical probing to read, record, replay or relocate data in physical memory.
+a| * Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding.  
+* Supervisor domain ID, privilege level, or MPT attributes may be used to
+derive separate memory encryption contexts at domain or workload granularity
+* Provide physical tamper resistance, such as an active mesh over critical logic, or case-opening sensors.  
 
 // * Physical attacks on hardware shielded locations to extract hardware
 // provisioned assets
@@ -551,13 +546,15 @@ derive memory encryption contexts at domain or workload granularity
 | Boot attacks
 | Chained +
 Logical or physical
-a| * Glitching to bypass secure boot
-* Retrieving residual confidential memory after a system reset
-a| Implement robust power management, and adopt glitch-safe software techniques. +
- +
-Industry best practice should be followed. For example: ensuring un-initialized variables are not used; implementing integrity checking of critical data and hardware provisioned parameters; implementing redundancy in encoding, verification, branching, and critical logic. +
- +
-Adopt randomization techniques between boot sessions. For example: cryptographic memory protection with at least boot freshness; register randomization. 
+| Glitching to bypass secure boot +
+Retrieving residual confidential memory after a system reset
+a| * Implement robust power management, and adopt glitch-safe software techniques. +
+ 
+* Industry best practice should be followed. For example: ensuring un-initialized variables are not used; implementing integrity checking of critical data and hardware provisioned parameters; implementing redundancy in encoding, verification, branching, and critical logic. +
+ 
+* Adopt randomization techniques between boot sessions. For example: cryptographic memory protection with at least boot freshness; register randomization. 
+
+* Hardware mitigation such as glitch detection, voltage and clock monitoring
 
 | T_PHY_004
 | Subverting supply chains
@@ -566,15 +563,15 @@ Adopt randomization techniques between boot sessions. For example: cryptographic
 supply chains and signing processes, hardware supply chains, attestation
 processes, development processes (for example, unfused development hardware or
 debug authorizations)
-| Deploy appropriate governance, accreditation, and certification processes for
+a| * Deploy appropriate governance, accreditation, and certification processes for
 an ecosystem.
 
 | T_PHY_005
 | Fault Injection
 | Direct or remote +
 Logical or physical
-a| * Rowhammer-type software attacks to manipulate nearby memory cells.
-* Fault injection attacks (glitching, laser, electromagnetic, etc.) to extract hardware-provisioned assets, modify the control flow, circumvent countermeasures, etc.
+| Rowhammer-type software attacks to manipulate nearby memory cells. +
+Fault injection attacks (glitching, laser, electromagnetic, etc.) to extract hardware-provisioned assets, modify the control flow, circumvent countermeasures, etc.
 a| * Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance. 
 * Provide a level of tamper resistance, e.g., through RoT attestation, redundancy during execution, etc.
 * Enforce proper access control for the DVFS configuration.
