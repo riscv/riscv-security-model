@@ -7,7 +7,6 @@ for cryptographic operations (scalar and vector). They also include an
 ISA-level entropy source, and guidelines for data independent execution latency.
 
 See xref:chapter3.adoc#_cryptography[cryptography] +
-See https://github.com/riscv/riscv-crypto
 
 Current ISA level cryptographic extensions work at round level. With the data
 independent execution latency properties, they can provide some mitigation
