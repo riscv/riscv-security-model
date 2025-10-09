@@ -24,7 +24,7 @@ as on device accesses. RISC-V enables:
 
 ==== Privilege levels
 
-*See section 1.2 (Privilege Levels) of the https://github.com/riscv/riscv-isa-manual/releases/tag/Priv-v1.12[Privileged
+*See section 1.2 (Privilege Levels) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 Standard privilege levels - Machine mode (M), Supervisor mode (S), and User
@@ -33,7 +33,7 @@ software.
 
 ==== Hypervisor extension
 
-*See chapter 8 (Hypervisor Extension) of the https://github.com/riscv/riscv-isa-manual/releases/tag/Priv-v1.12[Privileged
+*See chapter 8 (Hypervisor Extension) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 The Hypervisor extension supports standard supervisor level hypervisors. It extends
@@ -67,7 +67,7 @@ MMU, PMP/Smepmp, and sPMP are discussed later in this chapter.
 
 ==== PMA
 
-*See section 3.6 (Physical Memory Attributes) of the https://github.com/riscv/riscv-isa-manual/releases/tag/Priv-v1.12[Privileged
+*See section 3.6 (Physical Memory Attributes) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 _Physical memory attributes (PMA)_ are intended to capture inherent properties
@@ -81,7 +81,7 @@ access, and typically configured by region.
 
 ==== PMP
 
-*See section 3.7 (Physical Memory Protection) of the https://github.com/riscv/riscv-isa-manual/releases/tag/Priv-v1.12[Privileged
+*See section 3.7 (Physical Memory Protection) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 _Physical memory protection (PMP)_ enables M-mode to access-control physical
@@ -97,7 +97,7 @@ memory for supervisor and U modes (with or without H-extension).
 | SR_PMP_001
 | PMP configurations MUST only be directly accessible to machine mode
 | SR_PMP_002
-| PMP/smepmp OR MPT MUST be used to isolate M-mode from lower privilege levels
+| PMP/smepmp MUST be used to isolate M-mode from lower privilege levels
 |===
 
 NOTE: Individual access controlled regions can be locked until the next system reset
@@ -106,7 +106,8 @@ Depending on the use case, MPT may be an acceptable additional or alternative me
 
 ==== Smepmp
 
-*See the https://github.com/riscv/riscv-tee/blob/main/Smepmp/Smepmp.pdf[PMP Enhancements for memory access and execution prevention on Machine mode] specification.*
+*See chapter 6 (PMP Enhancements for memory access and execution prevention in Machine mode) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+ISA] specification.*
 
 Smepmp extends PMP protection by allowing machine mode to restrict its own access to memory allocated to lower privilege levels. This can be
 used to mitigate against privilege escalation attacks.
@@ -122,7 +123,9 @@ used to mitigate against privilege escalation attacks.
 | If PMP is supported then Smepmp MUST be supported.
 |===
 
-==== sPMP
+==== sPMP 
+
+_This extension is not ratified at the time of writing, but is considered stable enough for inclusion_
 
 *See the https://github.com/riscv/riscv-spmp[RISC-V S-mode Physical Memory Protection (SPMP)] specification.*
 
@@ -161,7 +164,7 @@ The MMU may be an additional or alternative mechanism
 
 ==== MMU
 
-*See sections 4.3 to 4.6 (Page-Based Virtual-Memory Systems) of the https://github.com/riscv/riscv-isa-manual/releases/tag/Priv-v1.12[Privileged
+*See sections 4.3 to 4.6 (Page-Based Virtual-Memory Systems) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 _Memory management unit (MMU)_ enables address translation and protection for:
@@ -196,6 +199,8 @@ NOTE: Dependent on the use case, Trusted execution environments may require or r
 
 ==== Supervisor domains and MPT
 
+_This extension is not ratified at the time of writing, but is considered stable enough for inclusion_
+
 *See the https://github.com/riscv/riscv-smmtt[RISC-V Supervisor Domains Access
 Protection] specification.*
 
@@ -224,14 +229,13 @@ responsible for resource management.
 | Requirement
 
 | SR_MPT_001
-| MPT MUST be used to protect M-mode from lower privilege
+| MPT MUST be used to isolate M-mode from lower privilege
 levels
 
 | SR_MPT_002
-| MPT configurations SHOULD only be directly accessible to machine mode.
+| MPT configurations MUST only be directly accessible to machine mode.
 
 |===
-
 
 
 NOTE: The M-Mode resident software responsible for managing context switches and communication between supervisor
@@ -251,17 +255,23 @@ assigned to lower privilege levels (privilege escalation).
 | Requirement
 
 | SR_SUD_001
-| PMP/Smepmp or MPT MUST be used to enforce physical memory isolation
+| MPT MUST be used to enforce physical memory isolation
+boundaries for supervisor domains, and to protect machine mode from any
+supervisor domain.
+
+| SR_SUD_002
+| PMP/Smepmp MUST be used to enforce physical memory isolation
 boundaries for supervisor domains, and to protect machine mode from any
 supervisor domain.
 
 |===
 
-PMP can be used for more static and deterministic use cases.
+NOTE: PMP can be used for more static and deterministic use cases.
 MPT can be used where more fine grained (page-based) dynamic resource management across
 supervisor domain boundaries is required.
 
 ===== Supervisor Domain Resource Access and Sharing
+
 
 [width=100%]
 [%header, cols="5,20"]
@@ -269,15 +279,15 @@ supervisor domain boundaries is required.
 | ID#
 | Requirement
 
-| SR_SUD_002
+| SR_SUD_003
 | MPT MUST be used to protect resources assigned to one supervisor domain from other supervisor domains
 
-| SR_SUD_003
+| SR_SUD_004
 | Resources assigned to a higher trust level supervisor domain MUST NOT be accessible
 to an lower trust level supervisor domain. The trust levels/policies are specified by the
 security system designer.
 
-| SR_SUD_004
+| SR_SUD_005
 | Resources assigned to an untrusted supervisor domain MUST be accessible to a trusted supervisor domain 
 |===
 
@@ -292,11 +302,13 @@ Supervisor domains allow resource isolation and sharing between domains under th
 | ID#
 | Requirement
 
-| SR_SUD_005
+| SR_SUD_006
 | A system supporting supervisor domains MUST support supervisor domain
-extensions for interrupts (Smsdia) and SHOULD support supervisor domain
-extensions for external debug (TBD).
+extensions for interrupts (Smsdia).
 
+| SR_SUD_007
+| A system supporting supervisor domains MUST support supervisor domain
+extensions for external debug (TBD).
 |===
 
 *See chapter 6 (Smsdia) of the https://github.com/riscv/riscv-smmtt[RISC-V Supervisor
@@ -319,17 +331,19 @@ specification.*
 RoT (non M-mode external debug).
 
 | SR_DBG_002
-| External debug SHOULD be enabled separately for M-mode & non-M-mode software.
+| External debug MUST be enabled separately for M-mode & non-M-mode software.
 
 | SR_DBG_003
-| Self-hosted debug MAY be used for debug of non M-mode software.
+| Self-hosted debug MUST be used for debug of non M-mode software.
 
 | SR_DBG_004
 | Self-hosted debug MUST only be enabled by a higher privileged component.
 
 |===
 
-For example, external debug can be enabled for non-M-mode software without affecting M-mode (recoverable debug). And an S-mode OS can enable self-hosted debug for a user application without affecting other applications or S-mode itself.
+NOTE: Systems with the same ownership between M-mode and non-M-mode software may choose to enable external debug for all software or none. 
+Other trust models may require external debug be enabled for non-M-mode software without affecting M-mode (recoverable debug). 
+Where external debug is not enabled, systems may use an S-mode OS to enable self-hosted debug for a user application without affecting other applications or S-mode itself.
 
 [width=100%]
 [%header, cols="5,20"]
@@ -338,11 +352,11 @@ For example, external debug can be enabled for non-M-mode software without affec
 | Requirement
 
 | SR_DBG_005
-| FW RoT MAY disable self-hosted debug for all non M-mode software.
+| FW RoT MUST disable self-hosted debug for all non M-mode software.
 
 |===
 
-For example, disable self-hosted debug in a production system for certification
+NOTE: A secure system may require disabling self-hosted debug in a production system for certification
 reasons.
 
 [width=100%]
@@ -360,20 +374,23 @@ of the affected component, moderated by a RoT.
 measuring) of the affected component.
 
 | SR_DBG_008
-| Trusted self-hosted debug MAY be enabled at runtime (after measuring) of the
-affected component, to an application specific governance process.
+| Trusted self-hosted debug enabled at runtime (after measuring) of the
+affected component, MUST be subject to an application specific governance process.
 
 |===
 
-Enabling debug after measurement ensures the system remains attestable.
+NOTE: Enabling debug after measurement ensures the system remains attestable but can affect the 
+confidentiality and trustworthyness of the affected components, and must be subject to an attested policy  
 
-*See chapters 7 and 9 of the https://github.com/riscv/riscv-isa-manual/releases/tag/Priv-v1.12[Privileged
+*See chapters 7 and 9 of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification on performance counters.*
 
 These extensions enable management of interrupts, external debug, and
 performance counters across supervisor domain boundaries.
 
 ==== IOPMP
+
+_This extension is not ratified at the time of writing, but is considered stable enough for inclusion_
 
 *See the https://github.com/riscv-non-isa/iopmp-spec[RISC-V IOPMP] specification.*
 
@@ -388,10 +405,8 @@ device-initiated transactions, complementing PMP and sPMP rules.
 | Requirement
 
 | SR_IOP_001
-| A system which supports PMP/Smepmp, or sPMP, MUST implement either IOPMP or IOMPT for device
+| A system which supports PMP/Smepmp, or sPMP, MUST implement either IOPMP for device
 access control.
-
-Depending on system design, IOMPT can enforce the same access control policies as IOPMP.
 
 | SR_IOP_002
 | IOPMP configurations MUST only be directly accessible to machine mode.
@@ -409,6 +424,8 @@ Unless specified differently in the use cases in this specification, system
 designers are free to choose any IOPMP model. Depending on the use case, IOMPT may be an alternative or addition to IOPMP
 
 ==== IOMPT
+
+_This extension is not ratified at the time of writing, but is considered stable enough for inclusion_
 
 *See the https://github.com/riscv/riscv-smmtt[RISC-V Supervisor Domains Access
 Protection] specification.*
@@ -435,17 +452,15 @@ device-initiated memory accesses.
 | SR_IOM_004
 | IOMPT MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains.
 
-| SR_IOM_005
-| A system which implements IOMPT MAY also implement IOPMP to access-control
-device-initiated access to M-mode memory.
-
 |===
 
 NOTE: IOMPT can be sufficient for protecting Root devices as M-mode can enforce that its own resources are never assigned to another domain.
-Depending on use case, IOPMP may be used an addition or alternative. For example, a system
+Depending on use case, IOPMP may be an alternative or addition to IOMPT. For example, a system
 may require that Root devices are not able to access memory assigned to TEE domain.
 
 ==== IOMMU
+
+_This extension is not ratified at the time of writing, but is considered stable enough for inclusion_
 
 *See the https://github.com/riscv-non-isa/riscv-iommu[RISC-V IOMMU] specification.*
 
@@ -460,17 +475,15 @@ locations. It complements the MMU.
 | Requirement
 
 | SR_IOM_006
-| Systems supporting MMU SHOULD also support IOMMU
-
-| SR_IOM_007
-| Systems supporting IOMMU MUST also enforce physical memory access control for
-M-mode memory against device-initiated transactions using IOMPT or IOPMP
+| Systems supporting MMU MUST also support IOMMU
 
 |===
 
+NOTE: Systems using IOMMU must ensure this cannot be used to bypass physical memory access controls by implementing IOPMP and/or IOMPT
+
 === Software enforced memory tagging
 
-*See the https://github.com/riscv/riscv-j-extension[RISC-V Pointer Masking] specification.*
+*See Chapter 25 of https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged ISA] specification.*
 
 _Memory tagging (MT)_, is a technique which can improve the memory safety of an
 application. A part of the effective address of a pointer can be masked off
@@ -486,7 +499,8 @@ See also hardware enforced memory tagging below.
 
 === Control flow integrity
 
-*See the https://github.com/riscv/riscv-cfi[RISC-V Control Flow Integrity] specification.*
+*See chapter 23 of https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+ISA] specification.*
 
 Control-flow Integrity (CFI) capabilities help defend against Return-Oriented
 Programming (ROP) and Call/Jump-Oriented Programming (COP/JOP) style of
@@ -513,7 +527,8 @@ branches
 
 === Cryptography
 
-*See the https://github.com/riscv/riscv-crypto[RISC-V Cryptography Extension] specification.*
+*See Chapters 31 and 32 of https://github.com/riscv/riscv-isa-manual/releases/latest[Unprivileged
+ISA] specification.*
 
 RISC-V includes ISA extensions in the following cryptographic areas:
 
@@ -539,7 +554,7 @@ recommendations and references.
 | Requirement
 
 | SR_CPT_001
-| RISC-V systems SHOULD support either scalar or vector cryptographic ISA
+| RISC-V systems MUST support either scalar or vector cryptographic ISA
 extensions
 
 | SR_CPT_002
@@ -551,27 +566,12 @@ cryptographic ISA extensions are supported.
 It is not necessary to support both scalar and vector operations, as a scalar
 operation can be viewed as a vector of size 1.
 
-==== Post quantum cryptography
-
-*See the https://github.com/riscv/riscv-pqc[RISC-V Specification for Post-quantum Cryptography] specification.*
-
-The _RISC-V Post Quantum Cryptography_ initiative aims to specify ISA extensions that enhance performance and
-implementation efficiency for contemporary public-key cryptography, with a focus on standard Post-Quantum Cryptography
-algorithms like ML-KEM (FIPS-203), ML-DSA (FIPS-204), SLH-DSA (FIPS-205) and others. The ISA design and evaluation prioritize the requirements of real-world
-networked devices, ensuring that the Post-Quantum Cryptography (PQC) extensions effectively complement existing scalar
-and vector cryptography extensions.
-
-==== High assurance cryptography
-
-*See the https://github.com/riscv/riscv-hac[RISC-V Specification for High Assurance Cryptography]
-
-The High Assurance Cryptography task group will create instruction set extensions (ISEs) that facilitate higher levels of assurance than the existing Scalar and Vector Crypto ISEs. One initial focus will be on full-rounds vector AES extensions that allow (do not prevent) effective side-channel resistant implementations and that may perform better than the existing round-based instructions, with future work on other algorithms. A second intimately related focus area will be ISEs that manage secret keys -- not restricted to just AES keys -- in ways that better protect them from unauthorized users and from side-channel analysis.
 
 === Architectural metadata storage
 
 In the context of this document, _architectural metadata_ refers to any data that is implicitly trusted by the architecture. Storage of such data is referred to as _architectural metadata storage_.
 
-Examples (not exhaustive) where architectural metadata is required in the RISC-V architecture include:  MTT, memory tagging, and CHERI.
+Examples (not exhaustive) where architectural metadata may be required in current or future RISC-V architecture include:  MTT, memory tagging, and CHERI.
 
 Architectural metadata storage is implementation defined, but the following rules should be considered by any implementation. 
 
@@ -619,16 +619,19 @@ Depending on use case, architectural metadata may be visible to or managed by, f
 | Cryptographically protected architectural metadata storage MUST provide privacy protection, including at least location freshness and boot freshness
 
 | SR_AMS_006
-| Cryptographically protected architectural metadata storage MUST provide at least error detection, and SHOULD provide integrity protection
+| Cryptographically protected architectural metadata storage MUST provide at error detection
 
 | SR_AMS_007
-| Cryptographically protected architectural metadata storage SHOULD provide replay protection or temporal freshness
+| Cryptographically protected architectural metadata storage MUST provide a integrity protection
+
+| SR_AMS_008
+| Cryptographically protected architectural metadata storage MUST provide replay protection or temporal freshness
 
 |===
 
-Architectural metadata needs to be protected against both unauthorized access (read or modify), boot attacks, relocation attacks, and errors (accidental or malicious).
+NOTE: Architectural metadata needs to be protected against both unauthorized access (read or modify), boot attacks, relocation attacks, and errors (accidental or malicious).
 
-On systems where architectural metadata is stored in external memory, and external memory attacks are in scope (for example, directly accessible or replaceable external memory), then cryptographic protection with replay protection or temporal freshness is strongly recommended. 
+NOTE: On systems where architectural metadata is stored in external memory, and external memory attacks are in scope (for example, directly accessible or replaceable external memory), then cryptographic protection with replay protection or temporal freshness is strongly recommended. 
 
 [width=100%]
 [%header, cols="5,20"]
@@ -637,11 +640,45 @@ On systems where architectural metadata is stored in external memory, and extern
 | Requirement
 
 | SR_AMS_008
-| Architectural metadata storage SHOULD be protected against indirect attacks
+| Architectural metadata storage MUST be protected against indirect attacks
 
 |===
 
-In general, protection against indirect attacks is a system implementation problem not specific to architectural metadata storage. For example, systems supporting speculative execution should also implement appropriate mitigations against speculation based attacks. Any such mitigations should also be applied to the implementaiton of architectural metadata storage.
+NOTE: In general, protection against indirect attacks is a system implementation problem not specific to architectural metadata storage. For example, systems supporting speculative execution should also implement appropriate mitigations against speculation based attacks. Any such mitigations should also be applied to the implementaiton of architectural metadata storage.
+
+
+=== Extensions in development 
+
+
+
+==== Post quantum cryptography
+
+*See https://github.com/riscv/riscv-pqc[RISC-V Specification for Post-quantum Cryptography].*
+
+The _RISC-V Post Quantum Cryptography_ initiative aims to specify ISA extensions that enhance performance and
+implementation efficiency for contemporary public-key cryptography, with a focus on standard Post-Quantum Cryptography
+algorithms like ML-KEM (FIPS-203), ML-DSA (FIPS-204), SLH-DSA (FIPS-205) and others. The ISA design and evaluation prioritize the requirements of real-world
+networked devices, ensuring that the Post-Quantum Cryptography (PQC) extensions effectively complement existing scalar
+and vector cryptography extensions.
+
+==== High assurance cryptography
+
+*See https://github.com/riscv/riscv-hac[RISC-V Specification for High Assurance Cryptography].*
+
+The High Assurance Cryptography task group will create instruction set extensions (ISEs) that facilitate higher levels of assurance than the existing Scalar and Vector Crypto ISEs. One initial focus will be on full-rounds vector AES extensions that allow (do not prevent) effective side-channel resistant implementations and that may perform better than the existing round-based instructions, with future work on other algorithms. A second intimately related focus area will be ISEs that manage secret keys -- not restricted to just AES keys -- in ways that better protect them from unauthorized users and from side-channel analysis.
+
+==== Hardware Memory Tagging
+
+*See  https://github.com/riscv/riscv-memory-tagging[RISC-V Memory Tagging].*
+
+To address memory safety issues, the Memory Tagging task group will define a mechanism for tagged pointer construction, tag management instructions to store tags and tag checks on memory accesses (pointer dereferences), and a tag storage mechanism in virtual memory along with protection mechanisms for tag storage.
+
+==== Timing Fences
+
+
+
+==== Speculation Barriers
+
 
 === Capability based architecture
 
