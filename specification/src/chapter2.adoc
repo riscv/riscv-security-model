@@ -265,15 +265,15 @@ break security guarantees, either directly or indirectly. For example:
 | Invasive subsystems MUST be controlled, or moderated, by a RoT.
 
 | SR_INV_002
-| Invasive subsystems SHOULD be enabled separately for M-mode &
+| Invasive subsystems MUST be enabled separately for M-mode &
 non-M-mode software.
 
 | SR_INV_003
-| Invasive subsystems SHOULD be enabled separately for individual domains
+| Invasive subsystems MUST be enabled separately for individual domains
 
 |===
 
-NOTE: When an invasive subsystem cannot be disabled for functional reasons, or runs across all privilege levels, the design must ensure security guarantees are maintained using appropriate techniques such as dedicated management networks, hardware-enforced frequency/voltage limits   
+NOTE: Fully diisabling invasive subsytems, or limiting access in other ways can be an alternative to partitioning by privilige lebel or domain. When an invasive subsystem cannot be disabled for functional reasons, or runs across all privilege levels, the design must ensure security guarantees are maintained using appropriate techniques such as dedicated management networks, hardware-enforced frequency/voltage limits   
 
 ==== Event counters
 
@@ -834,7 +834,7 @@ Running unauthorized software can compromise the security state of the system.
 software.
 
 | SR_AUT_002
-| A system in security provisioning state SHOULD only load authorized software.
+| A system in security provisioning state MUST only load authorized software.
 
 |===
 
@@ -846,7 +846,7 @@ In the context of this document, a measurement is a record of a present state of
 Verification is a process of establishing that a measurement is correct
 (expected).
 
-When a system in a security provisioning state doesn't restrict loading to only authorized software, other protection measures such as physical access protection, or device registration would be required.
+NOTE: When a system in a security provisioning state doesn't restrict loading to only authorized software, other protection measures such as physical access protection, or device registration are required.
 
 A boot process is typically layered, allowing software to be measured and
 verified in stages. Different measurement and verification policies can be
@@ -982,15 +982,17 @@ The update can be effected without restarting any dependent components.
 | Requirement
 
 | SR_UPD_003
-| Updates affecting a security platform SHOULD be deferred.
+| Updates affecting a security platform MUST be deferred.
 
 | SR_UPD_004
-| Updates MAY be live if live update capability, and suitable governance, is
+| Live update capability MUST ensure suitable governance and be
 part of an already attested trust contract between a relying party and the
 system.
 |===
 
-A system update changes the attested security state of the affected
+NOTE: A system may choose to defer updates to maintain an attested security state. 
+
+A live update changes the attested security state of the affected
 component(s), as well as that of all other components that depend on it. It can
 affect whether a dependent confidential service is still considered trustworthy
 or not, as well as affect any derived assets such as sealing keys.
@@ -1005,7 +1007,7 @@ or not, as well as affect any derived assets such as sealing keys.
 | System updates MUST be monotonic
 
 | SR_UPD_006
-| System updates SHOULD be robust against update failures
+| System updates MUST be robust against update failures
 |===
 
 Earlier versions could be carrying known vulnerabilities, or could be able to affect the safe
@@ -1030,7 +1032,7 @@ and a dedicated recovery loader.
 | Requirement
 
 | SR_UPD_007
-| System updates, and authorization messages, SHOULD only be received from
+| System updates, and authorization messages, MUST only be received from
 trusted sources.
 
 |===
@@ -1060,8 +1062,9 @@ models.
 | Requirement
 
 | SR_ISO_001
-| Isolated software components SHOULD be supported
+| Isolated software components MUST be supported
 |===
+ 
 
 An isolated component has private memory and private execution contexts not
 accessible to other components.
@@ -1104,7 +1107,7 @@ service following successful attestation.
 | Requirement
 
 | SR_SLG_001
-| Sealed assets SHOULD only be possible to unseal in a secured state
+| Sealed assets MUST only be possible to unseal in a secured state
 
 |===
 
