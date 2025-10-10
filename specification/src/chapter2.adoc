@@ -108,16 +108,14 @@ The HW RoT can manage the security life cycle of a secondary root of trust (boot
 | Requirement
 
 | SR_ROT_001
-| A complex secure system MUST implement a HW RoT
-
+| A system MUST implement a HW RoT
 | SR_ROT_002
-| A simpler system MUST implement either a HW RoT or a FW RoT
+| A system MUST implement a FW RoT
 
 |===
 
-An example of a complex system is one with multiple, out-of-order, cache-coherent harts.
-
-An example of a simpler system is one with a single, in-order, Hart such as in a microcontroller.
+NOTE: Complex systems such as multiple, out-of-order, cache-coherent harts, require HW Rot. Simple systems such as a single,
+in-order, Hart may only require a FW RoT
 
 NOTE: In this document, the terms "FW RoT" and "HW RoT" will be used as defined
 above. The term "RoT" on its own can be used where a rule or a rationale applies
@@ -197,7 +195,14 @@ level
 | Fine Grained
 | Reprogramming and Switching overhead, Constrained resourcefootnote:[On switching domains, the SPMP must be reprogrammed by M-Mode FW, and PMP entries may be limited in number.]
 
-| Virtual Memory
+| RISC-V Worlds
+| Hardware World Identifiers for Systyem level isolation
+| M, S
+| Physical, PMP, SPMP based
+| Fine Grained
+| Static boot configuration
+
+| Virtual Memory +
 MMU
 | S - U,  U - U isolation +
 Guest – Guest isolation (VS–VS) +
@@ -207,6 +212,15 @@ HS/VS
 | Virtual
 | Page Based
 | Additional Table Walkfootnote:[The additional table walk required to fetch domain permissions may introduce a performance penalty, or require additional cached state.]
+
+| IOMMU
+| System Level MMU
+| S +
+HS/VS
+| Virtual
+| Page Based
+|
+
 
 | IOPMP
 | System Level PMP
@@ -224,6 +238,13 @@ HS - HS isolation )
 | Physical
 | Page or larger
 | Third Table Walk to implement smmpt
+
+| IOMPT
+| System Level MPT 
+| M
+| Physical
+| Page or larger
+| 
 
 | CHERI
 | Full Capability based access for memory safety and isolation
@@ -273,7 +294,10 @@ non-M-mode software.
 
 |===
 
-NOTE: Fully diisabling invasive subsytems, or limiting access in other ways can be an alternative to partitioning by privilige lebel or domain. When an invasive subsystem cannot be disabled for functional reasons, or runs across all privilege levels, the design must ensure security guarantees are maintained using appropriate techniques such as dedicated management networks, hardware-enforced frequency/voltage limits   
+NOTE: Fully disabling invasive subsytems, or limiting access in other ways can be an alternative to partitioning by privilige level or domain. +
+When an invasive subsystem cannot be disabled for functional reasons, or runs across all privilege levels, the design must ensure security guarantees are maintained
+using appropriate techniques such as dedicated management networks, hardware-enforced frequency/voltage limits +
+Each invasive subsystem may use different means to ensure security guarantees.  
 
 ==== Event counters
 
@@ -430,8 +454,9 @@ Logical
 | Unauthorized direct access to resources in normal operation.
 a| * RISC-V privilege levels
 * RISC-V isolation (for example: PMP/ePMP, sPMP, MTT, supervisor domains)
-* RISC-V hardware-enforced virtualization (H extension, MMU)
-| CHERI
+* RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU)
+| Capability based architecture, such as CHERI, RISC-V Worlds +
+Architectural sandboxing, such as HFI.
 
 | T_LGC_002
 | Transient execution attacks
@@ -449,7 +474,9 @@ https://www.intel.com/content/www/us/en/developer/topic-technology/software-secu
 security guidance] +
 https://developer.arm.com/documentation/#cf-navigationhierarchiesproducts=Arm%20Security%20Center,Speculative%20Processor%20Vulnerability[Arm speculative
 vulnerability]
-| Fence.t, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
+| CBQRI and Ssqosid may help isolate cache entries. +
+Zicflip and Zicfiss can mitigate against ROP/COP/JOP, limiting some compound attacks.
+Fence.t, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
 
 | T_LGC_003
 | Interface abuse
@@ -604,10 +631,10 @@ This is discussed more in use case examples later in this specification.
 | Requirement
 
 | SR_IDN_001
-| A secure platform MUST be securely identifiable
+| A platform MUST be securely identifiable
 |===
 
-Identifies the immutable part of the secure platform - immutable hardware,
+Identifies the immutable part of the platform - immutable hardware,
 configurations, and firmware. Immutable components cannot change after
 the completion of security provisioning (see also security life cycle management).
 
