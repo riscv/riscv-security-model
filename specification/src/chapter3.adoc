@@ -539,17 +539,19 @@ recommendations and references.
 | Requirement
 
 | SR_CPT_001
-| RISC-V systems SHOULD support either scalar or vector cryptographic ISA
+| RISC-V systems SHALL support scalar cryptographic ISA
 extensions
 
-| SR_CPT_002
-| The entropy source ISA extension MUST be supported if either scalar or vector
-cryptographic ISA extensions are supported.
+ SR_CPT_002
+| RISC-V systems SHALL support vector cryptographic ISA
+extensions
+
+| SR_CPT_003
+| The entropy source ISA extension MUST be supported 
 
 |===
 
-It is not necessary to support both scalar and vector operations, as a scalar
-operation can be viewed as a vector of size 1.
+NOTE: Depending on use case and system architecture, cryptographic extensions may be mandatory. If either scalar or vector cryptographic ISA extensions are supported then an entropy source would usually also be considered mandatory. It is not necessary to support both scalar and vector operations, as a scalar operation can be viewed as a vector of size 1. If no cryptographic extensions then some use cases may still require the entropy source extension.
 
 ==== Post quantum cryptography
 
