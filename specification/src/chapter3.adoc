@@ -179,11 +179,11 @@ translation)
 | Requirement
 
 | SR_MMU_001
-| if the Sv extension is supported then 1st-stage page tables MUST used to protect
+| if the Sv extension is supported then 1st-stage page tables MUST be used to protect
 the S-Mode Supervisor domain from accesses made by U-Mode.
 
 | SR_MMU_002
-| if the H extension is supported 1st-stage and/or G-stage page tables MUST used to protect
+| if the H extension is supported 1st-stage and/or G-stage page tables MUST be used to protect
 Supervisor domain H/S-mode from lower privilege levels.
 
 | SR_MMU_003
@@ -194,6 +194,21 @@ NOTE: Dependent on the use case, it may be recommended or mandatory to use MMU t
 
 NOTE: Dependent on the use case, Trusted execution environments may require or recommend the use of MMU to isolate trusted applications from each other. The sPMP and PMP may be an additional or alternative mechanism.
 
+==== Address‑Independent Latency of Faults 
+
+To prevent timing side side channels that may infer the address space layout of supervisor memory, user-mode accesses to supervisor-mode memory must fault in constant time. The Svukte extension ensures load/stores from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
+
+[#cat_sr_sub_KTE]
+[width=100%]
+[%header, cols="5,20"]
+|===
+| ID#
+| Requirement
+
+| SR_KTE_001
+| Svukte MUST be used to mitigate timing attacks arising from user mode access to supervisor mode memory
+|===
+
 ==== Supervisor domains and MPT
 
 *See the https://github.com/riscv/riscv-smmtt[RISC-V Supervisor Domains Access
@@ -202,8 +217,7 @@ Protection] specification.*
 Supervisor domains allow software components on the same hart to be developed,
 certified, deployed and attested independently of each other.
 
-A supervisor domain is an S-Mode compartment that is physically isolated from other supervisor domains. The memory,
-execution state and devices belonging to a supervisor domains are isolated from other supervisor domains.
+A supervisor domain is an S-Mode compartment that is isolated from other supervisor domains. The memory, execution state and devices belonging to a supervisor domains are isolated from other supervisor domains.
 This isolation of supervisor domains and the context switching between them is managed by M-mode firmware.
 
 A supervisor domain is identified at an architecture level by a _supervisor domain
@@ -251,14 +265,18 @@ assigned to lower privilege levels (privilege escalation).
 | Requirement
 
 | SR_SUD_001
-| PMP/Smepmp or MPT MUST be used to enforce physical memory isolation
+| PMP/Smepmp MUST be used to enforce physical memory isolation
+boundaries for supervisor domains, and to protect machine mode from any
+supervisor domain.
+
+| SR_SUD_002
+| MPT MUST be used to enforce physical memory isolation
 boundaries for supervisor domains, and to protect machine mode from any
 supervisor domain.
 
 |===
 
-PMP can be used for more static and deterministic use cases.
-MPT can be used where more fine grained (page-based) dynamic resource management across
+NOTE: Depending on the use case PMP may be used for more static and deterministic use cases, whereas MPT may be used where more fine grained (page-based) dynamic resource management across
 supervisor domain boundaries is required.
 
 ===== Supervisor Domain Resource Access and Sharing
@@ -269,15 +287,15 @@ supervisor domain boundaries is required.
 | ID#
 | Requirement
 
-| SR_SUD_002
+| SR_SUD_003
 | MPT MUST be used to protect resources assigned to one supervisor domain from other supervisor domains
 
-| SR_SUD_003
+| SR_SUD_004
 | Resources assigned to a higher trust level supervisor domain MUST NOT be accessible
 to an lower trust level supervisor domain. The trust levels/policies are specified by the
 security system designer.
 
-| SR_SUD_004
+| SR_SUD_005
 | Resources assigned to an untrusted supervisor domain MUST be accessible to a trusted supervisor domain 
 |===
 
@@ -292,7 +310,7 @@ Supervisor domains allow resource isolation and sharing between domains under th
 | ID#
 | Requirement
 
-| SR_SUD_005
+| SR_SUD_006
 | A system supporting supervisor domains MUST support supervisor domain
 extensions for interrupts (Smsdia) and SHOULD support supervisor domain
 extensions for external debug (TBD).
