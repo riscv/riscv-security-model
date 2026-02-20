@@ -261,8 +261,6 @@ PMP can be used for more static and deterministic use cases.
 MPT can be used where more fine grained (page-based) dynamic resource management across
 supervisor domain boundaries is required.
 
-===== Supervisor Domain Resource Access and Sharing
-
 [width=100%]
 [%header, cols="5,20"]
 |===
@@ -282,8 +280,6 @@ security system designer.
 |===
 
 Supervisor domains allow resource isolation and sharing between domains under the control of M-mode firmware. Trusted Execution environments can require asymmetric sharing models, where one trusted domain has X/W/R access to other domain's resources.
-
-===== Supervisor Domain Debug
 
 [width=100%]
 [%header, cols="5,20"]
