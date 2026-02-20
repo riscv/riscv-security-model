@@ -196,7 +196,7 @@ NOTE: Dependent on the use case, Trusted execution environments may require or r
 
 ==== Address‑Independent Latency of Faults 
 
-To prevent timing side side channels that may infer the address space layout of supervisor memory, user-mode accesses to supervisor-mode memory must fault in constant time. The Svukte extension ensures load/stores from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
+To prevent timing side channels that may infer the address space layout of supervisor memory, user-mode accesses to supervisor-mode memory must raise and exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
 
 [#cat_sr_sub_KTE]
 [width=100%]
