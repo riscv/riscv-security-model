@@ -542,7 +542,7 @@ recommendations and references.
 | RISC-V systems SHALL support scalar cryptographic ISA
 extensions
 
- SR_CPT_002
+| SR_CPT_002
 | RISC-V systems SHALL support vector cryptographic ISA
 extensions
 
