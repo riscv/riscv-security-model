@@ -3,39 +3,35 @@
 
 == Introduction
 
-This specification provides a superset of normative requirements for building
-secure RISC-V systems using RISC-V security building blocks. It is aimed at
-developers of RISC-V technical specifications, as well as at designers of
-secure RISC-V systems. It is intended to be referenced by other documentation
-that will define a specific subset of requirements applicable for a given use
-case, certification regime, platform or profile.
+This specification provides normative requirements for building
+secure RISC-V systems using RISC-V security building blocks, non-normative 
+examples that select a subset of these normative requirements appropriate for a
+use case, and non-normative use case specific guidelines. 
 
+It is aimed at developers of RISC-V technical specifications, as well as at 
+designers of secure RISC-V systems. It is intended to be referenced by other
+documentation that will define a specific subset of requirements applicable 
+for a given use case, certification regime, platform or profile.
 
-A few non-normative example use cases are provided, based on commonly used
-security deployment models.
-These are not intended to be exhaustive but are common enough to represent a
-wide range of deployments of secure products. They are accompanied by an
-appropriate set of use case specific security
+The non-normative example use cases provided are based on commonly used
+security deployment models. These are not intended to be exhaustive but are
+common enough to represent a wide range of deployments of secure products. 
+They are accompanied by an appropriate set of use case specific security
 guidelines which are intended to help readers implement secure products for
 their specific use cases.
 
-The examples may be extended over time as required.
+The set of examples may be extended over time as required.
 
-RISC-V is currently not intending to create a security certification programme.
+RISC-V is not intending to create a security certification programme.
 This specification is provided as guidance for developing secure
 RISC-V systems which are certifiable within existing third party security
 certification programmes.
 
 This specification does not define any new RISC-V ISA or non-ISA extensions.
-Instead it refers to existing RISC-V extensions, as well as commonly used
-non-RVI architecture agnostic security features and processes. It aims to show
+Instead it refers to the existing RISC-V ISA and extensions, as well as commonly
+used non-RVI architecture agnostic security features and processes. It aims to show
 how those can be combined, in commonly used examples, to create systems which
 are certifiabe within commonly used existing security certification programmes.
-
-All existing RISC-V extensions are associated with an RVI _proof of concept
-(PoC)_, providing a viable example implementation. Any non-RVI security feature
-or process referred to in this document has existing commonly used sample
-implementations equivalent to an RVI PoC.
 
 The examples are not definitions of formal Protection Profiles (See:
 https://csrc.nist.gov/glossary/term/protection_profile).
@@ -47,18 +43,21 @@ Mapping documentation or protection profiles may also directly reference this
 document.
 
 This specification does not contain threat modelling or security assessment of
-individual RISC-V technical specifications. Individual RISC-V technical
-specifications are expected to use the Security Model as a guide to develop
-their own specific security analysis, including formal threat modeling where
-appropriate. For this purpose, all guidelines in this document are labelled to
-enable referencing from other specifications. Specific security analysis in the
-context of a RISC-V technical specification may require testing and a proof of
-concept as per normal RISC-V development processes for RISC-V technical
-specifications.
+the RISC-V ISA specifications, non ISA specifications, profile specifications or 
+extensions (RISC-V technical specifications). RISC-V technical specifications
+are expected to use the Security Model as a guide to develop their own specific 
+security analysis, including formal threat modeling where appropriate. For this 
+purpose, all guidelines in this document are labelled to enable referencing from 
+other specifications. Specific security analysis in the context of a RISC-V technical 
+specification may require testing and a proof of concept as per normal RISC-V 
+development processes for RISC-V technical specifications.
 
 Security is an evolving area where new use cases and new threats can emerge at
 any time. This specification represents the RISC-V security model and best
 practice as of the date of publication of this document.
+
+Terms not explicitely defined in this specification are to be interpreted according
+to the NIST Computer Security Resource Centre Glossary (https://csrc.nist.gov/glossary)
 
 New versions of this document may be developed and released as and when
 required.
@@ -68,13 +67,12 @@ required.
 This is a normative specification. However, the specification does not mandate
 the adoption of any requirements. These requirements are intended to be
 referenced by current and future specifications, both RISC-V and external
-specifications,  where a set, specific to the use case, certification regime,
-platform or profile under consideration will be documented. A set of in-scope
-security threats are also defined in this specification. These threats are
-intended to be referenced by the threat models of current and future
-specifications, both RISC-V and external specifications.
-This specification expresses trackable requirements and threats using the
-following format:
+specifications,  where a subset of the normative requirements, specific to the 
+use case, certification regime, platform or profile under consideration will be 
+documented. A set of in-scope security threats are also defined in this specification.
+These threats are intended to be referenced by the threat models of current and future
+specifications, both RISC-V and external specifications. This specification expresses
+trackable requirements and threats using the following format:
 
 [width=100%]
 [%header, cols="5,20"]
@@ -107,12 +105,11 @@ A requirement or a group of requirements may be followed by non-normative text
 providing context or justification for the requirement. The non-normative text
 may also be used to reference sources that are the origin of the requirement.
 
-NOTE: Some sections may include duplicate requirements, both recommending and
-mandating the same feature. A specific use case must define if the feature is
-recommended or required.
+NOTE: All normative requirements are expressed as mandatory and some sections may
+include mutually exclusive requirements. A use case specific requirements document
+must define if a requirement is recommended or mandatory, as well as any allowable 
+alternatives.  
 
-Trackable requirements are intended for ease of reference across dependent
-specifications.
 
 === Relationship with external protection profiles
 

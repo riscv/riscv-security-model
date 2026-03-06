@@ -548,11 +548,11 @@ See https://github.com/riscv-non-isa/riscv-external-debug-security[enhanced RISC
 | SR_DBG_001, SR_DBG_002
 
 | External debug must be enabled separately for each supervisor domain.
-| SR_SUD_006
+| SR_SUD_007
 
 | External debug must only be enabled by a HW RoT (Root domain external debug)
 or by Root domain (supervisor domain external debug).
-| SR_DBG_001, SR_SUD_006
+| SR_DBG_001, SR_SUD_007
 
 | Self-hosted debug may be used for debug within a supervisor domain.
 | SR_DBG_003
@@ -927,11 +927,11 @@ See https://github.com/riscv-non-isa/riscv-external-debug-security[enhanced RISC
 | SR_DBG_001, SR_DBG_002
 
 | External debug must be enabled separately for each supervisor domain.
-| SR_SUD_006
+| SR_SUD_007
 
 | External debug must only be enabled by a HW RoT (Root domain external debug)
 or by Root domain (supervisor domain external debug).
-| SR_DBG_001, SR_SUD_006
+| SR_DBG_001, SR_SUD_007
 
 | Self-hosted debug may be used for debug within a supervisor domain.
 | SR_DBG_003
