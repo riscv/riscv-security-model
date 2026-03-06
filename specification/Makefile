@@ -12,8 +12,7 @@
 # This Makefile is designed to automate the process of building and packaging 
 # the Doc Template for RISC-V Extensions.
 
-DOCKER_RUN := docker run --rm -v ${PWD}:/build -w /build \
-riscvintl/riscv-docs-base-container-image:latest
+DOCKER_RUN := docker run --rm -v ${PWD}:/build -w /build ghcr.io/riscv/riscv-docs-base-container-image:latest
 
 HEADER_SOURCE := ./src/header.adoc
 PDF_RESULT := riscv-platform-security-model.pdf

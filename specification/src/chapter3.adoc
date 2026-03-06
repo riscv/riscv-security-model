@@ -181,12 +181,12 @@ translation)
 | Requirement
 
 | SR_MMU_001
-| if the Sv extension is supported then 1st-stage page tables MUST used to protect
-the supervisor domain from accesses made by U-Mode.
+| if the Sv extension is supported then 1st-stage page tables MUST be used to protect
+the S-Mode Supervisor domain from accesses made by U-Mode.
 
 | SR_MMU_002
-| if the H extension is supported 1st-stage and/or G-stage page tables MUST used to protect
-supervisor domain H/S-Mode from lower privilege levels.
+| if the H extension is supported 1st-stage and/or G-stage page tables MUST be used to protect
+Supervisor domain H/S-mode from lower privilege levels.
 
 | SR_MMU_003
 | MMU MUST be used to protect resources assigned to one workload from other workloads
@@ -195,6 +195,21 @@ supervisor domain H/S-Mode from lower privilege levels.
 NOTE: Dependent on the use case, it may be recommended or mandatory to use MMU to protect supervisor mode from lower privilege levels (with or without the H-extension). The SPMP and PMP may be an additional or alternative mechanism.
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of MMU to isolate trusted applications from each other. The SPMP and PMP may be an additional or alternative mechanism.
+
+==== Address‑Independent Latency of Faults 
+
+To prevent timing side channels that may infer the address space layout of supervisor memory, user-mode accesses to supervisor-mode memory must raise and exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
+
+[#cat_sr_sub_KTE]
+[width=100%]
+[%header, cols="5,20"]
+|===
+| ID#
+| Requirement
+
+| SR_KTE_001
+| Svukte MUST be used to mitigate timing attacks arising from user mode access to supervisor mode memory
+|===
 
 ==== Supervisor domains and MPT
 
@@ -557,13 +572,15 @@ recommendations and references.
 extensions
 
 | SR_CPT_002
-| The entropy source ISA extension MUST be supported if either scalar or vector
-cryptographic ISA extensions are supported.
+| RISC-V systems SHALL support vector cryptographic ISA
+extensions
+
+| SR_CPT_003
+| The entropy source ISA extension MUST be supported 
 
 |===
 
-It is not necessary to support both scalar and vector operations, as a scalar
-operation can be viewed as a vector of size 1.
+NOTE: Depending on use case and system architecture, cryptographic extensions may be mandatory. If either scalar or vector cryptographic ISA extensions are supported, then an entropy source would usually also be considered mandatory. It is not necessary to support both scalar and vector operations, as a scalar operation can be viewed as a vector of size 1. If no cryptographic extensions are supported, then some use cases may still require the entropy source extension.
 
 
 === Architectural metadata storage
@@ -692,5 +709,4 @@ Speculative execution attacks exploit vulnerabilities in modern processors that 
 *See the https://github.com/riscv/riscv-cheri[RISC-V Specification for CHERI Extensions] specification.*
 
 CHERI - an ISA technique that uses capability-based memory protection for spatial and temporal memory safety, compartmentalization, and control-flow enforcement.  Source code has to be recompiled to capture memory safety properties inherent in the source language.
-
 
