@@ -565,7 +565,7 @@ extensions
 
 |===
 
-NOTE: Depending on use case and system architecture, cryptographic extensions may be mandatory. If either scalar or vector cryptographic ISA extensions are supported then an entropy source would usually also be considered mandatory. It is not necessary to support both scalar and vector operations, as a scalar operation can be viewed as a vector of size 1. If no cryptographic extensions then some use cases may still require the entropy source extension.
+NOTE: Depending on use case and system architecture, cryptographic extensions may be mandatory. If either scalar or vector cryptographic ISA extensions are supported, then an entropy source would usually also be considered mandatory. It is not necessary to support both scalar and vector operations, as a scalar operation can be viewed as a vector of size 1. If no cryptographic extensions are supported, then some use cases may still require the entropy source extension.
 
 ==== Post quantum cryptography
 
