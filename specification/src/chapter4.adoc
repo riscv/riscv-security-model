@@ -44,7 +44,7 @@ non-security services.
 ==== Isolation model
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -77,7 +77,7 @@ without the hypervisor extension for full Linux support.
 See xref:chapter2.adoc#_reference_model[reference model].
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -120,7 +120,7 @@ Isolation guarantees provided to software also apply to device initiated
 transaction.
 
 [width=100%]
-[%header, cols="1,^1"]
+[%header, cols="6,^4"]
 |===
 | Requirement | Reference
 
@@ -158,7 +158,7 @@ See xref:chapter2.adoc#_security_lifecycle[security life cycle]. +
 See https://github.com/riscv-non-isa/riscv-external-debug-security[RISC-V external debug security]
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -177,7 +177,7 @@ See https://github.com/riscv-non-isa/riscv-external-debug-security[RISC-V extern
 For example, external debug can be enabled for non-M-mode software without affecting M-mode (recoverable debug). And an S-mode OS can enable self-hosted debug for a user application without affecting other applications or S-mode itself.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -191,7 +191,7 @@ For example, disable self-hosted debug in a production system for certification
 reasons.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -204,7 +204,7 @@ reasons.
 Guarantees the system remains attestable.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -282,7 +282,7 @@ _Use case examples:_ mobile clients, and automotive.
 A Global Platform TEE requires the following isolation guarantees:
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -333,7 +333,7 @@ See xref:chapter3.adoc#_mmu[MMU]
 See xref:chapter3.adoc#_mtt[MTT]
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -359,7 +359,7 @@ TEE, and between TA within a TEE.
 See xref:chapter2.adoc#_reference_model[reference model].
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -381,7 +381,7 @@ TEE boot is typically based on:
 The process can involve multiple stages (layered boot).
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -406,7 +406,7 @@ Static partition TEE attestation is typically based on a direct security
 platform attestation.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -427,7 +427,7 @@ Root domain, and SPM
 * Separate guest TEE attestation(s) signed by SPM
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -446,7 +446,7 @@ These services support local sealing of TA or guest TEE assets, and minimize
 exposure of cryptographic materials.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -478,7 +478,7 @@ The security guarantees also apply to device initiated accesses, for example DMA
 and interrupts.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -539,7 +539,7 @@ See xref:chapter2.adoc#_security_lifecycle[security life cycle]. +
 See https://github.com/riscv-non-isa/riscv-external-debug-security[enhanced RISC-V external debug security]
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -573,7 +573,7 @@ self-hosted debug of SPM (virtualized) or TEE OS (non-virtualized).
 A machine mode monitor can enable external debug of individual supervisor domains without affecting M-mode, or any other supervisor domain.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -586,7 +586,7 @@ For example, for all of TEE domain on a production system, for certification
 reasons.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -677,7 +677,7 @@ See xref:chapter3.adoc#_mmu[MMU]
 See xref:chapter3.adoc#_mtt[MTT]
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -717,7 +717,7 @@ without consent.
 See xref:chapter2.adoc#_reference_model[reference model].
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -746,7 +746,7 @@ Measuring confidential guests can be done by TSM in Confidential domain.
 The process can involve multiple stages (layered boot).
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -790,7 +790,7 @@ separation of concern:
 * A confidential workload attestation, signed by TSM
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -831,7 +831,7 @@ The security guarantees also apply to device initiated accesses, for example
 DMA and interrupts.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -918,7 +918,7 @@ See xref:chapter2.adoc#_security_lifecycle[security life cycle]. +
 See https://github.com/riscv-non-isa/riscv-external-debug-security[enhanced RISC-V external debug security]
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
@@ -951,7 +951,7 @@ confidential guest. Only Root domain should enable self-hosted debug of TSM.
 A machine mode monitor can enable external debug of individual supervisor domains without affecting M-mode, or any other supervisor domain.
 
 [width=100%]
-[%header, cols="5,20"]
+[%header, cols="6,^4"]
 |===
 | Requirement
 | Reference
