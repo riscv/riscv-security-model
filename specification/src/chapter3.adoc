@@ -538,7 +538,7 @@ recommendations and references.
 | RISC-V systems SHALL support scalar cryptographic ISA
 extensions
 
- SR_CPT_002
+| SR_CPT_002
 | RISC-V systems SHALL support vector cryptographic ISA
 extensions
 
@@ -648,5 +648,4 @@ In general, protection against indirect attacks is a system implementation probl
 *See the https://github.com/riscv/riscv-cheri[RISC-V Specification for CHERI Extensions] specification.*
 
 CHERI - an ISA technique that uses capability-based memory protection for spatial and temporal memory safety, compartmentalization, and control-flow enforcement.  Source code has to be recompiled to capture memory safety properties inherent in the source language.
-
 
