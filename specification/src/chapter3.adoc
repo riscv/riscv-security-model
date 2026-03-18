@@ -419,8 +419,8 @@ device-initiated transactions, complementing PMP and SPMP rules.
 | Requirement
 
 | SR_IOP_001
-| A system which supports PMP/Smepmp, or SPMP, MUST implement either IOPMP for device
-access control.
+| A system which supports PMP/Smepmp, or SPMP, MUST implement either IOPMP or
+World for device access control.
 
 | SR_IOP_002
 | IOPMP configurations MUST only be directly accessible to machine mode.
@@ -493,7 +493,46 @@ locations. It complements the MMU.
 
 |===
 
-NOTE: Systems using IOMMU must ensure this cannot be used to bypass physical memory access controls by implementing IOPMP and/or IOMPT
+NOTE: Systems using IOMMU must ensure this cannot be used to bypass physical
+memory access controls by implementing IOPMP, IOMPT or Worlds.
+
+==== Worlds
+
+_This extension is not ratified at the time of writing, but is stable enough to be included_
+
+*See the https://github.com/riscv/riscv-worlds[RISC-V Worlds] specification.*
+
+Worlds defines access context IDs (or world IDs) which allow different access
+policies to be programmed between an agent and a resource in a system. The IDs
+are created and assigned before or at reset/boot time, and are immutable
+afterwards. Any bus transaction stemming from an agent within a world always
+carries its world ID.
+
+[width=100%]
+[%header, cols="5,20"]
+|===
+| ID#
+| Requirement
+
+| SR_WOR_001
+| A system which supports PMP/Smepmp, or SPMP, MUST implement either IOPMP or
+Worlds for device access control.
+
+| SR_WOR_002
+| Worlds configurations MUST only be performed by a trusted entity in the system.
+
+| SR_WOR_003
+| Worlds MUST be used to guarantee that devices assigned to lower privilege
+levels cannot access resources assigned to M-Mode.
+
+| SR_WOR_004
+| Worlds MUST be used to guarantee that devices assigned to a world cannot be
+accessed by other worlds.
+
+NOTE: Depending on the usecase, it is possible to replace IOMPT/IOPMP and
+PMP/ePMP with Worlds.
+
+|===
 
 === Software enforced memory tagging
 
