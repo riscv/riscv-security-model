@@ -502,11 +502,11 @@ _This extension is not ratified at the time of writing, but is stable enough to 
 
 *See the https://github.com/riscv/riscv-worlds[RISC-V Worlds] specification.*
 
-Worlds defines access context IDs (or world IDs) which allow different access
-policies to be programmed between an agent and a resource in a system. The IDs
-are created and assigned before or at reset/boot time, and are immutable
-afterwards. Any bus transaction stemming from an agent within a world always
-carries its world ID.
+Worlds defines execution context IDs (or world IDs) which allow different
+access policies to be programmed between an agent and a resource in a system.
+The IDs are created and assigned before or at reset/boot time, and are
+immutable afterwards. Any bus transaction stemming from an agent within a world
+always carries its world ID.
 
 [width=100%]
 [%header, cols="5,20"]
@@ -515,22 +515,31 @@ carries its world ID.
 | Requirement
 
 | SR_WOR_001
-| A system which supports PMP/Smepmp, or SPMP, MUST implement either IOPMP or
-Worlds for device access control.
+| RISC-V Worlds MUST be used to indicate execution contexts.
 
 | SR_WOR_002
 | Worlds configurations MUST only be performed by a trusted entity in the system.
 
 | SR_WOR_003
-| Worlds MUST be used to guarantee that devices assigned to lower privilege
-levels cannot access resources assigned to M-Mode.
+| If IOPMP is implemented it MUST use the World ID to determine the context of a
+transaction to enforce isolation of resources.
 
 | SR_WOR_004
-| Worlds MUST be used to guarantee that devices assigned to a world cannot be
-accessed by other worlds.
+| Immutable software MUST lock the `mwid` CSR before executing mutable software
+(Smwid).
 
-NOTE: Depending on the usecase, it is possible to replace IOMPT/IOPMP and
-PMP/ePMP with Worlds.
+| SR_WOR_005
+| If a hart supports multiple privilege levels, world IDs MUST be used to
+guarantee that devices assigned to a world ID with a higher privilege level
+cannot be accessed by world IDs from lower privilege levels (Smlwid).
+
+| SR_WOR_006
+| If a hart supports multiple privilege levels, world IDs used by machine-mode
+MUST not be delegated to lower privilege levels (Smlwidlist).
+
+| SR_WOR_007
+| If a hart supports supervisor mode, world IDs used by supervisor-mode MUST
+not be delegated to user-mode (Smwdeleg).
 
 |===
 
