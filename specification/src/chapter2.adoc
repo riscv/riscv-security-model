@@ -286,8 +286,8 @@ break security guarantees, either directly or indirectly. For example:
 | Invasive subsystems MUST be controlled, or moderated, by a RoT.
 
 | SR_INV_002
-| Invasive subsystems MUST be enabled separately for M-mode &
-non-M-mode software.
+| Invasive subsystems MUST be enabled separately for M-Mode &
+non-M-Mode software.
 
 | SR_INV_003
 | Invasive subsystems MUST be enabled separately for individual domains
