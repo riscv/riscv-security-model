@@ -365,7 +365,7 @@ See xref:chapter2.adoc#_reference_model[reference model].
 | Reference
 
 | It is recommended that a TEE based system implement a HW RoT
-| SR_TOT_001, SR_ROT_002
+| SR_ROT_001, SR_ROT_002
 
 |===
 
@@ -723,7 +723,7 @@ See xref:chapter2.adoc#_reference_model[reference model].
 | Reference
 
 | Implement a HW RoT
-| SR_TOT_001, SR_ROT_002
+| SR_ROT_001, SR_ROT_002
 
 |===
 
