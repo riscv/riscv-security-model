@@ -494,7 +494,7 @@ locations. It complements the MMU.
 |===
 
 NOTE: Systems using IOMMU must ensure this cannot be used to bypass physical
-memory access controls by implementing IOPMP, IOMPT or Worlds.
+memory access controls by implementing IOPMP or IOMPT.
 
 ==== Worlds
 
