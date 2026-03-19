@@ -16,7 +16,7 @@ examples of how RISC-V security building blocks can be combined.
 Isolation enables access restrictions on software components executing on a hart, as well
 as on device accesses. RISC-V enables:
 
-* Privilege based isolation
+* Privilege-based isolation
 * Physical memory access control (hart and device-initiated accesses)
 * Virtual memory management (hart and device virtualization)
 * Hypervisor extension
@@ -84,7 +84,7 @@ access, and typically configured by region.
 ISA] specification.*
 
 _Physical memory protection (PMP)_ enables M-Mode to access-control physical
-memory for supervisor and U modes (with or without H-extension).
+memory for S-Mode and U-Mode (with or without H-extension).
 
 [#cat_sr_sub_pmp]
 [width=100%]
@@ -94,21 +94,21 @@ memory for supervisor and U modes (with or without H-extension).
 | Requirement
 
 | SR_PMP_001
-| PMP configurations MUST only be directly accessible to machine mode
+| PMP configurations MUST only be directly accessible to M-Mode
 | SR_PMP_002
-| PMP/smepmp MUST be used to isolate M-Mode from lower privilege levels
+| PMP/Smepmp MUST be used to isolate M-Mode from lower privilege levels
 |===
 
 NOTE: Individual access controlled regions can be locked until the next system reset
 to create temporal isolation boundaries, such as protecting immutable boot code.
-Depending on the use case, MPT may be an acceptable additional or alternative mechanism to the PMP/smepmp
+Depending on the use case, MPT may be an acceptable additional or alternative mechanism to the PMP/Smepmp
 
 ==== Smepmp
 
-*See chapter 6 (PMP Enhancements for memory access and execution prevention in machine mode) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See chapter 6 (PMP Enhancements for memory access and execution prevention in M-Mode) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
-Smepmp extends PMP protection by allowing machine mode to restrict its own access to memory allocated to lower privilege levels. This can be
+Smepmp extends PMP protection by allowing M-Mode to restrict its own access to memory allocated to lower privilege levels. This can be
 used to mitigate against privilege escalation attacks.
 
 [#cat_sr_sub_smepmp]
@@ -128,10 +128,10 @@ _This extension is not ratified at the time of writing, but is stable enough to 
 
 *See the https://github.com/riscv/riscv-spmp[RISC-V S-Mode Physical Memory Protection (SPMP)] specification.*
 
-_Supervisor PMP (SPMP)_ enables supervisor mode to control physical memory
+_Supervisor PMP (SPMP)_ enables S-Mode to control physical memory
 access for U mode.
 
-SPMP allows supervisor mode to restrict its own access to memory allocated to
+SPMP allows S-Mode to restrict its own access to memory allocated to
 lower privilege levels. This can be used to mitigate against privilege
 escalation attacks, for example.
 
@@ -152,10 +152,10 @@ memory allocations to its workloads.
 | SPMP MUST be used to protect U-mode workloads from other U-mode workloads. 
 
 | SR_PMP_006
-| SPMP configurations MUST only be directly accessible to machine mode and supervisor mode
+| SPMP configurations MUST only be directly accessible to M-Mode and S-Mode
 |===
 
-NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect supervisor mode from lower privilege levels (with or without the H-extension). The MMU may be an additional or alternative mechanism.
+NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension). The MMU may be an additional or alternative mechanism.
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of SPMP to isolate trusted applications from each other.
 The MMU may be an additional or alternative mechanism
@@ -181,24 +181,24 @@ translation)
 | Requirement
 
 | SR_MMU_001
-| if the Sv extension is supported then 1st-stage page tables MUST be used to protect
+| If the Sv extension is supported then 1st-stage page tables MUST be used to protect
 the S-Mode Supervisor domain from accesses made by U-Mode.
 
 | SR_MMU_002
-| if the H extension is supported 1st-stage and/or G-stage page tables MUST be used to protect
-Supervisor domain H/S-mode from lower privilege levels.
+| If the H extension is supported 1st-stage and/or G-stage page tables MUST be used to protect
+Supervisor domain H/S-Mode from lower privilege levels.
 
 | SR_MMU_003
 | MMU MUST be used to protect resources assigned to one workload from other workloads
 |===
 
-NOTE: Dependent on the use case, it may be recommended or mandatory to use MMU to protect supervisor mode from lower privilege levels (with or without the H-extension). The SPMP and PMP may be an additional or alternative mechanism.
+NOTE: Dependent on the use case, it may be recommended or mandatory to use MMU to protect S-Mode from lower privilege levels (with or without the H-extension). The SPMP and PMP may be an additional or alternative mechanism.
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of MMU to isolate trusted applications from each other. The SPMP and PMP may be an additional or alternative mechanism.
 
 ==== Address‑Independent Latency of Faults 
 
-To prevent timing side channels that may infer the address space layout of supervisor memory, user-mode accesses to supervisor-mode memory must raise and exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
+To prevent timing side channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory must raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
 
 [#cat_sr_sub_KTE]
 [width=100%]
@@ -208,7 +208,7 @@ To prevent timing side channels that may infer the address space layout of super
 | Requirement
 
 | SR_KTE_001
-| Svukte MUST be used to mitigate timing attacks arising from user mode access to supervisor mode memory
+| Svukte MUST be used to mitigate timing attacks arising from U-Mode access to S-Mode memory
 |===
 
 ==== Supervisor domains and MPT
@@ -229,8 +229,7 @@ A supervisor domain is identified at an architecture level by a _Supervisor Doma
 ID (SDID)_ held in the _mmpt_ CSR, managed by M-Mode firmware. In addition to
 the SDID, the mmpt CSR may specify a root PPN for a _Memory Protection Table (MPT)_.
 
-The MPT is a memory structure managed by machine
-mode that is used to manage physical memory permissions across supervisor domains.
+The MPT is a memory structure managed by M-Mode that is used to manage physical memory permissions across supervisor domains.
 It is designed to enable page-based dynamic memory management across supervisor
 domain boundaries.
 responsible for resource management.
@@ -247,7 +246,7 @@ responsible for resource management.
 levels
 
 | SR_MPT_002
-| MPT configurations MUST only be directly accessible to machine mode.
+| MPT configurations MUST only be directly accessible to M-Mode.
 
 |===
 
@@ -270,12 +269,12 @@ assigned to lower privilege levels (privilege escalation).
 
 | SR_SUD_001
 | MPT MUST be used to enforce physical memory isolation
-boundaries for supervisor domains, and to protect machine mode from any
+boundaries for supervisor domains, and to protect M-Mode from any
 supervisor domain.
 
 | SR_SUD_002
 | PMP/Smepmp MUST be used to enforce physical memory isolation
-boundaries for supervisor domains, and to protect machine mode from any
+boundaries for supervisor domains, and to protect M-Mode from any
 supervisor domain.
 
 |===
@@ -342,13 +341,13 @@ specification.*
 
 | SR_DBG_001
 | External debug MUST only be enabled by HW RoT (M-Mode external debug) or by FW
-RoT (non M-Mode external debug).
+RoT (non-M-Mode external debug).
 
 | SR_DBG_002
 | External debug MUST be enabled separately for M-Mode & non-M-Mode software.
 
 | SR_DBG_003
-| Self-hosted debug MUST be used for debug of non M-Mode software.
+| Self-hosted debug MUST be used for debug of non-M-Mode software.
 
 | SR_DBG_004
 | Self-hosted debug MUST only be enabled by a higher privileged component.
@@ -366,7 +365,7 @@ Where external debug is not enabled, systems may use an S-Mode OS to enable self
 | Requirement
 
 | SR_DBG_005
-| FW RoT MUST disable self-hosted debug for all non M-Mode software.
+| FW RoT MUST disable self-hosted debug for all non-M-Mode software.
 
 |===
 
@@ -423,7 +422,7 @@ device-initiated transactions, complementing PMP and SPMP rules.
 access control.
 
 | SR_IOP_002
-| IOPMP configurations MUST only be directly accessible to machine mode.
+| IOPMP configurations MUST only be directly accessible to M-Mode.
 
 | SR_IOP_003
 | IOPMP MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
@@ -458,7 +457,7 @@ device-initiated transactions, by mapping transactions to IOMMU translation and 
 device-initiated memory accesses.
 
 | SR_IOM_002
-| IOMPT configurations MUST only be directly accessible to machine mode.
+| IOMPT configurations MUST only be directly accessible to M-Mode.
 
 | SR_IOM_003
 | IOMPT MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
@@ -623,7 +622,7 @@ For example, architectural metadata storage may be implemented in on-chip memory
 
 |===
 
-Depending on the use case, architectural metadata may be visible to or managed by, for example, a supervisor level kernel or hypervisor, a kernel or a hypervisor within a supervisor domain, or by a machine mode monitor. But it should be considered private within an isolation boundary and not accessible or guessable by lower privilege levels, or by code in a different supervisor domain.
+Depending on the use case, architectural metadata may be visible to or managed by, for example, a supervisor level kernel or hypervisor, a kernel or a hypervisor within a supervisor domain, or by a M-Mode monitor. But it should be considered private within an isolation boundary and not accessible or guessable by lower privilege levels, or by code in a different supervisor domain.
 
 [width=100%]
 [%header, cols="5,20"]
