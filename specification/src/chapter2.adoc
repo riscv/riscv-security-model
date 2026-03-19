@@ -453,7 +453,7 @@ Finally, this specification does not attempt to rate attacks by severity, or by 
 Logical
 | Unauthorized direct access to resources in normal operation.
 a| * RISC-V privilege levels
-* RISC-V isolation (for example: PMP/ePMP, sPMP, MTT, supervisor domains)
+* RISC-V isolation (for example: PMP/ePMP, SPMP, MTT, supervisor domains)
 * RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU)
 | Capability based architecture, such as CHERI, RISC-V Worlds +
 Architectural sandboxing, such as HFI.
