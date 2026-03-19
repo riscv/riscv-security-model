@@ -149,7 +149,7 @@ memory allocations to its workloads.
 | SPMP MUST be used to protect S-Mode from lower privilege levels. 
 
 | SR_PMP_005
-| SPMP MUST be used to protect U-mode workloads from other U-mode workloads. 
+| SPMP MUST be used to protect U-Mode workloads from other U-Mode workloads. 
 
 | SR_PMP_006
 | SPMP configurations MUST only be directly accessible to M-Mode and S-Mode
