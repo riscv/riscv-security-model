@@ -525,8 +525,8 @@ always carries its world ID.
 transaction to enforce isolation of resources.
 
 | SR_WOR_004
-| Immutable software MUST lock the `mwid` CSR before executing mutable software
-(Smwid).
+| M-Mode boot firmware, that configures the hart, MUST lock the mwid CSR at the
+earliest possible boot stage (Smwid).
 
 | SR_WOR_005
 | If a hart supports multiple privilege levels, world IDs MUST be used to
