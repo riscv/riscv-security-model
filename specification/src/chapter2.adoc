@@ -196,7 +196,7 @@ level
 | Reprogramming and Switching overhead, Constrained resourcefootnote:[On switching domains, the SPMP must be reprogrammed by M-Mode FW, and PMP entries may be limited in number.]
 
 | RISC-V Worlds
-| Hardware World Identifiers for Systyem level isolation
+| Hardware World Identifiers for System level isolation
 | M, S
 | Physical, PMP, SPMP based
 | Fine Grained
