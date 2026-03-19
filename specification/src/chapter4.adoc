@@ -364,7 +364,7 @@ See xref:chapter2.adoc#_reference_model[reference model].
 | Requirement
 | Reference
 
-| It is recommended for a TEE based system implement a HW RoT
+| It is recommended that a TEE based system implement a HW RoT
 | SR_TOT_001, SR_ROT_002
 
 |===
@@ -615,7 +615,7 @@ See xref:chapter2.adoc#_event_counters[event counters]
 image::img_ch4_cove.png[]
 
 In hosting environments, tenant workloads rely on isolation primitives that are
-managed by host privileged software. This can lead to a large TCB for tenants
+managed by host-privileged software. This can lead to a large TCB for tenants
 which may include, for example, a hypervisor, orchestration services, and
 host management services. It may also include other tenants exploiting
 vulnerabilities in complex hosting software.
@@ -661,14 +661,14 @@ https://github.com/riscv-non-isa/riscv-ap-tee/tree/main/specification[specificat
 The information below adds cross references to the security model normative security requirements.
 
 The underlying isolation mechanisms may be used in other deployment models, such
-as some mobile clients or edge devices whose design may might be constrained by real
+as some mobile clients or edge devices whose design may be constrained by real
 time and formal verification requirements. The TSM and secure monitor function are
 then combined into a single TEE security manager in Root domain.
 
 
 ==== Isolation model
 
-Confidential workloads require isolation guarantees. RISC-V hardware enforced isolation mechanisms can be used as follows to meet those requirments:
+Confidential workloads require isolation guarantees. RISC-V hardware enforced isolation mechanisms can be used as follows to meet those requirements:
 
 See xref:chapter3.adoc#_supervisor_domains[supervisor domains].
 See xref:chapter3.adoc#_pmp_and_epmp[PMP and Smepmp]
