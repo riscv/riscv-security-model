@@ -411,7 +411,7 @@ platform attestation.
 | Requirement
 | Reference
 
-| Attestation is used to determine trustworthyness across all comonents
+| Attestation is used to determine trustworthiness across all components
 * TEE domain
 * Root domain
 * Boot state of all trusted subsystems
@@ -701,7 +701,7 @@ itself from unintended access to resources assigned to a different domain
 | Allow resources to be assigned to both Normal domain and Confidential domain (sharing by consent)
 | SR_SUD_001 OR SR_SUD_002, SR_SUD_003, SR_SUD_004
 
-| Ensure resources assigned to a confidential workload are not be accessible by other confidential workloads
+| Ensure resources assigned to a confidential workload are not accessible by other confidential workloads
 without consent.
 | SR_MMU_003
 
