@@ -31,7 +31,7 @@ This specification does not define any new RISC-V ISA or non-ISA extensions.
 Instead it refers to the existing RISC-V ISA and extensions, as well as commonly
 used non-RVI architecture agnostic security features and processes. It aims to show
 how those can be combined, in commonly used examples, to create systems which
-are certifiabe within commonly used existing security certification programmes.
+are certifiable within commonly used existing security certification programmes.
 
 The examples are not definitions of formal Protection Profiles (See:
 https://csrc.nist.gov/glossary/term/protection_profile).
@@ -43,7 +43,7 @@ Mapping documentation or protection profiles may also directly reference this
 document.
 
 This specification does not contain threat modelling or security assessment of
-the RISC-V ISA specifications, non ISA specifications, profile specifications or 
+the RISC-V ISA specifications, non-ISA specifications, profile specifications or 
 extensions (RISC-V technical specifications). RISC-V technical specifications
 are expected to use the Security Model as a guide to develop their own specific 
 security analysis, including formal threat modeling where appropriate. For this 
@@ -56,15 +56,15 @@ Security is an evolving area where new use cases and new threats can emerge at
 any time. This specification represents the RISC-V security model and best
 practice as of the date of publication of this document.
 
-Terms not explicitely defined in this specification are to be interpreted according
-to the NIST Computer Security Resource Centre Glossary (https://csrc.nist.gov/glossary)
+Terms not explicitly defined in this specification are to be interpreted according
+to the NIST Computer Security Resource Center Glossary (https://csrc.nist.gov/glossary)
 
 New versions of this document may be developed and released as and when
 required.
 
 === Requirements and tracking
 
-This is a normative specification. However, the specification does not mandate
+This specification defines normative requirements. However, the specification does not mandate
 the adoption of any requirements. These requirements are intended to be
 referenced by current and future specifications, both RISC-V and external
 specifications,  where a subset of the normative requirements, specific to the 
@@ -82,7 +82,7 @@ trackable requirements and threats using the following format:
 
 | SR_CAT_NNN
 | The `SR_CAT` is a "Security Requirement CATegory" prefix that logically groups
-the requirements (e.g. SR_UPD denotes security requirements related to updates,
+the requirements (e.g., SR_UPD denotes security requirements related to updates,
 and SR_ATT denotes security requirements related to attestation) and is followed
 by 3 digits - `NNN` - assigning a numeric ID to the requirement.
 
