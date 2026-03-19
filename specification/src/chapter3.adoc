@@ -297,7 +297,7 @@ supervisor domain boundaries is required.
 
 | SR_SUD_004
 | Resources assigned to a higher trust level supervisor domain MUST NOT be accessible
-to an lower trust level supervisor domain. The trust levels/policies are specified by the
+to a lower trust level supervisor domain. The trust levels/policies are specified by the
 security system designer.
 
 | SR_SUD_005
