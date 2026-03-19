@@ -293,7 +293,7 @@ itself from unintended access to resources assigned to a different domain
 | SR_PMP_003
 
 | Prevent other domains from accessing resources assigned to Root domain
-| (SR_PMP_001, SR_PMP002) OR (SR_MPT_001, SR_MPT_002), +
+| (SR_PMP_001, SR_PMP_002) OR (SR_MPT_001, SR_MPT_002), +
   SR_SUD_001 OR SR_SUD_002
 
 
@@ -689,7 +689,7 @@ itself from unintended access to resources assigned to a different domain
 | SR_PMP_003
 
 | Prevent other domains from accessing resources assigned to Root domain
-| (SR_PMP_001, SR_PMP002) OR (SR_MPT_001, SR_MPT_002), +
+| (SR_PMP_001, SR_PMP_002) OR (SR_MPT_001, SR_MPT_002), +
   SR_SUD_001 OR SR_SUD_002
 
 | Block resources assigned to Confidential domains from access by Normal domain
