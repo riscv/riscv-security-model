@@ -59,16 +59,16 @@ non-security services.
 
 See xref:chapter3.adoc#_pmp_and_epmp[PMP and Smepmp]
 
-See xref:chapter3.adoc#_spmp[sPMP]
+See xref:chapter3.adoc#_spmp[SPMP]
 
 See xref:chapter3.adoc#_mmu[MMU]
 
-The sPMP is typically used in relatively static deployments such as determinism sensitive use cases like automotives.
+The SPMP is typically used in relatively static deployments such as determinism sensitive use cases like automotives.
 
 The MMU is typically required for Linux based systems and for virtualized systems.
 
-Either MMU or sPMP can be used both with or without the hypervisor extension. For
-example, the hypervisor extension with sPMP can support static partitioning
+Either MMU or SPMP can be used both with or without the hypervisor extension. For
+example, the hypervisor extension with SPMP can support static partitioning
 hypervisors commonly used in automotive. A single stage MMU can be used
 without the hypervisor extension for full Linux support.
 
@@ -328,7 +328,7 @@ those guarantees:
 
 See xref:chapter3.adoc#_supervisor_domains[supervisor domains].
 See xref:chapter3.adoc#_pmp_and_epmp[PMP and Smepmp]
-See xref:chapter3.adoc#_spmp[sPMP]
+See xref:chapter3.adoc#_spmp[SPMP]
 See xref:chapter3.adoc#_mmu[MMU]
 See xref:chapter3.adoc#_mtt[MTT]
 
@@ -341,14 +341,14 @@ See xref:chapter3.adoc#_mtt[MTT]
 | Use Supervisor domains to enforce isolation between Normal and TEE domains, and to protect machine mode from other domains
 | SR_SUD_001 OR SR_SUD_002, SR_MPT_001, SR_MPT_002
 
-| For a static partition TEE, use PMP, sPMP, MMU or MPT to enforce isolation
+| For a static partition TEE, use PMP, SPMP, MMU or MPT to enforce isolation
 between TA in TEE domain.
 | SR_PMP_005 OR SR_MMU_003
 
 | For a virtualized TEE, use hypervisor extension
 | SR_HYP_001,SR_MMU_001, SR_MMU_002,
 
-| For a virtualized TEE, sPMP or MMU MUST be used to enforce isolation between guest
+| For a virtualized TEE, SPMP or MMU MUST be used to enforce isolation between guest
 TEE, and between TA within a TEE.
 | SR_PMP_005 OR SR_MMU_003
 
@@ -672,7 +672,7 @@ Confidential workloads require isolation guarantees. RISC-V hardware enforced is
 
 See xref:chapter3.adoc#_supervisor_domains[supervisor domains].
 See xref:chapter3.adoc#_pmp_and_epmp[PMP and Smepmp]
-See xref:chapter3.adoc#_spmp[sPMP]
+See xref:chapter3.adoc#_spmp[SPMP]
 See xref:chapter3.adoc#_mmu[MMU]
 See xref:chapter3.adoc#_mtt[MTT]
 
