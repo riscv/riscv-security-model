@@ -4,18 +4,18 @@
 == Introduction
 
 This specification provides normative requirements for building
-secure RISC-V systems using RISC-V security building blocks, non-normative 
+secure RISC-V systems using RISC-V security building blocks, non-normative
 examples that select a subset of these normative requirements appropriate for a
-use case, and non-normative use case specific guidelines. 
+use case, and non-normative use case specific guidelines.
 
-It is aimed at developers of RISC-V technical specifications, as well as at 
+It is aimed at developers of RISC-V technical specifications, as well as at
 designers of secure RISC-V systems. It is intended to be referenced by other
-documentation that will define a specific subset of requirements applicable 
+documentation that will define a specific subset of requirements applicable
 for a given use case, certification regime, platform or profile.
 
 The non-normative example use cases provided are based on commonly used
 security deployment models. These are not intended to be exhaustive but are
-common enough to represent a wide range of deployments of secure products. 
+common enough to represent a wide range of deployments of secure products.
 They are accompanied by an appropriate set of use case specific security
 guidelines which are intended to help readers implement secure products for
 their specific use cases.
@@ -43,13 +43,13 @@ Mapping documentation or protection profiles may also directly reference this
 document.
 
 This specification does not contain threat modelling or security assessment of
-the RISC-V ISA specifications, non ISA specifications, profile specifications or 
+the RISC-V ISA specifications, non ISA specifications, profile specifications or
 extensions (RISC-V technical specifications). RISC-V technical specifications
-are expected to use the Security Model as a guide to develop their own specific 
-security analysis, including formal threat modeling where appropriate. For this 
-purpose, all guidelines in this document are labelled to enable referencing from 
-other specifications. Specific security analysis in the context of a RISC-V technical 
-specification may require testing and a proof of concept as per normal RISC-V 
+are expected to use the Security Model as a guide to develop their own specific
+security analysis, including formal threat modeling where appropriate. For this
+purpose, all guidelines in this document are labelled to enable referencing from
+other specifications. Specific security analysis in the context of a RISC-V technical
+specification may require testing and a proof of concept as per normal RISC-V
 development processes for RISC-V technical specifications.
 
 Security is an evolving area where new use cases and new threats can emerge at
@@ -67,8 +67,8 @@ required.
 This is a normative specification. However, the specification does not mandate
 the adoption of any requirements. These requirements are intended to be
 referenced by current and future specifications, both RISC-V and external
-specifications,  where a subset of the normative requirements, specific to the 
-use case, certification regime, platform or profile under consideration will be 
+specifications,  where a subset of the normative requirements, specific to the
+use case, certification regime, platform or profile under consideration will be
 documented. A set of in-scope security threats are also defined in this specification.
 These threats are intended to be referenced by the threat models of current and future
 specifications, both RISC-V and external specifications. This specification expresses
@@ -107,8 +107,8 @@ may also be used to reference sources that are the origin of the requirement.
 
 NOTE: All normative requirements are expressed as mandatory and some sections may
 include mutually exclusive requirements. A use case specific requirements document
-must define if a requirement is recommended or mandatory, as well as any allowable 
-alternatives.  
+must define if a requirement is recommended or mandatory, as well as any allowable
+alternatives.
 
 
 === Relationship with external protection profiles
