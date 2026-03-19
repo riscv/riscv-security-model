@@ -196,7 +196,7 @@ NOTE: Dependent on the use case, it may be recommended or mandatory to use MMU t
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of MMU to isolate trusted applications from each other. The SPMP and PMP may be an additional or alternative mechanism.
 
-==== Address‑Independent Latency of Faults
+==== Address‑Independent Latency of Faults 
 
 To prevent timing side channels that may infer the address space layout of supervisor memory, user-mode accesses to supervisor-mode memory must raise and exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
 
@@ -624,7 +624,7 @@ extensions
 extensions
 
 | SR_CPT_003
-| The entropy source ISA extension MUST be supported
+| The entropy source ISA extension MUST be supported 
 
 |===
 
