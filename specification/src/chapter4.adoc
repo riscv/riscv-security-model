@@ -5,7 +5,7 @@
 == Use Case Examples - Non Normative
 
 This chapter provides a selection of non-exhaustive example security usecases based on commonly used
-deployment security models. The examples may be extended over time as required. This section is non normative
+deployment security models. The examples may be extended over time as required. This section is non-normative
 guidance only, detailing the recommended combination of security requirements for the associated use case.
 
 For ease of reference, for each usecase, <<R2>> lists the mapping of the RISC-V
@@ -231,7 +231,7 @@ interface specifications and programming models, open source firmware, and
 certification programs for _trusted execution environments (TEE)_.
 
 A TEE is an isolated environment providing security services. TEE services can
-be available to software on multiple Harts. For example:
+be available to software on multiple harts. For example:
 
 * Payment clients
 * DRM clients and content protection
@@ -253,7 +253,7 @@ The TEE OS is primarily responsible for isolation of TA, and for providing root
 of trust services, within the TEE domain.
 
 The OS in Normal domain typically controls scheduling on the system, across all
-Harts available to it. To interact with TA services in TEE domain, the OS in
+harts available to it. To interact with TA services in TEE domain, the OS in
 Normal domain interacts with a TEE OS through a secure monitor in Root domain.
 
 The secure monitor is responsible for context switching and isolation across
@@ -510,11 +510,11 @@ Confidential domain.
 ==== System integration
 
 In the case of a Global Platform TEE system a rich OS in Normal domain is free
-to schedule services, including TEE services, on any Hart available to it. The
+to schedule services, including TEE services, on any hart available to it. The
 number and make-up of supervisor domains can be known, and a simple convention
 can be used for common identification (SDID value, see
 xref:chapter3.adoc#_supervisor_domains[supervisor domains]) of Normal, TEE, and
-Root domains across multiple Harts in a system.
+Root domains across multiple harts in a system.
 
 System integration in this context involves providing _security attributes_ on
 a system interconnect, tagging all transactions (CPU or system agent initiated)
@@ -647,7 +647,7 @@ The TSM is primarily responsible for isolation of confidential workloads, and
 for providing RoT services, within the Confidential domain.
 
 A hypervisor in Normal domain typically controls scheduling and resource
-assignment on the system across all Harts available to it, including for
+assignment on the system across all harts available to it, including for
 confidential workloads. It interacts with the TSM through the secure monitor in
 Root domain to manage confidential workloads.
 
@@ -861,9 +861,9 @@ to Confidential domain.
 
 In the case of a confidential compute system, hypervisor in Normal domain
 typically controls scheduling and resource assignment on the system across all
-Harts available to it. The number and make-up of supervisor domains can be
+harts available to it. The number and make-up of supervisor domains can be
 known, and a simple convention can be used for common identification of Normal,
-Confidential, and Root domains across multiple Harts in a system.
+Confidential, and Root domains across multiple harts in a system.
 
 System integration in this context involves providing _security attributes_ on
 the interconnect, tagging all transactions (CPU or system agent initiated) to
@@ -884,7 +884,7 @@ workload granularity.
 ==== Trusted device assignment
 
 The goal of confidential compute is to provide a minimum TCB for a confidential
-service, and CPU isolation mechanisms discussed so far does that on a Hart.
+service, and CPU isolation mechanisms discussed so far does that on a hart.
 
 But most confidential services also make use of devices, both on-chip and
 external. <<_cove_device_access_control, Device virtualization>> can guarantee
