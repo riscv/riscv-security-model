@@ -701,7 +701,7 @@ itself from unintended access to resources assigned to a different domain
 | Allow resources to be assigned to both Normal domain and Confidential domain (sharing by consent)
 | SR_SUD_001 OR SR_SUD_002, SR_SUD_003, SR_SUD_004
 
-| Ensure resources assigned to a confidential workload are not be accessible by other confidential worloads
+| Ensure resources assigned to a confidential workload are not be accessible by other confidential workloads
 without consent.
 | SR_MMU_003
 
