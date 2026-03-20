@@ -24,21 +24,21 @@ A generic vertically integrated system can be either virtualized or
 non-virtualized.
 
 
-M-mode hosts a FW RoT. An OS or a Hypervisor in S or HS mode controls
-applications or guests. Guests and applications execute in U or VS/VU modes and
+M-Mode hosts a FW RoT. An OS or a Hypervisor in S-Mode or HS-Mode controls
+applications or guests. Guests and applications execute in U-Mode or VS/VU-Mode and
 trust the OS or Hypervisor to provide isolation guarantees.
 
 
 NOTE: The RISC-V architecture also caters for systems with just M and U modes,
 commonly used in embedded systems, helper cores, and similar use cases. On
-secure systems not supporting S-mode a FW RoT has to share M-mode with an OS.
+secure systems not supporting S-Mode a FW RoT has to share M-Mode with an OS.
 RISC-V does not exclude such implementations - for example, implementations
 using a certified OS and FW RoT, or using a HW RoT to isolate sensitive code
 and assets (physical isolation). There is no current mechanism in RISC-V for
-isolation within M-mode itself other than temporal boundaries +
+isolation within M-Mode itself other than temporal boundaries +
  +
 To minimize the TCB of the FW RoT RISC-V recommends that secure systems
-implement S mode, and deprivilege non-RoT firmware such as an OS or
+implement S-Mode, and deprivilege non-RoT firmware such as an OS or
 non-security services.
 
 ==== Isolation model
@@ -49,10 +49,9 @@ non-security services.
 | Requirement
 | Reference
 
-| Protect M-mode from lower privilege levels.
-| SR_PMP_001, SR_PMP_002
+M| SR_PMP_001, SR_PMP_002
 
-| Protect Supervisor mode from lower privilege levels (with or without H-extension)
+| Protect S-Mode from lower privilege levels (with or without H-extension)
 | SR_PMP_004
 
 |===
@@ -126,7 +125,7 @@ transaction.
 
 | Guarantee that devices assigned to lower
   privilege levels cannot access resources
-  assigned to M-mode.
+  assigned to M-Mode.
 |  SR_IOM_005, +
   (SR_IOP_001, SR_IOP_002, SR_IOP_003) +
   OR +
@@ -147,7 +146,7 @@ On a virtualized system, devices can be virtualized and assigned to guests by
 the hypervisor configuring MMU and IOMMU translation rules.
 
 NOTE: IOMTT can also be sufficient for protecting Root devices in the sense that
-M-mode can enforce that its own resources are never assigned to another domain.
+M-mMode can enforce that its own resources are never assigned to another domain.
 Use of IOPMP or similar could still add further protections. For example, a system
 may require that Root devices cannot access memory assigned to Confidential
 domain.
@@ -166,15 +165,15 @@ See https://github.com/riscv-non-isa/riscv-external-debug-security[RISC-V extern
 | Securely control debug access
 | SR_DBG_001
 
-| Allow Debug of non-M-mode software while blocking debug of higher privilege code
+| Allow Debug of non-M-Mode software while blocking debug of higher privilege code
 | SR_DBG_002
 
-| Allow Self-hosted Debug of non M-mode software
+| Allow Self-hosted Debug of non M-Mode software
 | SR_DBG_003, SR_DBG_004
 
 |===
 
-For example, external debug can be enabled for non-M-mode software without affecting M-mode (recoverable debug). And an S-mode OS can enable self-hosted debug for a user application without affecting other applications or S-mode itself.
+For example, external debug can be enabled for non-M-Mode software without affecting M-Mode (recoverable debug). And an S-Mode OS can enable self-hosted debug for a user application without affecting other applications or S-Mode itself.
 
 [width=100%]
 [%header, cols="6,^4"]
@@ -338,7 +337,7 @@ See xref:chapter3.adoc#_mtt[MTT]
 | Requirement
 | Reference
 
-| Use Supervisor domains to enforce isolation between Normal and TEE domains, and to protect machine mode from other domains
+| Use Supervisor domains to enforce isolation between Normal and TEE domains, and to protect M-Mode from other domains
 | SR_SUD_001 OR SR_SUD_002, SR_MPT_001, SR_MPT_002
 
 | For a static partition TEE, use PMP, SPMP, MMU or MPT to enforce isolation
@@ -502,7 +501,7 @@ For a virtualized TEE, IOMTT enforces supervisor domain level access rules
 (virtualization), supporting device assignment to a guest TEE or a TA.
 
 NOTE: IOMTT can also be sufficient for protecting Root devices in the sense that
-M-mode can enforce that its own resources are never assigned to another domain.
+M-Mode can enforce that its own resources are never assigned to another domain.
 Use of IOPMP or similar could still add further protections. For example, a system
 may require that Root devices cannot be used to access memory assigned to
 Confidential domain.
@@ -561,16 +560,16 @@ or by Root domain (supervisor domain external debug).
 | SR_DBG_004
 |===
 
-For example, within normal domain an S-mode or VS-mode OS can enable
-self-hosted debug for a user application. Or an HS-mode hypervisor can enable
-self-hosted debug for a VS-mode guest. Only Root domain should enable
-self-hosted debug for an S-mode OS or an HS mode hypervisor.
+For example, within normal domain an S-Mode or VS-Mode OS can enable
+self-hosted debug for a user application. Or an HS-Mode hypervisor can enable
+self-hosted debug for a VS-Mode guest. Only Root domain should enable
+self-hosted debug for an S-Mode OS or an HS Mode hypervisor.
 
 Within TEE domain a TEE OS can enable self-hosted debug for a TA. An SPM can
 enable self-hosted debug for guest TEE. Only Root domain should enable
 self-hosted debug of SPM (virtualized) or TEE OS (non-virtualized).
 
-A machine mode monitor can enable external debug of individual supervisor domains without affecting M-mode, or any other supervisor domain.
+A machine mode monitor can enable external debug of individual supervisor domains without affecting M-Mode, or any other supervisor domain.
 
 [width=100%]
 [%header, cols="6,^4"]
@@ -852,7 +851,7 @@ IOMMU enforces guest and TA level access rules (virtualization), supporting
 device assignment to a Confidential guest.
 
 NOTE: IOMTT can also be sufficient for protecting Root devices in the sense
-that M-mode can enforce that its own resources are never assigned to another
+that M-Mode can enforce that its own resources are never assigned to another
 domain. Use of IOPMP or similar could still add further protections. For example,
 a system may require that Root devices cannot be used to access memory assigned
 to Confidential domain.
@@ -941,14 +940,14 @@ or by Root domain (supervisor domain external debug).
 
 |===
 
-For example, within normal domain an HS-mode hypervisor can enable self-hosted
-debug for a VS-mode guest. Only Root domain should enable self-hosted debug for
-the HS mode hypervisor.
+For example, within normal domain an HS-Mode hypervisor can enable self-hosted
+debug for a VS-Mode guest. Only Root domain should enable self-hosted debug for
+the HS-Mode hypervisor.
 
 Within Confidential domain the TSM can enable self-hosted debug for a
 confidential guest. Only Root domain should enable self-hosted debug of TSM.
 
-A machine mode monitor can enable external debug of individual supervisor domains without affecting M-mode, or any other supervisor domain.
+A machine mode monitor can enable external debug of individual supervisor domains without affecting M-Mode, or any other supervisor domain.
 
 [width=100%]
 [%header, cols="6,^4"]

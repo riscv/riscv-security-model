@@ -82,23 +82,23 @@ A RoT supports fundamental security services, for example:
 
 Depending on use case and ecosystem requirements, a RISC-V RoT can be:
 
-* Hart firmware (FW RoT)
+* hart firmware (FW RoT)
 * A dedicated trusted subsystem (HW RoT) supporting a FW RoT
 
-Using a HW RoT moves critical functions and assets off an application processor Hart to a dedicated and possibly isolated trusted subsystem, which can
+Using a HW RoT moves critical functions and assets off an application processor hart to a dedicated and possibly isolated trusted subsystem, which can
 provide stronger protection against physical and logical attacks.
 
 The HW RoT acts as a _primary root of trust_ on the system.
 
 NOTE: It is common for secure systems to support multiple trust chains with
-their own root of trust. For example, a TPM can be a root of trust for UEFI
-boot flows within a runtime environment while a SIM can be a root of trust for
+their own RoT. For example, a TPM can be a RoT for UEFI
+boot flows within a runtime environment while a SIM can be a RoT for
 user identity management. +
  +
 For the purpose of this document, these should be treated as _secondary roots of
 trust_. +
  +
-The HW RoT can manage the security life cycle of a secondary root of trust (booting etc).
+The HW RoT can manage the security life cycle of a secondary RoT (booting etc).
 
 [#cat_sr_sub_rot]
 [width=100%]
@@ -115,7 +115,7 @@ The HW RoT can manage the security life cycle of a secondary root of trust (boot
 |===
 
 NOTE: Complex systems such as multiple, out-of-order, cache-coherent harts, require HW RoT. Simple systems such as a single,
-in-order, Hart may only require a FW RoT
+in-order, hart may only require a FW RoT
 
 NOTE: In this document, the terms "FW RoT" and "HW RoT" will be used as defined
 above. The term "RoT" on its own can be used where a rule or a rationale applies
@@ -129,7 +129,7 @@ components, and reduces the amount of software that needs to be trusted.
 Isolation protects _resources_:
 
 * Memory and memory mapped devices
-* _Execution state_, including Hart register state
+* _Execution state_, including hart register state
 
 Examples of isolation mechanisms include:
 
@@ -168,7 +168,7 @@ RISC-V has a range of isolation mechanisms available and in development.
 
 [#cat_sr_sub_ism]
 [width=100%]
-[%header, cols="10,20,6,6,10,9"]
+[%header, cols="10,20,8,6,8,9"]
 |===
 | Technology
 | Use Case
@@ -189,7 +189,7 @@ level
 
 | SPMP
 | OS managed code and data isolation by privilege level. +
- Building block to allow multiple OS to manage U mode isolation
+ Building block to allow multiple OS to manage U-Mode isolation
 | S
 | Physical
 | Fine Grained
@@ -263,12 +263,12 @@ Isolation policy needs to extend to device assignment:
 * Virtual memory translation for virtualized device transactions - to prevent one domain from accessing another's memory via device or memory translation misconfiguration
 * Interrupt management across privilege and domain boundaries - to ensure interrupts are delivered only to the correct domain
 
-These policies can be enforced by system level hardware, controlled by Hart
+These policies can be enforced by system level hardware, controlled by hart
 firmware.
 
 ==== Invasive subsystems
 
-_Invasive subsystems_ include any system or Hart feature which could
+_Invasive subsystems_ include any system or hart feature which could
 break security guarantees, either directly or indirectly. For example:
 
 * External debug - may allow direct access to confidential data or runtime control
@@ -329,7 +329,7 @@ NOTE:  While it's always necessary to prevent lower-privilege software from moni
 
 ==== Platform quality of service
 
-More complex systems, such as server platforms, can provide _platform quality of service (QoS)_ features beyond the capabilities of basic event counters. Platform QoS features include any Hart and system hardware and firmware aimed at managing access to
+More complex systems, such as server platforms, can provide _platform quality of service (QoS)_ features beyond the capabilities of basic event counters. Platform QoS features include any hart and system hardware and firmware aimed at managing access to
 shared physical resources across workloads while minimizing contention.
 
 For example:

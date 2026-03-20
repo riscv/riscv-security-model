@@ -108,7 +108,7 @@ Depending on the use case, MPT may be an acceptable additional or alternative me
 *See chapter 6 (PMP Enhancements for memory access and execution prevention in M-Mode) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
-Smepmp extends PMP protection by allowing M-Mode to restrict its own access to memory allocated to lower privilege levels. This can be
+Smepmp (ePMP) extends PMP protection by allowing M-Mode to restrict its own access to memory allocated to lower privilege levels. This can be
 used to mitigate against privilege escalation attacks.
 
 [#cat_sr_sub_smepmp]
@@ -129,7 +129,7 @@ _This extension is not ratified at the time of writing, but is stable enough to 
 *See the https://github.com/riscv/riscv-spmp[RISC-V S-Mode Physical Memory Protection (SPMP)] specification.*
 
 _Supervisor PMP (SPMP)_ enables S-Mode to control physical memory
-access for U mode.
+access for U-Mode.
 
 SPMP allows S-Mode to restrict its own access to memory allocated to
 lower privilege levels. This can be used to mitigate against privilege
@@ -500,11 +500,11 @@ _This extension is not ratified at the time of writing, but is stable enough to 
 
 *See the https://github.com/riscv/riscv-worlds[RISC-V Worlds] specification.*
 
-Worlds defines execution context IDs (or world IDs) which allow different
+Worlds defines execution context IDs (or World IDs) which allow different
 access policies to be programmed between an agent and a resource in a system.
 The IDs are created and assigned before or at reset/boot time, and are
-immutable afterwards. Any bus transaction stemming from an agent within a world
-always carries its world ID.
+immutable afterwards. Any bus transaction stemming from an agent within a World
+always carries its World ID.
 
 [width=100%]
 [%header, cols="5,20"]
@@ -527,17 +527,17 @@ transaction to enforce isolation of resources.
 earliest possible boot stage (Smwid).
 
 | SR_WOR_005
-| If a hart supports multiple privilege levels, world IDs MUST be used to
-guarantee that devices assigned to a world ID with a higher privilege level
-cannot be accessed by world IDs from lower privilege levels (Smlwid).
+| If a hart supports multiple privilege levels, World IDs MUST be used to
+guarantee that devices assigned to a World ID with a higher privilege level
+cannot be accessed by World IDs from lower privilege levels (Smlwid).
 
 | SR_WOR_006
-| If a hart supports multiple privilege levels, world IDs used by machine-mode
+| If a hart supports multiple privilege levels, World IDs used by M-Mode
 MUST not be delegated to lower privilege levels (Smlwidlist).
 
 | SR_WOR_007
-| If a hart supports supervisor mode, world IDs used by supervisor-mode MUST
-not be delegated to user-mode (Smwdeleg).
+| If a hart supports S-Mode, World IDs used by S-Mode MUST
+not be delegated to U-Mode (Smwdeleg).
 
 |===
 
