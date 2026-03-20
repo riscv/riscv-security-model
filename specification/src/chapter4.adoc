@@ -411,7 +411,7 @@ platform attestation.
 | Requirement
 | Reference
 
-| Attestation is used to determine trustworthyness across all comonents
+| Attestation is used to determine trustworthiness across all components
 * TEE domain
 * Root domain
 * Boot state of all trusted subsystems
@@ -668,7 +668,7 @@ then combined into a single TEE security manager in Root domain.
 
 ==== Isolation model
 
-Confidential workloads require isolation guarantees. RISC-V hardware enforced isolation mechanisms can be used as follows to meet those requirments:
+Confidential workloads require isolation guarantees. RISC-V hardware enforced isolation mechanisms can be used as follows to meet those requirements:
 
 See xref:chapter3.adoc#_supervisor_domains[supervisor domains].
 See xref:chapter3.adoc#_pmp_and_epmp[PMP and Smepmp]

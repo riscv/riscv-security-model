@@ -31,7 +31,7 @@ This specification does not define any new RISC-V ISA or non-ISA extensions.
 Instead it refers to the existing RISC-V ISA and extensions, as well as commonly
 used non-RVI architecture agnostic security features and processes. It aims to show
 how those can be combined, in commonly used examples, to create systems which
-are certifiabe within commonly used existing security certification programmes.
+are certifiable within commonly used existing security certification programmes.
 
 The examples are not definitions of formal Protection Profiles (See:
 https://csrc.nist.gov/glossary/term/protection_profile).
@@ -56,7 +56,7 @@ Security is an evolving area where new use cases and new threats can emerge at
 any time. This specification represents the RISC-V security model and best
 practice as of the date of publication of this document.
 
-Terms not explicitely defined in this specification are to be interpreted according
+Terms not explicitly defined in this specification are to be interpreted according
 to the NIST Computer Security Resource Centre Glossary (https://csrc.nist.gov/glossary)
 
 New versions of this document may be developed and released as and when
