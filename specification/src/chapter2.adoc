@@ -26,13 +26,13 @@ trustworthy devices in an ecosystem.
 [title= "Generic security reference model"]
 image::img_ch2_reference-model.png[]
 
-The figure above outlines a generic security reference model and taxonomy. This specification 
+The figure above outlines a generic security reference model and taxonomy. This specification
 is oriented around this reference model. The model is not tied to any particular implementation.
 
 Most systems are built with multiple software components each managing _assets_
 that need to be protected. These components are often sourced from multiple
 different supply chains. The security reference model uses the generic term
-_domain_ to identify an isolated environment, with at least some private 
+_domain_ to identify an isolated environment, with at least some private
 resources and execution state not accessible to at least some other domain(s).
 The figure above shows two examples, one with a single domain, the other with two domains for illustrative purposes but some
 use cases can require more. The two domains are notionally labelled _hosting domain_ and _confidential domain_ but they have identical properties. _Workloads_ are run in a domain, and are isolated from each other within that domain. Isolation within a domain may be managed by a _runtime environment_ or a _domain security manager_.  Switching between domains may be managed by a _root domain security manager_.  
@@ -135,7 +135,7 @@ Examples of isolation mechanisms include:
 
 * Privilege based isolation +
 More privileged software is able to access some assets that can enforce security guarantees for less
-privileged software. For instance access to state used to set up virtual memory system is restricted by privilege level. 
+privileged software. For instance access to state used to set up virtual memory system is restricted by privilege level.
 * Physical memory isolation +
 More privileged software controls memory access for less privileged software.
 * Domain isolation +
@@ -146,7 +146,7 @@ lower privileged software in a different domain)
 * Virtualization +
 Virtualization creates and manages _virtual resources_ - compute, memory,
 devices - abstracted from actual physical hardware. A system, or individual
-domains, can be virtualized. This abstraction can be used to restrict a workload to run  
+domains, can be virtualized. This abstraction can be used to restrict a workload to run
 with access to a defined set of resources, isolated from other workloads.
 
 On complex systems the TCB can grow large and become difficult to certify and
@@ -172,10 +172,10 @@ RISC-V has a range of isolation mechanisms available and in development.
 |===
 | Technology
 | Use Case
-| Controlling + 
+| Controlling +
 Privilege +
 level
-| Memory 
+| Memory
 | Granularity
 | Limitations
 
@@ -240,11 +240,11 @@ HS - HS isolation )
 | Third Table Walk to implement smmpt
 
 | IOMPT
-| System Level MPT 
+| System Level MPT
 | M
 | Physical
 | Page or larger
-| 
+|
 
 | CHERI
 | Full Capability based access for memory safety and isolation
@@ -273,7 +273,7 @@ break security guarantees, either directly or indirectly. For example:
 
 * External debug - may allow direct access to confidential data or runtime control
 * Power and timing management - may enable remote fault injection and side channel leakage
-* RAS (_reliability, accessibility, serviceability_) - features such as error correction may mask attacks, out of band management may give privileged access for remote diagnostics, error reporting can leak memory layout or address, stack traces etc. 
+* RAS (_reliability, accessibility, serviceability_) - features such as error correction may mask attacks, out of band management may give privileged access for remote diagnostics, error reporting can leak memory layout or address, stack traces etc.
 
 [#cat_sr_sub_inv]
 [width=100%]
@@ -297,7 +297,7 @@ non-M-Mode software.
 NOTE: Fully disabling invasive subsystems, or limiting access in other ways can be an alternative to partitioning by privilege level or domain. +
 When an invasive subsystem cannot be disabled for functional reasons, or runs across all privilege levels, the design must ensure security guarantees are maintained
 using appropriate techniques such as dedicated management networks, hardware-enforced frequency/voltage limits +
-Each invasive subsystem may use different means to ensure security guarantees.  
+Each invasive subsystem may use different means to ensure security guarantees.
 
 ==== Event counters
 
@@ -325,7 +325,7 @@ domain, without consent.
 
 |===
 
-NOTE:  While it's always necessary to prevent lower-privilege software from monitoring higher-privilege software, it may also be necessary to prevent software in one domain from monitoring software in a different domain — even if it operates at the same or lower privilege levels. 
+NOTE:  While it's always necessary to prevent lower-privilege software from monitoring higher-privilege software, it may also be necessary to prevent software in one domain from monitoring software in a different domain — even if it operates at the same or lower privilege levels.
 
 ==== Platform quality of service
 
@@ -361,12 +361,12 @@ domain, without consent.
 ==== Denial of service
 
 The RISC-V security model is primarily concerned with protection of assets, and not with providing service guarantees. However, a given
-use case may require service guarantees that extend to preventing denial of service (DoS) by a malicious workload. For instance, software in a virtual machine must not have the ability to bring down the cloud provider's infrastructure; a power management domain may require the ability to always respond to thermal events etc. Other use cases may not consider DoS in their threat model - for instance where all platform software is considered trustworthy, or where denial of service by user provided software would only achieve denying service to that user.  
+use case may require service guarantees that extend to preventing denial of service (DoS) by a malicious workload. For instance, software in a virtual machine must not have the ability to bring down the cloud provider's infrastructure; a power management domain may require the ability to always respond to thermal events etc. Other use cases may not consider DoS in their threat model - for instance where all platform software is considered trustworthy, or where denial of service by user provided software would only achieve denying service to that user.
 
 In use cases where preventing DoS is considered an objective, Higher privileged software must always be able to enforce its own resource management policy without interference, including scheduling, resource assignment and revocation policies.
 
 Similarly, a hosting domain owning resource allocation and host management across a system normally has to be able to enforce its own policies across domains. Other domains should not be able to deny service to the hosting domain, or to other domains.
- 
+
 
 [#cat_sr_sub_dos]
 [width=100%]
@@ -380,7 +380,7 @@ Similarly, a hosting domain owning resource allocation and host management acros
 privileged software, or other isolated workloads at the same privilege level.
 
 | SR_DOS_002
-| Software in one domain MUST NOT be able to deny service to software in a different domain, 
+| Software in one domain MUST NOT be able to deny service to software in a different domain,
 irrespective of privilege level
 
 |===
@@ -425,13 +425,13 @@ An adversary is able to chain together multiple direct and indirect attacks to
 achieve a goal. For example, using a software interface exploit to affect the call
 stack such that control flow is redirected to the adversary's code.
 
-The threats considered in-scope and the required level of protection will vary depending on use case. For example, a HW RoT would likely have a large set of threats that are considered applicable. Mitigating these threats may require protection against complex or advanced physical attacks. A Software based TEE may limit the threats considered applicable, and therefore the required mitigations. 
+The threats considered in-scope and the required level of protection will vary depending on use case. For example, a HW RoT would likely have a large set of threats that are considered applicable. Mitigating these threats may require protection against complex or advanced physical attacks. A Software based TEE may limit the threats considered applicable, and therefore the required mitigations.
 
 This specification is primarily concerned with ISA level mitigations against logical attacks.
 
 Physical or remote attacks in general need to be addressed at system, protocol or governance level, and can require additional non-ISA mitigations. However, some ISA level mitigations can also help provide some mitigation against physical or remote attacks and this is indicated in the tables below.
 
-Finally, this specification does not attempt to rate attacks by severity, or by adversary skill level. Ratings tend to depend on use case specific threat models and requirements. 
+Finally, this specification does not attempt to rate attacks by severity, or by adversary skill level. Ratings tend to depend on use case specific threat models and requirements.
 
 
 ==== Logical
@@ -553,7 +553,7 @@ a| * Smstateen +
 | Direct or indirect +
 Physical or remote
 | For example, observing radiation, power line patterns, or temperature.
-a| * Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs.  
+a| * Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs.
 * Data Independent Execution Latency (Zkt, Zvkt)
 
 
@@ -562,10 +562,10 @@ a| * Implement power analysis mitigations such as cryptographic masking, constan
 | Direct +
 Logical or physical
 | Using NVDIMMs (susceptible to remanence attack), interposers, or physical probing to read, record, replay or relocate data in physical memory.
-a| * Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding.  
+a| * Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding.
 * Supervisor domain ID, privilege level, or MPT attributes may be used to
 derive separate memory encryption contexts at domain or workload granularity
-* Provide physical tamper resistance, such as an active mesh over critical logic, or case-opening sensors.  
+* Provide physical tamper resistance, such as an active mesh over critical logic, or case-opening sensors.
 
 // * Physical attacks on hardware shielded locations to extract hardware
 // provisioned assets
@@ -578,10 +578,10 @@ Logical or physical
 | Glitching to bypass secure boot +
 Retrieving residual confidential memory after a system reset
 a| * Implement robust power management, and adopt glitch-safe software techniques. +
- 
+
 * Industry best practice should be followed. For example: ensuring un-initialized variables are not used; implementing integrity checking of critical data and hardware provisioned parameters; implementing redundancy in encoding, verification, branching, and critical logic. +
- 
-* Adopt randomization techniques between boot sessions. For example: cryptographic memory protection with at least boot freshness; register randomization. 
+
+* Adopt randomization techniques between boot sessions. For example: cryptographic memory protection with at least boot freshness; register randomization.
 
 * Hardware mitigation such as glitch detection, voltage and clock monitoring
 
@@ -601,7 +601,7 @@ an ecosystem.
 Logical or physical
 | Rowhammer-type software attacks to manipulate nearby memory cells. +
 Fault injection attacks (glitching, laser, electromagnetic, etc.) to extract hardware-provisioned assets, modify the control flow, circumvent countermeasures, etc.
-a| * Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance. 
+a| * Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance.
 * Provide a level of tamper resistance, e.g., through RoT attestation, redundancy during execution, etc.
 * Enforce proper access control for the DVFS configuration.
 * Employ lockstep processors for security-critical devices.
@@ -1017,7 +1017,7 @@ part of an already attested trust contract between a relying party and the
 system.
 |===
 
-NOTE: A system may choose to defer updates to maintain an attested security state. 
+NOTE: A system may choose to defer updates to maintain an attested security state.
 
 A live update changes the attested security state of the affected
 component(s), as well as that of all other components that depend on it. It can
@@ -1091,7 +1091,7 @@ models.
 | SR_ISO_001
 | Isolated software components MUST be supported
 |===
- 
+
 
 An isolated component has private memory and private execution contexts not
 accessible to other components.

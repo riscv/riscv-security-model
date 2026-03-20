@@ -6,7 +6,7 @@ This chapter outlines brief descriptions of RISC-V security building blocks
 discussed in this specification, together with general guidelines and links to
 technical specifications. The requirement to use a specific mechanism is
 use case dependent. RISC-V has multiple mechanisms that can be used to achieve the
-same goal, the notes associated with SRs indicate where this is the case. 
+same goal, the notes associated with SRs indicate where this is the case.
 
 See also the reference use cases chapter of this specification for common
 examples of how RISC-V security building blocks can be combined.
@@ -122,7 +122,7 @@ used to mitigate against privilege escalation attacks.
 | If PMP is supported then Smepmp MUST be supported.
 |===
 
-==== SPMP 
+==== SPMP
 
 _This extension is not ratified at the time of writing, but is stable enough to be included_
 
@@ -146,7 +146,7 @@ memory allocations to its workloads.
 | Requirement
 
 | SR_PMP_004
-| SPMP MUST be used to protect S-Mode from lower privilege levels. 
+| SPMP MUST be used to protect S-Mode from lower privilege levels.
 
 | SR_PMP_005
 | SPMP MUST be used to protect U-Mode workloads from other U-Mode workloads. 
@@ -301,7 +301,7 @@ to a lower trust level supervisor domain. The trust levels/policies are specifie
 security system designer.
 
 | SR_SUD_005
-| Resources assigned to an untrusted supervisor domain MUST be accessible to a trusted supervisor domain 
+| Resources assigned to an untrusted supervisor domain MUST be accessible to a trusted supervisor domain
 |===
 
 Supervisor domains allow resource isolation and sharing between domains under the control of M-Mode firmware. Trusted Execution Environments can require asymmetric sharing models, where one trusted domain has X/W/R access to other domain's resources.
@@ -354,8 +354,8 @@ RoT (non-M-Mode external debug).
 
 |===
 
-NOTE: Systems with the same ownership between M-Mode and non-M-Mode software may choose to enable external debug for all software or none. 
-Other trust models may require external debug be enabled for non-M-Mode software without affecting M-Mode (recoverable debug). 
+NOTE: Systems with the same ownership between M-Mode and non-M-Mode software may choose to enable external debug for all software or none.
+Other trust models may require external debug be enabled for non-M-Mode software without affecting M-Mode (recoverable debug).
 Where external debug is not enabled, systems may use an S-Mode OS to enable self-hosted debug for a user application without affecting other applications or S-Mode itself.
 
 [width=100%]
@@ -392,8 +392,8 @@ affected component, MUST be subject to an application specific governance proces
 
 |===
 
-NOTE: Enabling debug after measurement ensures the system remains attestable but can affect the 
-confidentiality and trustworthiness of the affected components, and must be subject to an attested policy  
+NOTE: Enabling debug after measurement ensures the system remains attestable but can affect the
+confidentiality and trustworthiness of the affected components, and must be subject to an attested policy
 
 *See chapters 7 and 9 of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification on performance counters.*
@@ -418,8 +418,7 @@ device-initiated transactions, complementing PMP and SPMP rules.
 | Requirement
 
 | SR_IOP_001
-| A system which supports PMP/Smepmp, or SPMP, MUST implement either IOPMP for device
-access control.
+| A system which supports PMP/Smepmp, or SPMP, MUST implement IOPMP device access control.
 
 | SR_IOP_002
 | IOPMP configurations MUST only be directly accessible to M-Mode.
@@ -492,7 +491,55 @@ locations. It complements the MMU.
 
 |===
 
-NOTE: Systems using IOMMU must ensure this cannot be used to bypass physical memory access controls by implementing IOPMP and/or IOMPT
+NOTE: Systems using IOMMU must ensure this cannot be used to bypass physical
+memory access controls by implementing IOPMP or IOMPT.
+
+==== Worlds
+
+_This extension is not ratified at the time of writing, but is stable enough to be included_
+
+*See the https://github.com/riscv/riscv-worlds[RISC-V Worlds] specification.*
+
+Worlds defines execution context IDs (or world IDs) which allow different
+access policies to be programmed between an agent and a resource in a system.
+The IDs are created and assigned before or at reset/boot time, and are
+immutable afterwards. Any bus transaction stemming from an agent within a world
+always carries its world ID.
+
+[width=100%]
+[%header, cols="5,20"]
+|===
+| ID#
+| Requirement
+
+| SR_WOR_001
+| RISC-V Worlds MUST be used to indicate execution contexts.
+
+| SR_WOR_002
+| Worlds configurations MUST only be performed by a trusted entity in the system.
+
+| SR_WOR_003
+| If IOPMP is implemented it MUST use the World ID to determine the context of a
+transaction to enforce isolation of resources.
+
+| SR_WOR_004
+| M-Mode boot firmware, that configures the hart, MUST lock the mwid CSR at the
+earliest possible boot stage (Smwid).
+
+| SR_WOR_005
+| If a hart supports multiple privilege levels, world IDs MUST be used to
+guarantee that devices assigned to a world ID with a higher privilege level
+cannot be accessed by world IDs from lower privilege levels (Smlwid).
+
+| SR_WOR_006
+| If a hart supports multiple privilege levels, world IDs used by machine-mode
+MUST not be delegated to lower privilege levels (Smlwidlist).
+
+| SR_WOR_007
+| If a hart supports supervisor mode, world IDs used by supervisor-mode MUST
+not be delegated to user-mode (Smwdeleg).
+
+|===
 
 === Software enforced memory tagging
 
@@ -588,7 +635,7 @@ In the context of this document, _architectural metadata_ refers to any data tha
 
 Examples (not exhaustive) where architectural metadata may be required in current or future RISC-V architecture include:  MTT, memory tagging, and CHERI.
 
-Architectural metadata storage is implementation defined, but the following rules should be considered by any implementation. 
+Architectural metadata storage is implementation defined, but the following rules should be considered by any implementation.
 
 [width=100%]
 [%header, cols="5,20"]
@@ -607,7 +654,7 @@ Architectural metadata storage is implementation defined, but the following rule
 
 |===
 
-See xref:chapter2.adoc#_adversarial_model[adversarial model] 
+See xref:chapter2.adoc#_adversarial_model[adversarial model]
 
 For example, architectural metadata storage may be implemented in on-chip memory, or in cryptographically protected external DDR.
 
@@ -646,7 +693,7 @@ Depending on the use case, architectural metadata may be visible to or managed b
 
 NOTE: Architectural metadata needs to be protected against both unauthorized access (read or modify), boot attacks, relocation attacks, and errors (accidental or malicious).
 
-NOTE: On systems where architectural metadata is stored in external memory, and external memory attacks are in scope (for example, directly accessible or replaceable external memory), then cryptographic protection with replay protection or temporal freshness is strongly recommended. 
+NOTE: On systems where architectural metadata is stored in external memory, and external memory attacks are in scope (for example, directly accessible or replaceable external memory), then cryptographic protection with replay protection or temporal freshness is strongly recommended.
 
 [width=100%]
 [%header, cols="5,20"]
@@ -662,7 +709,7 @@ NOTE: On systems where architectural metadata is stored in external memory, and 
 NOTE: In general, protection against indirect attacks is a system implementation problem not specific to architectural metadata storage. For example, systems supporting speculative execution should also implement appropriate mitigations against speculation based attacks. Any such mitigations should also be applied to the implementation of architectural metadata storage.
 
 
-=== Extensions in development 
+=== Extensions in development
 
 
 
