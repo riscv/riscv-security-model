@@ -35,8 +35,8 @@ different supply chains. The security reference model uses the generic term
 _domain_ to identify an isolated environment, with at least some private
 resources and execution state not accessible to at least some other domain(s).
 The figure above shows two examples, one with a single domain, the other with two domains for illustrative purposes but some
-use-cases can require more. The two domains are notionally labelled _hosting domain_ and _confidential domain_ but they have identical properties. _Workloads_ are run in a domain, and are isolated from each other within that domain. Isolation within a domain may be managed by a _runtime environment_ or a _domain security manager_.  Switching between domains may be managed by a _root domain security manager_.
-Isolated domains at the software level are typically reflected in isolated domains at the system hardware level, where hardware resouces and _devices_ can be assigned or restricted to specific software domains. For example, device DMA transfers can be restricted to memory assigned to a particular domain. Additional platform services may be required in more complex systems. To illustrate this, _Platform QoS_ is shown in the two domain example.
+use cases can require more. The two domains are notionally labelled _hosting domain_ and _confidential domain_ but they have identical properties. _Workloads_ are run in a domain, and are isolated from each other within that domain. Isolation within a domain may be managed by a _runtime environment_ or a _domain security manager_.  Switching between domains may be managed by a _root domain security manager_.  
+Isolated domains at the software level are typically reflected in isolated domains at the system hardware level, where hardware resources and _devices_ can be assigned or restricted to specific software domains. For example, device DMA transfers can be restricted to memory assigned to a particular domain. Additional platform services may be required in more complex systems. To illustrate this, _Platform QoS_ is shown in the two domain example.
 
 This specification does not imply or limit the number of domains or the type of use cases a RISC-V system can support. See
 xref:chapter4.adoc[Use case examples] for more comprehensive and specific examples.
@@ -114,7 +114,7 @@ The HW RoT can manage the security life cycle of a secondary root of trust (boot
 
 |===
 
-NOTE: Complex systems such as multiple, out-of-order, cache-coherent harts, require HW Rot. Simple systems such as a single,
+NOTE: Complex systems such as multiple, out-of-order, cache-coherent harts, require HW RoT. Simple systems such as a single,
 in-order, Hart may only require a FW RoT
 
 NOTE: In this document, the terms "FW RoT" and "HW RoT" will be used as defined
@@ -196,7 +196,7 @@ level
 | Reprogramming and Switching overhead, Constrained resourcefootnote:[On switching domains, the SPMP must be reprogrammed by M-Mode FW, and PMP entries may be limited in number.]
 
 | RISC-V Worlds
-| Hardware World Identifiers for Systyem level isolation
+| Hardware World Identifiers for System level isolation
 | M, S
 | Physical, PMP, SPMP based
 | Fine Grained
@@ -286,15 +286,15 @@ break security guarantees, either directly or indirectly. For example:
 | Invasive subsystems MUST be controlled, or moderated, by a RoT.
 
 | SR_INV_002
-| Invasive subsystems MUST be enabled separately for M-mode &
-non-M-mode software.
+| Invasive subsystems MUST be enabled separately for M-Mode &
+non-M-Mode software.
 
 | SR_INV_003
 | Invasive subsystems MUST be enabled separately for individual domains
 
 |===
 
-NOTE: Fully disabling invasive subsytems, or limiting access in other ways can be an alternative to partitioning by privilige level or domain. +
+NOTE: Fully disabling invasive subsystems, or limiting access in other ways can be an alternative to partitioning by privilege level or domain. +
 When an invasive subsystem cannot be disabled for functional reasons, or runs across all privilege levels, the design must ensure security guarantees are maintained
 using appropriate techniques such as dedicated management networks, hardware-enforced frequency/voltage limits +
 Each invasive subsystem may use different means to ensure security guarantees.
@@ -438,7 +438,7 @@ Finally, this specification does not attempt to rate attacks by severity, or by 
 
 [#cat_sr_sub_lgc]
 [width=100%]
-[%header, cols="8,5,5,10,15,15"]
+[%header, cols="7,6,5,10,15,15"]
 |===
 | ID#
 | Threat
@@ -453,7 +453,7 @@ Finally, this specification does not attempt to rate attacks by severity, or by 
 Logical
 | Unauthorized direct access to resources in normal operation.
 a| * RISC-V privilege levels
-* RISC-V isolation (for example: PMP/ePMP, sPMP, MTT, supervisor domains)
+* RISC-V isolation (for example: PMP/ePMP, SPMP, MTT, supervisor domains)
 * RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU)
 | Capability based architecture, such as CHERI, RISC-V Worlds +
 Architectural sandboxing, such as HFI.
@@ -540,7 +540,7 @@ a| * Smstateen +
 
 [#cat_sr_sub_phy]
 [width=100%]
-[%header, cols="5,10,10,15,15"]
+[%header, cols="7,8,10,15,15"]
 |===
 | ID#
 | Threat
