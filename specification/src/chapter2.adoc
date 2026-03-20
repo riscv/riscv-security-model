@@ -251,7 +251,7 @@ HS - HS isolation )
 | M S U
 | Both
 | Fine Grained
-| HW/SW impactfootnote:[CHERI requires extensive HW modifications, doubles pointer sizes, requires additional SW as well as recompilation and modificationof existing software. This may be offset by performance gains over alternative mechanisms and saving in other state such as PMP.]
+| HW/SW impactfootnote:[CHERI requires extensive HW modifications, doubles pointer sizes, requires additional SW as well as recompilation and modification of existing software. This may be offset by performance gains over alternative mechanisms and saving in other state such as PMP.]
 
 |===
 
