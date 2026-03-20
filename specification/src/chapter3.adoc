@@ -419,8 +419,7 @@ device-initiated transactions, complementing PMP and SPMP rules.
 | Requirement
 
 | SR_IOP_001
-| A system which supports PMP/Smepmp, or SPMP, MUST implement either IOPMP or
-World for device access control.
+| A system which supports PMP/Smepmp, or SPMP, MUST implement IOPMP device access control.
 
 | SR_IOP_002
 | IOPMP configurations MUST only be directly accessible to machine mode.
