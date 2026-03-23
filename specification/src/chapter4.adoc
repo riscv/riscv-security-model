@@ -49,7 +49,8 @@ non-security services.
 | Requirement
 | Reference
 
-M| SR_PMP_001, SR_PMP_002
+| Protect M-mode from lower privilege levels
+| SR_PMP_001, SR_PMP_002
 
 | Protect S-Mode from lower privilege levels (with or without H-extension)
 | SR_PMP_004
@@ -146,7 +147,7 @@ On a virtualized system, devices can be virtualized and assigned to guests by
 the hypervisor configuring MMU and IOMMU translation rules.
 
 NOTE: IOMTT can also be sufficient for protecting Root devices in the sense that
-M-mMode can enforce that its own resources are never assigned to another domain.
+M-Mode can enforce that its own resources are never assigned to another domain.
 Use of IOPMP or similar could still add further protections. For example, a system
 may require that Root devices cannot access memory assigned to Confidential
 domain.
