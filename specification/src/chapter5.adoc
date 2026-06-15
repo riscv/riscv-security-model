@@ -63,12 +63,12 @@ to PQC versions.
 
 === Cryptographic algorithms and guidelines
 
-Cryptographic recommendations cannot be provided in broad strokes. Each legal
-jurisdiction as their own guidance. Thus, this specification considers such
-recommendations to be out-of-scope. It is recommended that a RISC-V platform
-vendor follows the recommendations for the jurisdictions where their platform
-will be sold. The current section points readers to resources where
-cryptographic recommendations can be found for most jurisdictions.
+Cryptographic recommendations recommendations are use-case and region specific,
+each legal jurisdiction has their own guidance. Thus, this specification
+considers such recommendations to be out-of-scope. It is recommended that a
+RISC-V platform vendor follows the recommendations for the jurisdictions where
+their platform will be sold. The current section points readers to resources
+where cryptographic recommendations can be found for most jurisdictions.
 
 The following resources provide general cryptographic guidance applicable to
 most western jurisdictions:
