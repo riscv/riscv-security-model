@@ -26,8 +26,8 @@ systems.
 
 === PQC readiness
 
-Quantum safe cryptography is an evolving area of research. For example, see:
-https://csrc.nist.gov/projects/post-quantum-cryptography.
+Quantum safe cryptography is an evolving area of
+researchfootnote:[https://csrc.nist.gov/projects/post-quantum-cryptography].
 
 ML-KEM (FIPS-203), ML-DSA (FIPS-204), and SLH-DSA (FIPS-205). ML-KEM defines a
 key-encapsulation mechanism used to establish a shared secret key over a public
@@ -93,14 +93,12 @@ specialized algorithms for performance in a constrained use case. These are not
 discussed here but should have similar properties to the ones listed above, but
 with different trade-offs.
 
-For Chinese markets, equivalent _ShangMi (SM)_ algorithm support is required.
-In particular:
+For Chinese marketsfootnote:[http://gmbz.org.cn/main/index.html], equivalent
+_ShangMi (SM)_ algorithm support is required. In particular:
 
 * SM2: Authentication (ECC based)
 * SM3: Hash function (256-bit)
 * SM4: Block cipher
-
-See http://gmbz.org.cn/main/index.html
 
 RISC-V cryptographic ISA extensions also include support for ShangMi algorithms
 (SM3 and SM4)

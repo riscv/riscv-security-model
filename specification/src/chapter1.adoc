@@ -33,12 +33,12 @@ used non-RVI architecture agnostic security features and processes. It aims to s
 how those can be combined, in commonly used examples, to create systems which
 are certifiable within commonly used existing security certification programmes.
 
-The examples are not definitions of formal Protection Profiles (See:
-https://csrc.nist.gov/glossary/term/protection_profile).
-Formal protection profiles are typically provided by third party certification
-bodies for different ecosystems. The guidelines provided within the examples in
-this specification are intended to help readers adapt RISC-V security features
-to meet security requirements of commonly used third party protection profiles.
+The examples are not definitions of formal Protection Profilesfootnote:[
+https://csrc.nist.gov/glossary/term/protection_profile]. Formal protection
+profiles are typically provided by third party certification bodies for
+different ecosystems. The guidelines provided within the examples in this
+specification are intended to help readers adapt RISC-V security features to
+meet security requirements of commonly used third party protection profiles.
 Mapping documentation or protection profiles may also directly reference this
 document.
 
@@ -56,8 +56,9 @@ Security is an evolving area where new use cases and new threats can emerge at
 any time. This specification represents the RISC-V security model and best
 practice as of the date of publication of this document.
 
-Terms not explicitly defined in this specification are to be interpreted according
-to the NIST Computer Security Resource Center Glossary (https://csrc.nist.gov/glossary)
+Terms not explicitly defined in this specification are to be interpreted
+according to the NIST Computer Security Resource Center
+Glossaryfootnote:[https://csrc.nist.gov/glossary]
 
 New versions of this document may be developed and released as and when
 required.

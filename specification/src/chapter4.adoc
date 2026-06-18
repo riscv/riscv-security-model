@@ -907,10 +907,8 @@ The _TEE device interface security protocol (TDISP)_ defined by PCIe provides a
 security architecture and protocols allowing a confidential workload to
 securely attest, manage and exchange data with a trusted device.
 
-CoVE defines RISC-V support for TDISP. See:
-
-https://pcisig.com/specifications/
-https://github.com/riscv-non-isa/riscv-ap-tee-io
+CoVE defines RISC-V support for
+TDISPfootnote:[https://pcisig.com/specifications/]footnote:[https://github.com/riscv-non-isa/riscv-ap-tee-io].
 
 ==== Debug and performance management
 
