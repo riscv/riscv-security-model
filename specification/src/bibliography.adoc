@@ -1,5 +1,4 @@
 [bibliography]
 == Bibliography
 
-* [[[R2,2]]] RISC-V Security Model mapping of building blocks to best practices
-(https://docs.google.com/spreadsheets/d/1u56I03hxHCUKuPjByB2J2fPmVgPLKUnPcsemDyVh_T0/edit?gid=1395632845#gid=1395632845[link])
+bibliography::[]

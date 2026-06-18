@@ -8,7 +8,7 @@ This chapter provides a selection of non-exhaustive example security usecases ba
 deployment security models. The examples may be extended over time as required. This section is non-normative
 guidance only, detailing the recommended combination of security requirements for the associated use case.
 
-For ease of reference, for each usecase, <<R2>> lists the mapping of the RISC-V
+For ease of reference, for each usecase, cite:[rvi::sec-model-map] lists the mapping of the RISC-V
 ISA and non-ISA building blocks used along with links to the building block
 specification, POCs, and code repositories available.
 
