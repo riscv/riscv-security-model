@@ -22,7 +22,7 @@ their specific use cases.
 
 The set of examples may be extended over time as required.
 
-RISC-V is not intending to create a security certification programme.
+RISC-V is not intending to create a security certification program.
 This specification is provided as guidance for developing secure
 RISC-V systems which are certifiable within existing third party security
 certification programmes.

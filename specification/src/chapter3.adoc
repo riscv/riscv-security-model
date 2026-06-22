@@ -24,7 +24,7 @@ as on device accesses. RISC-V enables:
 
 ==== Privilege levels
 
-*See section 1.2 (Privilege Levels) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Privilege Levels of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 Standard privilege levels - machine mode (M-Mode), supervisor mode (S-Mode), and user
@@ -33,7 +33,7 @@ software.
 
 ==== Hypervisor extension
 
-*See chapter 8 (Hypervisor Extension) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Hypervisor Extension of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 The Hypervisor extension supports standard supervisor level hypervisors. It extends
@@ -55,18 +55,20 @@ and VU-Mode.
 | SR_HYP_001
 | For virtualised environments, Hypervisor extension MUST be supported
 
+
+| SR_HYP_002
+| For non-virtualised environments, Hypervisor extension MUST be supported
 |===
 
 
-Alternatively SPMP can be used instead of MMU to support static partitioning
-hypervisors, for example on systems with hard and deterministic real time
-requirements.
+Alternatively SPMP can be used instead of address translation and protection to support static partitioning
+hypervisors, for example on systems with hard and deterministic real time requirements.
 
 MMU, PMP/Smepmp, and SPMP are discussed later in this chapter.
 
 ==== PMA
 
-*See section 3.6 (Physical Memory Attributes) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Physical Memory Attributes of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 _Physical memory attributes (PMA)_ are intended to capture inherent properties
@@ -78,9 +80,10 @@ A separate hardware checker - _PMA checker_ - enforces PMA rules at runtime once
 a physical address is known. PMA rules are always checked on every physical
 access, and typically configured by region.
 
+
 ==== PMP
 
-*See section 3.7 (Physical Memory Protection) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Physical Memory Protection of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 _Physical memory protection (PMP)_ enables M-Mode to access-control physical
@@ -105,7 +108,7 @@ Depending on the use case, MPT may be an acceptable additional or alternative me
 
 ==== Smepmp
 
-*See chapter 6 (PMP Enhancements for memory access and execution prevention in M-Mode) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section PMP Enhancements for memory access and execution prevention in M-Mode of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 Smepmp (ePMP) extends PMP protection by allowing M-Mode to restrict its own access to memory allocated to lower privilege levels. This can be
@@ -122,6 +125,7 @@ used to mitigate against privilege escalation attacks.
 | If PMP is supported then Smepmp MUST be supported.
 |===
 
+
 ==== SPMP
 
 _This extension is not ratified at the time of writing, but is stable enough to be included_
@@ -135,7 +139,7 @@ SPMP allows S-Mode to restrict its own access to memory allocated to
 lower privilege levels. This can be used to mitigate against privilege
 escalation attacks, for example.
 
-When combined with H-extension, SPMP can be nested so that the hypervisor can
+When combined with H-extension, SPMP and a virtualised SPMP - _vSPMP_ - can be nested so that the hypervisor can
 control memory allocations to its guests, and each guest can control its own
 memory allocations to its workloads.
 
@@ -153,48 +157,58 @@ memory allocations to its workloads.
 
 | SR_PMP_006
 | SPMP configurations MUST only be directly accessible to M-Mode and S-Mode
+
+| SR_PMP_007
+| vSPMP configurations MUST only be directly accessible to M-Mode and HS-Mode and VS-mode. 
+
+| SR_PMP_008
+| vSPMP MUST be used to protect VS-mode from VU-Mode.
+
+| SR_PMP_009
+| vSPMP MUST be used to protect VU-mode workloads from other VU-Mode workloads.
+
 |===
 
-NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension). The MMU may be an additional or alternative mechanism.
+NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension). Address translation and proteciton may be an additional or alternative mechanism.
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of SPMP to isolate trusted applications from each other.
-The MMU may be an additional or alternative mechanism
+Address translation and protection may be an additional or alternative mechanism
 
-
-==== MMU
+[[atp]]
+== Address translation and protection
 
 *See sections 4.3 to 4.6 (Page-Based Virtual-Memory Systems) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
-_Memory management unit (MMU)_ enables address translation and protection for:
+_Address translation and protection_ enables:
 
 * Isolating an OS from workloads, and workloads from each other on a system without H-extension (one-stage
 translation)
 * Isolating a hypervisor from a guest, on a system with H-extension (two-stage
 translation)
 
-[#cat_sr_sub_mmu]
+[#cat_sr_sub_atp]
 [width=100%]
 [%header, cols="5,20"]
 |===
 | ID#
 | Requirement
 
-| SR_MMU_001
+| SR_ATP_001
 | If the Sv extension is supported then 1st-stage page tables MUST be used to protect
 the S-Mode Supervisor domain from accesses made by U-Mode.
 
-| SR_MMU_002
+| SR_ATP_002
 | If the H extension is supported 1st-stage and/or G-stage page tables MUST be used to protect
 Supervisor domain H/S-Mode from lower privilege levels.
 
-| SR_MMU_003
-| MMU MUST be used to protect resources assigned to one workload from other workloads
+| SR_ATP_003
+| Address translation and protection MUST be used to protect resources assigned to one workload from other workloads
 |===
 
-NOTE: Dependent on the use case, it may be recommended or mandatory to use MMU to protect S-Mode from lower privilege levels (with or without the H-extension). The SPMP and PMP may be an additional or alternative mechanism.
+NOTE: Dependent on the use case, it may be recommended or mandatory to use address trnslation and protection to protect S-Mode from lower privilege levels (with or without the H-extension). The SPMP and PMP may be an additional or alternative mechanism.
 
-NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of MMU to isolate trusted applications from each other. The SPMP and PMP may be an additional or alternative mechanism.
+NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of address trnslation and protection to isolate trusted applications from each other. The SPMP and PMP may be an additional or alternative mechanism.
 
 ==== Address‑Independent Latency of Faults 
 
@@ -211,6 +225,7 @@ To prevent timing side channels that may infer the address space layout of super
 | Svukte MUST be used to mitigate timing attacks arising from U-Mode access to S-Mode memory
 |===
 
+[[supervisor_domains]]
 ==== Supervisor domains and MPT
 
 _This extension is not ratified at the time of writing, but is stable enough to be included_
@@ -324,10 +339,12 @@ extensions for interrupts (Smsdia).
 extensions for external debug (TBD).
 |===
 
-*See chapter 6 (Smsdia) of the https://github.com/riscv/riscv-smmtt[RISC-V Supervisor
+*See section Smsdia of the https://github.com/riscv/riscv-smmtt[RISC-V Supervisor
 Domains Access Protection] specification.*
 
 ==== External debug and performance counters
+
+_This extension is not ratified at the time of writing, but is stable enough to be included_
 
 *See the https://github.com/riscv-non-isa/riscv-external-debug-security[RISC-V External Debug Security Extension]
 specification.*
@@ -395,7 +412,8 @@ affected component, MUST be subject to an application specific governance proces
 NOTE: Enabling debug after measurement ensures the system remains attestable but can affect the
 confidentiality and trustworthiness of the affected components, and must be subject to an attested policy
 
-*See chapters 7 and 9 of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Cycle and Instret Privilege Mode Filtering and section Counter Delegation
+Extensions of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification on performance counters.*
 
 These extensions enable management of interrupts, external debug, and
@@ -472,13 +490,11 @@ may require that Root devices are not able to access memory assigned to TEE doma
 
 ==== IOMMU
 
-_This extension is not ratified at the time of writing, but is stable enough to be included_
-
 *See the https://github.com/riscv-non-isa/riscv-iommu[RISC-V IOMMU] specification.*
 
 IOMMU is a system level component performing memory address translation from IO
 Virtual Addresses to Physical Addresses thereby allowing devices to access virtual memory
-locations. It complements the MMU.
+locations. It complements address translation and protection.
 
 [width=100%]
 [%header, cols="5,20"]
@@ -487,7 +503,7 @@ locations. It complements the MMU.
 | Requirement
 
 | SR_IOM_005
-| Systems supporting MMU MUST also support IOMMU
+| Systems supporting address translation and protection MUST also support IOMMU
 
 |===
 
@@ -537,13 +553,13 @@ MUST not be delegated to lower privilege levels (Smlwidlist).
 
 | SR_WOR_007
 | If a hart supports S-Mode, World IDs used by S-Mode MUST
-not be delegated to U-Mode (Smwdeleg).
+not be delegated to U-Mode (Smwiddeleg).
 
 |===
 
 === Software enforced memory tagging
 
-*See Chapter 25 of https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged ISA] specification.*
+*See section Pointer Masking Extensions in https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged ISA] specification.*
 
 _Memory tagging (MT)_, is a technique which can improve the memory safety of an
 application. A part of the effective address of a pointer can be masked off
@@ -559,7 +575,7 @@ See also hardware enforced memory tagging below.
 
 === Control flow integrity
 
-*See chapter 23 of https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Control Flow Integrity in https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 Control-flow Integrity (CFI) capabilities help defend against Return-Oriented
@@ -582,12 +598,26 @@ target address.
 RISC-V provides two defenses:
 
 * Shadow stacks (Zicfiss) - protect return addresses on call stacks
-* Labeled Landing pads (Zicfilp) - protect target addresses in jumps and
+* Labeled Landing pads (Zicfilp) - protect target addresses if indirect jumps
+
+[width=100%]
+[%header, cols="5,20"]
+|===
+| ID#
+| Requirement
+
+| SR_CFI_001
+| Shadow Stacks MUST be used to protect return addresses on call stacks
+
+| SR_CFI_002
+| Labeled Landing pads MUST be used to protect target addresses in jumps and
 branches
+
+|===
 
 === Cryptography
 
-*See Chapters 31 and 32 of https://github.com/riscv/riscv-isa-manual/releases/latest[Unprivileged
+*See section Vector Operations and section Cryptography Extensions of https://github.com/riscv/riscv-isa-manual/releases/latest[Unprivileged
 ISA] specification.*
 
 RISC-V includes ISA extensions in the following cryptographic areas:
@@ -618,7 +648,7 @@ recommendations and references.
 extensions
 
 | SR_CPT_002
-| RISC-V systems SHALL support vector cryptographic ISA
+| RISC-V systems MUST support vector cryptographic ISA
 extensions
 
 | SR_CPT_003

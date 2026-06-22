@@ -61,15 +61,15 @@ See xref:chapter3.adoc#_pmp_and_epmp[PMP and Smepmp]
 
 See xref:chapter3.adoc#_spmp[SPMP]
 
-See xref:chapter3.adoc#_mmu[MMU]
+See xref:chapter3.adoc#atp[Address Translation and Protection]
 
 The SPMP is typically used in relatively static deployments such as determinism sensitive use cases like automotives.
 
-The MMU is typically required for Linux based systems and for virtualized systems.
+The address translation and protection is typically required for Linux based systems and for virtualized systems.
 
-Either MMU or SPMP can be used both with or without the hypervisor extension. For
+Either address translation and protection or SPMP can be used both with or without the hypervisor extension. For
 example, the hypervisor extension with SPMP can support static partitioning
-hypervisors commonly used in automotive. A single stage MMU can be used
+hypervisors commonly used in automotive. A single stage address translation and protection can be used
 without the hypervisor extension for full Linux support.
 
 ==== Root of Trust
@@ -82,7 +82,7 @@ See xref:chapter2.adoc#_reference_model[reference model].
 | Requirement
 | Reference
 
-| A system level HW RoT is recommended
+| Implement a system level HW RoT
 | SR_ROT_001,
 SR_ROT_002
 
@@ -144,9 +144,9 @@ On a non-virtualized system, user devices can be managed by the OS which can
 enforce access rules for user applications.
 
 On a virtualized system, devices can be virtualized and assigned to guests by
-the hypervisor configuring MMU and IOMMU translation rules.
+the hypervisor configuring address translation and protection and IOMMU translation rules.
 
-NOTE: IOMTT can also be sufficient for protecting Root devices in the sense that
+NOTE: IOMPT can also be sufficient for protecting Root devices in the sense that
 M-Mode can enforce that its own resources are never assigned to another domain.
 Use of IOPMP or similar could still add further protections. For example, a system
 may require that Root devices cannot access memory assigned to Confidential
@@ -223,10 +223,10 @@ of context switching across boundaries.
 ==== Overview
 
 [caption="Figure {counter:image}: ", reftext="Figure {image}"]
-[title= "Global platform TEE use cases"]
+[title= "GlobalPlatform TEE use cases"]
 image::img_ch4_gp-tee.png[]
 
-https://globalplatform.org/[Global platform] defines technical standards,
+https://globalplatform.org/[_GlobalPlatform_] (GP) defines technical standards,
 interface specifications and programming models, open source firmware, and
 certification programs for _trusted execution environments (TEE)_.
 
@@ -306,7 +306,7 @@ itself from unintended access to resources assigned to a different domain
 
 | Ensure resources assigned to a single TA, or a guest TEE, are not be accessible by a
 different TA, or guest TEE, without consent.
-| SR_PMP_005 OR SR_MMU_003
+| SR_PMP_005 OR SR_ATP_003
 
 |===
 
@@ -326,11 +326,12 @@ can be cached when context switching between Normal and TEE domains.
 RISC-V hardware enforced isolation mechanisms can be used as follows to meet
 those guarantees:
 
-See xref:chapter3.adoc#_supervisor_domains[supervisor domains].
-See xref:chapter3.adoc#_pmp_and_epmp[PMP and Smepmp]
-See xref:chapter3.adoc#_spmp[SPMP]
-See xref:chapter3.adoc#_mmu[MMU]
-See xref:chapter3.adoc#_mtt[MTT]
+
+See xref:chapter3.adoc#supervisor_domains[Supervisor Domains] +
+See xref:chapter3.adoc#_pmp[PMP and Smepmp] +
+See xref:chapter3.adoc#_spmp[SPMP] +
+See xref:chapter3.adoc#atp[Address Translation and Protection] +
+
 
 [width=100%]
 [%header, cols="6,^4"]
@@ -341,16 +342,16 @@ See xref:chapter3.adoc#_mtt[MTT]
 | Use Supervisor domains to enforce isolation between Normal and TEE domains, and to protect M-Mode from other domains
 | SR_SUD_001 OR SR_SUD_002, SR_MPT_001, SR_MPT_002
 
-| For a static partition TEE, use PMP, SPMP, MMU or MPT to enforce isolation
+| For a static partition TEE, use PMP, SPMP, address translation and protection or MPT to enforce isolation
 between TA in TEE domain.
-| SR_PMP_005 OR SR_MMU_003
+| SR_PMP_005 OR SR_ATP_003
 
 | For a virtualized TEE, use hypervisor extension
-| SR_HYP_001,SR_MMU_001, SR_MMU_002,
+| SR_HYP_001,SR_ATP_001, SR_ATP_002,
 
-| For a virtualized TEE, SPMP or MMU MUST be used to enforce isolation between guest
+| For a virtualized TEE, SPMP or address translation and protection MUST be used to enforce isolation between guest
 TEE, and between TA within a TEE.
-| SR_PMP_005 OR SR_MMU_003
+| SR_PMP_005 OR SR_ATP_003
 
 |===
 
@@ -364,7 +365,7 @@ See xref:chapter2.adoc#_reference_model[reference model].
 | Requirement
 | Reference
 
-| It is recommended that a TEE based system implement a HW RoT
+| On a TEE based system, implement a HW RoT
 | SR_ROT_001, SR_ROT_002
 
 |===
@@ -411,7 +412,9 @@ platform attestation.
 | Requirement
 | Reference
 
-| Attestation is used to determine trustworthiness across all components
+a| 
+Attestation is used to determine trustworthiness across all components +
+
 * TEE domain
 * Root domain
 * Boot state of all trusted subsystems
@@ -451,15 +454,15 @@ exposure of cryptographic materials.
 | Requirement
 | Reference
 
-| Local sealing for a TA, or a TEE guest, must be unique to TEE domain and to a
+| Ensure Local sealing for a TA, or a TEE guest is unique to TEE domain and to a
 physical instance of a system.
 
 | SR_SUD_003, SR_SLG_002
 
-| Local sealing for a TA, or a TEE guest, should also be unique to the TEE guest
-or the TA.Local sealing MAY be layered
+| Ensure Local sealing for a TA, or a TEE guest is also unique to the TEE guest
+or the TA. Local sealing may be layered
 
-| SR_MMU_003 OR SR_PMP_005
+| SR_ATP_003 OR SR_PMP_005
 |===
 
 For example:
@@ -483,11 +486,11 @@ and interrupts.
 | Requirement
 | Reference
 
-| A static partition TEE must use IOPMP to enforce access rules for devices.
+| Use IOPMP to enforce access rules for devices with a static partition TEE
 | SR_IOP_004
 
-| A virtualized TEE must use IOMPT and IOMMU to enforce access rules for devices
-assigned to Normal or TEE domains, and should use IOPMP to enforce access rules
+| Use IOMPT and IOMMU to enforce access rules for devices
+assigned to Normal or TEE domains with a virtualized TEE, and IOPMP to enforce access rules
 for Root devices.
 | SR_IOM_001, SR_IOM_002, SR_IOM_003, SR_IOM_004, SR_IOM_005
 |===
@@ -497,11 +500,11 @@ access within TEE and Normal domains is governed by TEE OS and the rich OS
 respectively. It can be implemented using IOPMP. Policy can be controlled by
 boot configuration, by a HW or FW RoT.
 
-For a virtualized TEE, IOMTT enforces supervisor domain level access rules
+For a virtualized TEE, IOMPT enforces supervisor domain level access rules
 (physical isolation). IOMMU enforces guest and TA level access rules
 (virtualization), supporting device assignment to a guest TEE or a TA.
 
-NOTE: IOMTT can also be sufficient for protecting Root devices in the sense that
+NOTE: IOMPT can also be sufficient for protecting Root devices in the sense that
 M-Mode can enforce that its own resources are never assigned to another domain.
 Use of IOPMP or similar could still add further protections. For example, a system
 may require that Root devices cannot be used to access memory assigned to
@@ -524,7 +527,7 @@ Possible use cases include:
 
 * Tweaking cryptographic memory protection (uniqueness)
 * Tagging interrupts, debug accesses, or coherent memory accesses
-* Device assignment (IOPMP/IOMTT integration), static or dynamic
+* Device assignment (IOPMP/IOMPT integration), static or dynamic
 
 The attributes can be derived, for example, from SDID and privilege level, or from
 PMA.
@@ -544,22 +547,25 @@ See https://github.com/riscv-non-isa/riscv-external-debug-security[enhanced RISC
 | Requirement
 | Reference
 
-| External debug must be enabled separately for Root domain.
+| Enable External debug separately for Root domain.
 | SR_DBG_001, SR_DBG_002
 
-| External debug must be enabled separately for each supervisor domain.
+|  Enable External debug separately for each supervisor domain.
 | SR_SUD_007
 
-| External debug must only be enabled by a HW RoT (Root domain external debug)
+| Enable External debug by a HW RoT (Root domain external debug)
 or by Root domain (supervisor domain external debug).
 | SR_DBG_001, SR_SUD_007
 
-| Self-hosted debug may be used for debug within a supervisor domain.
+| Use Self-hosted debug for debug within a supervisor domain.
 | SR_DBG_003
 
-| Self-hosted debug must only be enabled by a higher privileged component.
+| Enable Self-hosted debug using a higher privileged component.
 | SR_DBG_004
+
 |===
+
+
 
 For example, within normal domain an S-Mode or VS-Mode OS can enable
 self-hosted debug for a user application. Or an HS-Mode hypervisor can enable
@@ -591,20 +597,20 @@ reasons.
 | Requirement
 | Reference
 
-| External debug MUST only be enabled following system reset (part of measuring)
+| Only enable external debug following system reset (part of measuring)
 of the affected component.
 |SR_DBG_006
 
-| Revealing self-hosted debug MUST only be enabled following reboot (part of
+| Only enable revealing self-hosted debug following reboot (part of
 measuring) of the affected component.
 |SR_DBG_007
 
-| Trusted self-hosted debug MAY be enabled at runtime (after measuring) of the
-affected component, to an application specific governance process.
+| Enable Trusted self-hosted debug at runtime (after measuring) of the
+affected component, under an application specific governance process.
 |SR_DBG_008
 |===
 
-Guarantees the system remains attestable.
+These requirements are to guarantee  the system remains attestable.
 
 See xref:chapter2.adoc#_event_counters[event counters]
 
@@ -670,11 +676,11 @@ then combined into a single TEE security manager in Root domain.
 
 Confidential workloads require isolation guarantees. RISC-V hardware enforced isolation mechanisms can be used as follows to meet those requirements:
 
-See xref:chapter3.adoc#_supervisor_domains[supervisor domains].
-See xref:chapter3.adoc#_pmp_and_epmp[PMP and Smepmp]
-See xref:chapter3.adoc#_spmp[SPMP]
-See xref:chapter3.adoc#_mmu[MMU]
-See xref:chapter3.adoc#_mtt[MTT]
+See xref:chapter3.adoc#supervisor_domains[Supervisor Domains] +
+See xref:chapter3.adoc#_pmp[PMP and Smepmp] +
+See xref:chapter3.adoc#_spmp[SPMP] +
+See xref:chapter3.adoc#atp[Address Translation and Protection] +
+
 
 [width=100%]
 [%header, cols="6,^4"]
@@ -693,20 +699,20 @@ itself from unintended access to resources assigned to a different domain
   SR_SUD_001 OR SR_SUD_002
 
 | Block resources assigned to Confidential domains from access by Normal domain
-| SR_SUD_001 OR SR_SUD_002, SR_SUD_003, SR_SUD_004, SR_MMU_001, SR_MMU_002
+| SR_SUD_001 OR SR_SUD_002, SR_SUD_003, SR_SUD_004, SR_ATP_001, SR_ATP_002
 
 | Block resources assigned to Normal domain from access by Confidential domain
-| SR_SUD_001 OR SR_SUD_002, SR_SUD_003, SR_SUD_004, SR_MMU_001, SR_MMU_002
+| SR_SUD_001 OR SR_SUD_002, SR_SUD_003, SR_SUD_004, SR_ATP_001, SR_ATP_002
 
 | Allow resources to be assigned to both Normal domain and Confidential domain (sharing by consent)
 | SR_SUD_001 OR SR_SUD_002, SR_SUD_003, SR_SUD_004
 
 | Ensure resources assigned to a confidential workload are not accessible by other confidential workloads
 without consent.
-| SR_MMU_003
+| SR_ATP_003
 
 | Implement hypervisor functionality for resource management
-| SR_HYP_001, SR_MMU_001, SR_MMU_002
+| SR_HYP_001, SR_ATP_001, SR_ATP_002
 
 
 |===
@@ -847,11 +853,11 @@ Root domain.
 
 |===
 
-IOMTT enforces supervisor domain level access rules (physical isolation).
+IOMPT enforces supervisor domain level access rules (physical isolation).
 IOMMU enforces guest and TA level access rules (virtualization), supporting
 device assignment to a Confidential guest.
 
-NOTE: IOMTT can also be sufficient for protecting Root devices in the sense
+NOTE: IOMPT can also be sufficient for protecting Root devices in the sense
 that M-Mode can enforce that its own resources are never assigned to another
 domain. Use of IOPMP or similar could still add further protections. For example,
 a system may require that Root devices cannot be used to access memory assigned
@@ -871,9 +877,9 @@ either Root, Normal, or TEE domains.
 
 Possible use cases include:
 
-* Tweaking cryptographic memory protection (uniqueness)
+* Modifying cryptographic memory protection (uniqueness)
 * Tagging interrupts, debug accesses, or coherent memory accesses
-* Device assignment (IOPMP/IOMTT integration), static or dynamic
+* Device assignment (IOPMP/IOMPT integration), static or dynamic
 
 The attributes can be derived, for example, from SDID and privilege mode.
 
@@ -923,20 +929,20 @@ See https://github.com/riscv-non-isa/riscv-external-debug-security[enhanced RISC
 | Requirement
 | Reference
 
-| External debug must be enabled separately for Root domain.
+| Enable External debug separately for Root domain.
 | SR_DBG_001, SR_DBG_002
 
-| External debug must be enabled separately for each supervisor domain.
+|  Enable External debug separately for each supervisor domain.
 | SR_SUD_007
 
-| External debug must only be enabled by a HW RoT (Root domain external debug)
+| Enable External debug by a HW RoT (Root domain external debug)
 or by Root domain (supervisor domain external debug).
 | SR_DBG_001, SR_SUD_007
 
-| Self-hosted debug may be used for debug within a supervisor domain.
+| Use Self-hosted debug for debug within a supervisor domain.
 | SR_DBG_003
 
-| Self-hosted debug must only be enabled by a higher privileged component.
+| Enable Self-hosted debug using a higher privileged component.
 | SR_DBG_004
 
 |===
@@ -956,21 +962,20 @@ A machine mode monitor can enable external debug of individual supervisor domain
 | Requirement
 | Reference
 
-| External debug must only be enabled following system reset (part of measuring)
+| Only be enable External debug following system reset (part of measuring)
 of the affected component.
 | SR_DBG_006
 
-| Revealing self-hosted debug must only be enabled following reboot (part of
+| Only enable revealing self-hosted debug following reboot (part of
 measuring) of the affected component.
-| SR_DBG_007
+|SR_DBG_007
 
-| Trusted self-hosted debug may be enabled at runtime (after measuring) of the
-affected component, to an application specific governance process.
-| SR_DBG_008
-
+| Enable Trusted self-hosted debug at runtime (after measuring) of the
+affected component, under an application specific governance process.
+|SR_DBG_008
 |===
 
-Guarantees the system remains attestable.
+These requirements are to guarantee the system remains attestable.
 
 See xref:chapter2.adoc#_event_counters[event counters]
 
