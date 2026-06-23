@@ -177,7 +177,7 @@ Address translation and protection may be an additional or alternative mechanism
 [[atp]]
 === Address translation and protection
 
-*See sections 4.3 to 4.6 (Page-Based Virtual-Memory Systems) of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Page-Based Virtual-Memory Systems of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
 ISA] specification.*
 
 _Address translation and protection_ enables:
