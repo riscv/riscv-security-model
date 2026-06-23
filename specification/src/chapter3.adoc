@@ -169,7 +169,7 @@ memory allocations to its workloads.
 
 |===
 
-NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension). Address translation and proteciton may be an additional or alternative mechanism.
+NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension). Address translation and protection may be an additional or alternative mechanism.
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of SPMP to isolate trusted applications from each other.
 Address translation and protection may be an additional or alternative mechanism
