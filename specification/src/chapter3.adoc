@@ -208,7 +208,7 @@ Supervisor domain H/S-Mode from lower privilege levels.
 
 NOTE: Dependent on the use case, it may be recommended or mandatory to use address trnslation and protection to protect S-Mode from lower privilege levels (with or without the H-extension). The SPMP and PMP may be an additional or alternative mechanism.
 
-NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of address trnslation and protection to isolate trusted applications from each other. The SPMP and PMP may be an additional or alternative mechanism.
+NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of address translation and protection to isolate trusted applications from each other. The SPMP and PMP may be an additional or alternative mechanism.
 
 ==== Address‑Independent Latency of Faults 
 
