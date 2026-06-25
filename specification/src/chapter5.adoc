@@ -63,7 +63,7 @@ to PQC versions.
 
 === Cryptographic algorithms and guidelines
 
-Cryptographic recommendations recommendations are use-case and region specific,
+Cryptographic recommendations are use-case and region specific,
 each legal jurisdiction has their own guidance. Thus, this specification
 considers such recommendations to be out-of-scope. It is recommended that a
 RISC-V platform vendor follows the recommendations for the jurisdictions where
