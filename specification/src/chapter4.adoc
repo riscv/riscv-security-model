@@ -962,7 +962,7 @@ A machine mode monitor can enable external debug of individual supervisor domain
 | Requirement
 | Reference
 
-| Only be enable External debug following system reset (part of measuring)
+| Only enable External debug following system reset (part of measuring)
 of the affected component.
 | SR_DBG_006
 
