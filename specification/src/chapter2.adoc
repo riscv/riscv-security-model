@@ -456,7 +456,7 @@ a| * RISC-V privilege levels
 * RISC-V isolation (for example: PMP/ePMP, SPMP, MTT, supervisor domains)
 * RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU)
 | Capability based architecture, such as CHERI, RISC-V Worlds +
-Architectural sandboxing, such as Hardware Fault Isolation.
+Architectural sandboxing, such as Hardware Fault Isolation (HFI).
 
 | T_LGC_002
 | Transient execution attacks
