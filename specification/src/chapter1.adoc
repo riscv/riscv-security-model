@@ -22,7 +22,7 @@ their specific use cases.
 
 The set of examples may be extended over time as required.
 
-RISC-V is not intending to create a security certification programme.
+RISC-V is not intending to create a security certification program.
 This specification is provided as guidance for developing secure
 RISC-V systems which are certifiable within existing third party security
 certification programmes.
@@ -33,17 +33,17 @@ used non-RVI architecture agnostic security features and processes. It aims to s
 how those can be combined, in commonly used examples, to create systems which
 are certifiable within commonly used existing security certification programmes.
 
-The examples are not definitions of formal Protection Profiles (See:
-https://csrc.nist.gov/glossary/term/protection_profile).
-Formal protection profiles are typically provided by third party certification
-bodies for different ecosystems. The guidelines provided within the examples in
-this specification are intended to help readers adapt RISC-V security features
-to meet security requirements of commonly used third party protection profiles.
+The examples are not definitions of formal Protection Profilesfootnote:[
+https://csrc.nist.gov/glossary/term/protection_profile]. Formal protection
+profiles are typically provided by third party certification bodies for
+different ecosystems. The guidelines provided within the examples in this
+specification are intended to help readers adapt RISC-V security features to
+meet security requirements of commonly used third party protection profiles.
 Mapping documentation or protection profiles may also directly reference this
 document.
 
 This specification does not contain threat modelling or security assessment of
-the RISC-V ISA specifications, non-ISA specifications, profile specifications or 
+the RISC-V ISA specifications, non-ISA specifications, profile specifications or
 extensions (RISC-V technical specifications). RISC-V technical specifications
 are expected to use the Security Model as a guide to develop their own specific
 security analysis, including formal threat modeling where appropriate. For this
@@ -56,8 +56,9 @@ Security is an evolving area where new use cases and new threats can emerge at
 any time. This specification represents the RISC-V security model and best
 practice as of the date of publication of this document.
 
-Terms not explicitly defined in this specification are to be interpreted according
-to the NIST Computer Security Resource Center Glossary (https://csrc.nist.gov/glossary)
+Terms not explicitly defined in this specification are to be interpreted
+according to the NIST Computer Security Resource Center
+Glossaryfootnote:[https://csrc.nist.gov/glossary]
 
 New versions of this document may be developed and released as and when
 required.
@@ -169,6 +170,14 @@ SP800-207 - Zero Trust Architecture +
 https://www.nist.gov/
 |===
 
-This is not an exhaustive list, more examples can be found in the reference
-section of this specification.
+This is not an exhaustive list, more examples can be found in
+cite:[intel::zero-trust], cite:[microsoft::zero-trust], cite:[rvi::crypto],
+cite:[rvi::server-platform], cite:[cc::pp0084b],
+cite:[opentitan::device-lifecycle], cite:[nist::sp8320],
+cite:[nist::sp800-193], cite:[rambus::rot], cite:[opentitan::security-model],
+cite:[tcg::dice], cite:[ieee::logic-locking], cite:[acm::sw-fault-isolation],
+cite:[acm:keystone], cite:[gilbert2011testing], cite:[ieee::rsm],
+cite:[tches:aes-leakage], cite:[ieee:dual-rail], cite:[micro:spt],
+cite:[arxiv:web-asm], cite:[rvi::debug], cite:[iso::IEC-17825:2024], and
+cite:[samsung:knox].
 

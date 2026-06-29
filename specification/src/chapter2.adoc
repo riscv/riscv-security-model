@@ -57,9 +57,9 @@ identities.
 
 ==== Trusted Computing Base (TCB)
 
-The _Trusted Computing Base (TCB)_ of any system function is the totality of
+The _Trusted Computing Base (TCB)_ of any system function is the set of
 protection mechanisms within a computer system, including hardware,
-firmware, and software - the combination responsible for enforcing a security
+firmware, and software that are relied upon to enforce a security
 policy.
 
 The following are examples of software components that can be a part of some function's TCB:
@@ -88,7 +88,7 @@ Depending on use case and ecosystem requirements, a RISC-V RoT can be:
 Using a HW RoT moves critical functions and assets off an application processor hart to a dedicated and possibly isolated trusted subsystem, which can
 provide stronger protection against physical and logical attacks.
 
-The HW RoT acts as a _primary root of trust_ on the system.
+If present, the HW RoT acts as a _primary root of trust_ on the system.
 
 NOTE: It is common for secure systems to support multiple trust chains with
 their own RoT. For example, a TPM can be a RoT for UEFI
@@ -336,7 +336,7 @@ For example:
 
 * Memory bandwidth management
 * Cache allocation policies across workloads, including workload prioritization
-* Allocation of execution resources among harts in a SMT system
+* Allocation of execution resources among harts in a multithreaded system
 
 These types of features rely on monitoring the resource utilization of workloads,
 similar to event counters, and on the optimization of resource allocation policies.
@@ -456,7 +456,7 @@ a| * RISC-V privilege levels
 * RISC-V isolation (for example: PMP/ePMP, SPMP, MTT, supervisor domains)
 * RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU)
 | Capability based architecture, such as CHERI, RISC-V Worlds +
-Architectural sandboxing, such as HFI.
+Architectural sandboxing, such as Hardware Fault Isolation (HFI).
 
 | T_LGC_002
 | Transient execution attacks
@@ -476,7 +476,7 @@ https://developer.arm.com/documentation/#cf-navigationhierarchiesproducts=Arm%20
 vulnerability]
 | CBQRI and Ssqosid may help isolate cache entries. +
 Zicflip and Zicfiss can mitigate against ROP/COP/JOP, limiting some compound attacks.
-Fence.t, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
+Fence.time, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
 
 | T_LGC_003
 | Interface abuse
@@ -553,8 +553,9 @@ a| * Smstateen +
 | Direct or indirect +
 Physical or remote
 | For example, observing radiation, power line patterns, or temperature.
-a| * Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs.
-* Data Independent Execution Latency (Zkt, Zvkt)
+a|  Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs. +
+
+Implement Data Independent Execution Latency (Zkt, Zvkt)
 
 
 | T_PHY_002
@@ -562,10 +563,11 @@ a| * Implement power analysis mitigations such as cryptographic masking, constan
 | Direct +
 Logical or physical
 | Using NVDIMMs (susceptible to remanence attack), interposers, or physical probing to read, record, replay or relocate data in physical memory.
-a| * Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding.
-* Supervisor domain ID, privilege level, or MPT attributes may be used to
-derive separate memory encryption contexts at domain or workload granularity
-* Provide physical tamper resistance, such as an active mesh over critical logic, or case-opening sensors.
+a| Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding. +
+Supervisor domain ID, privilege level, or MPT attributes may be used to
+derive separate memory encryption contexts at domain or workload granularity +
+
+Provide physical tamper resistance, such as an active mesh over critical logic, or case-opening sensors.
 
 // * Physical attacks on hardware shielded locations to extract hardware
 // provisioned assets
@@ -577,13 +579,13 @@ derive separate memory encryption contexts at domain or workload granularity
 Logical or physical
 | Glitching to bypass secure boot +
 Retrieving residual confidential memory after a system reset
-a| * Implement robust power management, and adopt glitch-safe software techniques. +
+a| Implement robust power management, and adopt glitch-safe software techniques. +
 
-* Industry best practice should be followed. For example: ensuring un-initialized variables are not used; implementing integrity checking of critical data and hardware provisioned parameters; implementing redundancy in encoding, verification, branching, and critical logic. +
+Industry best practice should be followed. For example: ensuring un-initialized variables are not used; implementing integrity checking of critical data and hardware provisioned parameters; implementing redundancy in encoding, verification, branching, and critical logic. +
 
-* Adopt randomization techniques between boot sessions. For example: cryptographic memory protection with at least boot freshness; register randomization.
+Adopt randomization techniques between boot sessions. For example: cryptographic memory protection with at least boot freshness; register randomization. +
 
-* Hardware mitigation such as glitch detection, voltage and clock monitoring
+Hardware mitigation such as glitch detection, voltage and clock monitoring +
 
 | T_PHY_004
 | Subverting supply chains
@@ -592,7 +594,7 @@ a| * Implement robust power management, and adopt glitch-safe software technique
 supply chains and signing processes, hardware supply chains, attestation
 processes, development processes (for example, unfused development hardware or
 debug authorizations)
-a| * Deploy appropriate governance, accreditation, and certification processes for
+a| Deploy appropriate governance, accreditation, and certification processes for
 an ecosystem.
 
 | T_PHY_005
@@ -601,11 +603,15 @@ an ecosystem.
 Logical or physical
 | Rowhammer-type software attacks to manipulate nearby memory cells. +
 Fault injection attacks (glitching, laser, electromagnetic, etc.) to extract hardware-provisioned assets, modify the control flow, circumvent countermeasures, etc.
-a| * Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance.
-* Provide a level of tamper resistance, e.g., through RoT attestation, redundancy during execution, etc.
-* Enforce proper access control for the DVFS configuration.
-* Employ lockstep processors for security-critical devices.
-* Employ physical sensors to detect attack
+a| Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance. +
+
+Provide a level of tamper resistance, e.g., through RoT attestation, redundancy during execution, etc. +
+
+Enforce proper access control for the DVFS configuration. +
+
+Employ lockstep processors for security-critical devices. +
+
+Employ physical sensors to detect attack
 
 |===
 
