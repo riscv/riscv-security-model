@@ -64,7 +64,7 @@ and VU-Mode.
 Alternatively SPMP can be used instead of address translation and protection to support static partitioning
 hypervisors, for example on systems with hard and deterministic real time requirements.
 
-MMU, PMP/Smepmp, and SPMP are discussed later in this chapter.
+Address translation and protection, PMP/Smepmp, and SPMP are discussed later in this chapter.
 
 ==== PMA
 
