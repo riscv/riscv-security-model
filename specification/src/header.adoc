@@ -1,5 +1,5 @@
 [[header]]
-:description: RISC-V Security Model 
+:description: RISC-V Security Model
 :company: RISC-V.org
 :revdate: 03/2025
 :revnumber: 0.4
@@ -37,7 +37,7 @@ endif::[]
 :footnote:
 :xrefstyle: short
 
-= RISC-V Security Model 
+= RISC-V Security Model
 RISC-V Security Model Task Group
 
 // Preamble
@@ -65,7 +65,6 @@ include::chapter2.adoc[]
 include::chapter3.adoc[]
 include::chapter4.adoc[]
 include::chapter5.adoc[]
-include::references.adoc[]
 
 //the index must precede the bibliography
 //include::index.adoc[]

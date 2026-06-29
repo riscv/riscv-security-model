@@ -26,8 +26,8 @@ systems.
 
 === PQC readiness
 
-Quantum safe cryptography is an evolving area of research. For example, see:
-https://csrc.nist.gov/projects/post-quantum-cryptography.
+Quantum safe cryptography is an evolving area of
+researchfootnote:[https://csrc.nist.gov/projects/post-quantum-cryptography].
 
 ML-KEM (FIPS-203), ML-DSA (FIPS-204), and SLH-DSA (FIPS-205). ML-KEM defines a
 key-encapsulation mechanism used to establish a shared secret key over a public
@@ -63,20 +63,25 @@ to PQC versions.
 
 === Cryptographic algorithms and guidelines
 
+Cryptographic recommendations recommendations are use-case and region specific,
+each legal jurisdiction has their own guidance. Thus, this specification
+considers such recommendations to be out-of-scope. It is recommended that a
+RISC-V platform vendor follows the recommendations for the jurisdictions where
+their platform will be sold. The current section points readers to resources
+where cryptographic recommendations can be found for most jurisdictions.
+
 The following resources provide general cryptographic guidance applicable to
 most western jurisdictions:
-https://csrc.nist.gov/Projects/Cryptographic-Standards-and-Guidelines
-https://www.cnss.gov/CNSS/issuances/Memoranda.cfm
+https://csrc.nist.gov/Projects/Cryptographic-Standards-and-Guidelines[NIST] and
+https://media.defense.gov/2025/May/30/2003728741/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS.PDF[CNSA 2.0].
 
-In particular, for most new systems:
-
-* Public identifier: 512 bits (for example, hash of a public key)
-* Counter used as identifier: 64 bits
-* Block cipher: AES-256
-* Hash function: SHA-512, or SHA-3
-* Message authentication: HMAC-SHA-512
-* Asymmetric signing/encryption: RSA-3072, or ECC-384 (see <<_pqc_readiness,
-PQC readiness>>)
+The European Union (EU), through the Cyber Resilience Act (CRA), provides an
+"allow list" of cryptographic algorithms pointing to the
+https://certification.enisa.europa.eu/document/download/a845662b-aee0-484e-9191-890c4cfa7aaa_en?filename=ECCG%20Agreed%20Cryptographic%20Mechanisms%20version%202.pdf[Agreed
+Cryptographic Mechanisms 2.0]. Since the CRA is not currently enforced, other
+jurisdictions within the EU have their own recommendations. For example,
+https://messervices.cyber.gouv.fr/documents-guides/EN_Position.pdf[France] and
+https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/TechGuidelines/TG02102/BSI-TR-02102-1.pdf?__blob=publicationFile&v=14[Germany].
 
 Some legacy use cases may require use of other algorithms, such as SHA-256 or
 AES-128. In these cases, wherever possible, an upgrade path should be
@@ -88,14 +93,12 @@ specialized algorithms for performance in a constrained use case. These are not
 discussed here but should have similar properties to the ones listed above, but
 with different trade-offs.
 
-For Chinese markets, equivalent _ShangMi (SM)_ algorithm support is required.
-In particular:
+For Chinese marketsfootnote:[http://gmbz.org.cn/main/index.html], equivalent
+_ShangMi (SM)_ algorithm support is required. In particular:
 
 * SM2: Authentication (ECC based)
 * SM3: Hash function (256-bit)
 * SM4: Block cipher
-
-See http://gmbz.org.cn/main/index.html
 
 RISC-V cryptographic ISA extensions also include support for ShangMi algorithms
 (SM3 and SM4)
