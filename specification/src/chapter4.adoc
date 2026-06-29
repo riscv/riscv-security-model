@@ -975,7 +975,7 @@ affected component, under an application specific governance process.
 |SR_DBG_008
 |===
 
-These requirements are to guarantee the system remains attestable.
+These requirements guarantee the system remains attestable.
 
 See xref:chapter2.adoc#_event_counters[event counters]
 
