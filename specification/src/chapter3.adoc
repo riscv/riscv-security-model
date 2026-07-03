@@ -318,7 +318,7 @@ to a lower trust level supervisor domain. The trust levels/policies are specifie
 security system designer.
 
 | SR_SUD_005
-| Resources assigned to a lower trust levelsupervisor domain MUST be accessible to a higher trust level supervisor domain
+| Resources assigned to a lower trust level supervisor domain MUST be accessible to a higher trust level supervisor domain
 |===
 
 Supervisor domains allow resource isolation and sharing between domains under the control of M-Mode firmware. Trusted Execution Environments can require asymmetric sharing models, 
