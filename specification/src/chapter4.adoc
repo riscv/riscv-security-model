@@ -63,7 +63,7 @@ See xref:chapter3.adoc#_spmp[SPMP]
 
 See xref:chapter3.adoc#atp[Address Translation and Protection]
 
-The SPMP is typically used in relatively static deployments such as determinism sensitive use cases like automotives.
+The SPMP is typically used in relatively static deployments such as determinism sensitive use cases like automotive.
 
 The address translation and protection is typically required for Linux based systems and for virtualized systems.
 

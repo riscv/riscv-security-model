@@ -71,7 +71,8 @@ The following are examples of software components that can be a part of some fun
 
 ==== Root of trust
 
-A _root of trust (RoT)_ is the foundation on which all secure operations of a system depend. A RoT is typically a combination of a minimal amount of hardware and software that has to be implicitly trusted by all system components.
+A _root of trust (RoT)_ is the foundation on which all secure operations of a system depend. A RoT is typically a combination of a minimal amount of hardware 
+and software that has to be implicitly trusted by all other non-RoT HW and SW in a system.
 
 A RoT supports fundamental security services, for example:
 
@@ -79,6 +80,7 @@ A RoT supports fundamental security services, for example:
 * Security life cycle management
 * Key derivations and sealing (sealing is defined in a later section)
 * Security provisioning
+* Debug authorisation
 
 Depending on use case and ecosystem requirements, a RISC-V RoT can be:
 
@@ -197,8 +199,8 @@ level
 
 | RISC-V Worlds
 | Hardware World Identifiers for System level isolation
-| M, S
-| Physical, PMP, SPMP based
+| HW RoT, M, S
+| Physical
 | Fine Grained
 | Static boot configuration
 
@@ -475,7 +477,7 @@ security guidance] +
 https://developer.arm.com/documentation/#cf-navigationhierarchiesproducts=Arm%20Security%20Center,Speculative%20Processor%20Vulnerability[Arm speculative
 vulnerability]
 | CBQRI and Ssqosid may help isolate cache entries. +
-Zicflip and Zicfiss can mitigate against ROP/COP/JOP, limiting some compound attacks.
+Zicfilp and Zicfiss can mitigate against ROP/COP/JOP, limiting some compound attacks.
 Fence.time, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
 
 | T_LGC_003
@@ -507,6 +509,7 @@ Logical
 control flow to code controlled by an attacker.
 a| * Shadow stacks (Zicfiss)
 * Landing pads (Zicfilp)
+* Pointer Masking 
 | Capability based architecture, such as CHERI, +
   Memory Tagging
 
@@ -553,9 +556,10 @@ a| * Smstateen +
 | Direct or indirect +
 Physical or remote
 | For example, observing radiation, power line patterns, or temperature.
-a|  Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs. +
+a<|  Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs. +
 
-Implement Data Independent Execution Latency (Zkt, Zvkt)
+Implement Data Independent Execution Latency (Zkt, Zvkt) +
+Utilise entropy source in randomisation (Zkr)
 
 
 | T_PHY_002
@@ -563,7 +567,7 @@ Implement Data Independent Execution Latency (Zkt, Zvkt)
 | Direct +
 Logical or physical
 | Using NVDIMMs (susceptible to remanence attack), interposers, or physical probing to read, record, replay or relocate data in physical memory.
-a| Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding. +
+a<| Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding. +
 Supervisor domain ID, privilege level, or MPT attributes may be used to
 derive separate memory encryption contexts at domain or workload granularity +
 
@@ -579,7 +583,7 @@ Provide physical tamper resistance, such as an active mesh over critical logic, 
 Logical or physical
 | Glitching to bypass secure boot +
 Retrieving residual confidential memory after a system reset
-a| Implement robust power management, and adopt glitch-safe software techniques. +
+a<| Implement robust power management, and adopt glitch-safe software techniques. +
 
 Industry best practice should be followed. For example: ensuring un-initialized variables are not used; implementing integrity checking of critical data and hardware provisioned parameters; implementing redundancy in encoding, verification, branching, and critical logic. +
 
@@ -603,7 +607,7 @@ an ecosystem.
 Logical or physical
 | Rowhammer-type software attacks to manipulate nearby memory cells. +
 Fault injection attacks (glitching, laser, electromagnetic, etc.) to extract hardware-provisioned assets, modify the control flow, circumvent countermeasures, etc.
-a| Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance. +
+a<| Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance. +
 
 Provide a level of tamper resistance, e.g., through RoT attestation, redundancy during execution, etc. +
 
@@ -745,7 +749,7 @@ identifier.
 
 | SR_LFC_002
 | Hardware provisioned assets MUST only be accessible while the system is in
-secured state, or a recoverable debug state.(with the recoverable debug state in
+secured state, or a recoverable debug state (with the recoverable debug state in
 attestation evidence).
 
 | SR_LFC_003

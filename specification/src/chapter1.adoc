@@ -37,7 +37,7 @@ The examples are not definitions of formal Protection Profilesfootnote:[
 https://csrc.nist.gov/glossary/term/protection_profile]. Formal protection
 profiles are typically provided by third party certification bodies for
 different ecosystems. The guidelines provided within the examples in this
-specification are intended to help readers adapt RISC-V security features to
+specification are intended to help readers adopt RISC-V security features to
 meet security requirements of commonly used third party protection profiles.
 Mapping documentation or protection profiles may also directly reference this
 document.
