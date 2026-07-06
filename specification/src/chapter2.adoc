@@ -169,7 +169,7 @@ RISC-V has a range of isolation mechanisms available and in development.
 
 [#cat_sr_sub_ism]
 [width=100%]
-[%header, cols="10,20,8,6,8,9"]
+[%header, cols="10,20,8,5,8,10"]
 |===
 | Technology
 | Use Case
@@ -453,9 +453,9 @@ Finally, this specification does not attempt to rate attacks by severity, or by 
 | Direct +
 Logical
 | Unauthorized direct access to resources in normal operation.
-a| * RISC-V privilege levels
-* RISC-V isolation (for example: PMP/ePMP, SPMP, MTT, supervisor domains)
-* RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU)
+a| RISC-V privilege levels +
+RISC-V isolation (for example: PMP/ePMP, SPMP, MTT, supervisor domains) +
+RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU) +
 | Capability based architecture, such as CHERI, RISC-V Worlds +
 Architectural sandboxing, such as Hardware Fault Isolation (HFI).
 
@@ -464,10 +464,10 @@ Architectural sandboxing, such as Hardware Fault Isolation (HFI).
 | Chained +
 Logical
 | Attacks on speculative execution implementations.
-a| * Domain-bypass and Cross-domain attacks can be mitigated at a microarchitectural level by isolating predictive microarchitectural resources. Micro-architecture for RISC-V systems is implementation
+a| Domain-bypass and Cross-domain attacks can be mitigated at a microarchitectural level by isolating predictive microarchitectural resources. Micro-architecture for RISC-V systems is implementation
 specific, and must consider such vulnerabilities. +
  +
-* This is an evolving area of research. +
+This is an evolving area of research. +
  +
  For example: +
 https://meltdownattack.com/[Spectre and meltdown papers] +
@@ -485,8 +485,8 @@ Fence.time, Speculation barriers or similar future extensions, may at least part
 Logical
 | Abusing interfaces across privilege or isolation boundaries, for example to
 elevate privilege or to gain unauthorized access to resources.
-a| * RISC-V privilege levels
-* RISC-V isolation
+a| RISC-V privilege levels +
+RISC-V isolation
 | High assurance cryptography can isolate key material from SW
 
 | T_LGC_004
@@ -495,8 +495,8 @@ a| * RISC-V privilege levels
 Logical
 | For example, timing processes across privilege or isolation boundaries to
 derive information about confidential assets.
-a| * Data-independent timing instructions (Zkt, Zkvt)
-* Performance counters restricted by privilege and isolation boundaries
+a| Data-independent timing instructions (Zkt, Zkvt) +
+Performance counters restricted by privilege and isolation boundaries
 (sscofpmf, smcntrpmf)
 |
 
@@ -506,9 +506,9 @@ a| * Data-independent timing instructions (Zkt, Zkvt)
 Logical
 | Unauthorized manipulation of call stacks and jump targets to redirect a
 control flow to code controlled by an attacker.
-a| * Shadow stacks (Zicfiss)
-* Landing pads (Zicfilp)
-* Pointer Masking 
+a| Shadow stacks (Zicfiss) +
+Landing pads (Zicfilp) +
+Pointer Masking 
 | Capability based architecture, such as CHERI, +
   Memory Tagging
 
@@ -516,9 +516,9 @@ a| * Shadow stacks (Zicfiss)
 | Memory safety
 | Logical
 | Unauthorized access to resources within an isolated component. For example, pointer or allocation errors (temporal memory safety), or buffer overflows (spatial memory safety).
-a| * RISC-V pointer masking (Sspm, Supm) +
-* Shadow stacks (Zicfiss) +
-* Landing pads (Zicfilp) +
+a| RISC-V pointer masking (Sspm, Supm) +
+Shadow stacks (Zicfiss) +
+Landing pads (Zicfilp) +
 Memory Tagging
  +
 Memory safe programming +
