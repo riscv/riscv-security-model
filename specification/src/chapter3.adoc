@@ -604,14 +604,6 @@ RISC-V provides two defenses:
 * Shadow stacks (Zicfiss) - protect return addresses on call stacks
 * Labeled Landing pads (Zicfilp) - protect target addresses if indirect jumps
 
-NOTE: NOP-sled and code-injection attacks increase the reliability of control-flow 
-hijacking by allowing redirected execution to land within a broad region of benign 
-instructions that ultimately lead execution to an attacker-controlled payload. 
-RISC-V HINT instructions, as well as other instructions with minimal architecturally 
-visible effects, may be incorporated into NOP-sled-style sequences by an attacker. 
-Detection of such sequences, including those constructed from ISA-defined NOP, HINT, 
-or other NOP-equivalent instruction encodings, is the responsibility of NOP-sled 
-detection software and security tools.
 
 [width=100%]
 [%header, cols="5,20"]
@@ -627,6 +619,15 @@ detection software and security tools.
 branches
 
 |===
+
+NOTE: NOP-sled and code-injection attacks increase the reliability of control-flow 
+hijacking by allowing redirected execution to land within a broad region of benign 
+instructions that ultimately lead execution to an attacker-controlled payload. 
+RISC-V HINT instructions, as well as other instructions with minimal architecturally 
+visible effects, may be incorporated into NOP-sled-style sequences by an attacker. 
+Detection of such sequences, including those constructed from ISA-defined NOP, HINT, 
+or other NOP-equivalent instruction encodings, is the responsibility of NOP-sled 
+detection software and security tools.
 
 === Cryptography
 
