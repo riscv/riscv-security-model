@@ -709,7 +709,7 @@ For example, architectural metadata storage may be implemented in on-chip memory
 | Requirement
 
 | SR_AMS_004
-| Architectural metadata MUST be isolated by privilege level, and within supervisor domain boundaries
+| Architectural metadata MUST be isolation by execution context/domain and within domain boundaries
 
 |===
 

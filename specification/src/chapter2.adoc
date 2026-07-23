@@ -474,10 +474,10 @@ https://meltdownattack.com/[Spectre and meltdown papers] +
 https://www.intel.com/content/www/us/en/developer/topic-technology/software-security-guidance/processors-affected-consolidated-product-cpu-model.html[Intel
 security guidance] +
 https://developer.arm.com/documentation/#cf-navigationhierarchiesproducts=Arm%20Security%20Center,Speculative%20Processor%20Vulnerability[Arm speculative
-vulnerability]
-| CBQRI and Ssqosid may help isolate cache entries. +
+vulnerability] +
+CBQRI and Ssqosid may help isolate cache entries. +
 Zicfilp and Zicfiss can mitigate against ROP/COP/JOP, limiting some compound attacks.
-Fence.time, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
+| Fence.time, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
 
 | T_LGC_003
 | Interface abuse
@@ -537,6 +537,10 @@ Ssstateen
 |
 
 |===
+
+NNOTE: Entropy provided through a RISC-V Zkr-compliant entropy source can be used to improve the effectiveness of several attack mitigations. 
+Examples include address-space randomization, timing randomization, data masking, and noise-injection techniques. 
+These mechanisms rely on high-quality, unpredictable random values to hinder attacker observation and prediction.
 
 ==== Physical and remote
 
