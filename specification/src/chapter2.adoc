@@ -538,7 +538,7 @@ Ssstateen
 
 |===
 
-NNOTE: Entropy provided through a RISC-V Zkr-compliant entropy source can be used to improve the effectiveness of several attack mitigations. 
+NOTE: Entropy provided through a RISC-V Zkr-compliant entropy source can be used to improve the effectiveness of several attack mitigations. 
 Examples include address-space randomization, timing randomization, data masking, and noise-injection techniques. 
 These mechanisms rely on high-quality, unpredictable random values to hinder attacker observation and prediction.
 
