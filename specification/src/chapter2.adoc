@@ -248,7 +248,7 @@ HS - HS isolation )
 |
 
 | CHERI
-| Full Capability based access for memory safety and isolation
+| Full Capability-based access control for memory safety and isolation
 | M S U
 | Both
 | Fine Grained
@@ -538,7 +538,7 @@ Ssstateen
 
 |===
 
-NOTE: Entropy provided through a RISC-V Zkr-compliant entropy source can be used to improve the effectiveness of several attack mitigations. 
+NOTE: Entropy obtained through a RISC-V Zkr-compliant entropy source can be used to improve the effectiveness of several attack mitigations. 
 Examples include address-space randomization, timing randomization, data masking, and noise-injection techniques. 
 These mechanisms rely on high-quality, unpredictable random values to hinder attacker observation and prediction.
 
@@ -620,7 +620,7 @@ Enforce proper access control for the DVFS configuration. +
 
 Employ lockstep processors for security-critical devices. +
 
-Employ physical sensors to detect attack
+Employ physical sensors to detect attacks
 
 |===
 
@@ -753,7 +753,7 @@ identifier.
 | Requirement
 
 | SR_LFC_002
-| Hardware provisioned assets MUST only be accessible while the system is in
+| After completion of security provisioning, Hardware provisioned assets MUST only be accessible while the system is in
 secured state, or a recoverable debug state (with the recoverable debug state in
 attestation evidence).
 
@@ -993,7 +993,7 @@ subsystems can also include immutable software to meet specific security
 certification requirements.
 
 System updates are typically layered so that updates can target only parts of a
-system and not a whole system. The properties discussed below still apply to
+system and not only the whole system. The properties discussed below still apply to
 any system update.
 
 [width=100%]

@@ -37,7 +37,7 @@ software.
 ISA] specification.*
 
 The Hypervisor extension supports standard supervisor level hypervisors. It extends
-S-Mode into Hypervisor-extended supervisor mode (HS-Mode), and a virtual supervisor
+S-Mode into hypervisor-extended supervisor mode (HS-Mode), and a virtual supervisor
 mode (VS-Mode) for guests. It also extends U-Mode into standard user mode (U-Mode) and
 virtual user mode (VU-Mode).
 
@@ -525,7 +525,7 @@ Worlds defines execution context IDs (or World IDs) which allow different
 access policies to be programmed between an agent and a resource in a system.
 The IDs are created and assigned before or at reset/boot time, and are
 immutable afterwards. Any bus transaction stemming from an agent within a World
-always carries its World ID.
+always carries its World ID (WID).
 
 [width=100%]
 [%header, cols="5,20"]

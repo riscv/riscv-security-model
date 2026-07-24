@@ -139,7 +139,7 @@ referenced by this specification:
 | Description
 
 | Global Platforms (GP)
-| Trusted execution environments(TEE) and trusted firmware for mobile,
+| Trusted execution environments (TEE) and trusted firmware for mobile,
 connected clients, and IoT. +
 Secure element (SE) for tamper resistant storage of and operations on
 cryptographic secrets. +

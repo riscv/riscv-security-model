@@ -24,9 +24,9 @@ A generic vertically integrated system can be either virtualized or
 non-virtualized.
 
 
-M-Mode hosts a FW RoT. An OS or a Hypervisor in S-Mode or HS-Mode controls
+M-Mode hosts a FW RoT. An OS or a hypervisor in S-Mode or HS-Mode controls
 applications or guests. Guests and applications execute in U-Mode or VS/VU-Mode and
-trust the OS or Hypervisor to provide isolation guarantees.
+trust the OS or hypervisor to provide isolation guarantees.
 
 
 NOTE: The RISC-V architecture also caters for systems with just M and U modes,
@@ -304,7 +304,7 @@ itself from unintended access to resources assigned to a different domain
 (r/w/x), and to TEE domain (r/w) (default sharing rule)
 | SR_SUD_005
 
-| Ensure resources assigned to a single TA, or a guest TEE, are not be accessible by a
+| Ensure resources assigned to a single TA, or a guest TEE, are not accessible by a
 different TA, or guest TEE, without consent.
 | SR_PMP_005 OR SR_ATP_003
 
@@ -617,7 +617,7 @@ See xref:chapter2.adoc#_event_counters[event counters]
 === Confidential computing on RISC-V (CoVE)
 ==== Overview
 [caption="Figure {counter:image}: ", reftext="Figure {image}"]
-[title= "Confidential compute use case"]
+[title= "Confidential computing use case"]
 image::img_ch4_cove.png[]
 
 In hosting environments, tenant workloads rely on isolation primitives that are
@@ -626,12 +626,12 @@ which may include, for example, a hypervisor, orchestration services, and
 host management services. It may also include other tenants exploiting
 vulnerabilities in complex hosting software.
 
-Confidential compute aims to achieve a minimal and certifiable TCB for
+Confidential computing aims to achieve a minimal and certifiable TCB for
 _confidential workloads_.
 
 _CoVE (Confidential VM Extensions)_
 https://github.com/riscv-non-isa/riscv-ap-tee/tree/main/specification[specification]
-defines a confidential compute platform for RISC-V systems, including
+defines a confidential computing platform for RISC-V systems, including
 interfaces and programming models, covering life cycle management, attestation,
 resource management and devices assignment, for confidential workloads. It is
 based on principles defined by
@@ -867,7 +867,7 @@ to Confidential domain.
 
 In the case of a confidential computing system, hypervisor in Normal domain
 typically controls scheduling and resource assignment on the system across all
-harts available to it. The number and make-up of supervisor domains can be
+harts available to it. The number and composition of supervisor domains can be
 known, and a simple convention can be used for common identification of Normal,
 Confidential, and Root domains across multiple harts in a system.
 
@@ -889,7 +889,7 @@ workload granularity.
 
 ==== Trusted device assignment
 
-The goal of confidential compute is to provide a minimal TCB for a confidential
+The goal of confidential computing is to provide a minimal TCB for a confidential
 service, and CPU isolation mechanisms discussed so far do that on a hart.
 
 But most confidential services also make use of devices, both on-chip and
