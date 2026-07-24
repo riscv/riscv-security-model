@@ -215,7 +215,7 @@ NOTE: Dependent on the use case, Trusted Execution Environments may require or r
 
 _This extension is not ratified at the time of writing, but is stable enough to be included_
 
-To prevent timing side channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory must raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
+To prevent timing side channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory should raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
 
 [#cat_sr_sub_KTE]
 [width=100%]
@@ -250,7 +250,7 @@ the SDID, the mmpt CSR may specify a root PPN for a _Memory Protection Table (MP
 The MPT is a memory structure managed by M-Mode that is used to manage physical memory permissions across supervisor domains.
 It is designed to enable page-based dynamic memory management across supervisor
 domain boundaries.
-responsible for resource management.
+
 
 [#cat_sr_sub_mtt]
 [width=100%]
@@ -714,7 +714,8 @@ For example, architectural metadata storage may be implemented in on-chip memory
 
 |===
 
-Depending on the use case, architectural metadata may be visible to or managed by, for example, a supervisor level kernel or hypervisor, a kernel or a hypervisor within a supervisor domain, or by a M-Mode monitor. But it should be considered private within an isolation boundary and not accessible or guessable by lower privilege levels, or by code in a different supervisor domain.
+Depending on the use case, architectural metadata may be visible to or managed by, for example, a supervisor level kernel or hypervisor, a kernel or a hypervisor within a supervisor domain, or by a M-Mode monitor. 
+But it should be considered private within an isolation boundary and not accessible to, or guessable by lower privilege levels, or by code in a different supervisor domain.
 
 [width=100%]
 [%header, cols="5,20"]

@@ -830,7 +830,7 @@ assets of its own.
 ==== Device access control
 
 For the purpose of this specification, a device can be a logical device. A
-physical device can present more than one logical devices, each with its own
+physical device can present more than one logical device, each with its own
 (logical) control interface.
 
 The security guarantees also apply to device initiated accesses, for example

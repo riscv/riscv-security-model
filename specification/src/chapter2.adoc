@@ -730,7 +730,7 @@ Additional specific provisioning stages can take place in this
 state - for example network onboarding and device activation, App/Device
 attestation or user identity management. This is out of scope of this
 specification.
-* Recoverable debug - part of the system is in a revealing debug state +
+* Recoverable debug - part of the system is in a revealing debug state. +
 At least the RoT is not compromised and hardware provisioned secrets remain
 protected. +
 This state is both attestable and recoverable. For example, revealing debug is
@@ -944,7 +944,7 @@ Verification ensures the system has loaded authorized software.
 | Requirement
 
 | SR_MSM_003
-| A system MUST only use authorizations from trusted authority.
+| A system MUST only use authorizations from a trusted authority.
 |===
 
 * Direct verification requires a signed image authorization from a trusted
