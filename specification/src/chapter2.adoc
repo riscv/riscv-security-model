@@ -34,7 +34,7 @@ that need to be protected. These components are often sourced from multiple
 different supply chains. The security reference model uses the generic term domain to identify a logical security 
 boundary containing execution state and resources that are inaccessible to at least some other domain(s) 
 The figure above shows two examples, one with a single domain, the other with two domains for illustrative purposes but some
-use cases can require more. The two domains are notionally labelled _hosting domain_ and _confidential domain_ but they have identical properties. _Workloads_ are run in a domain, and are isolated from each other within that domain. Isolation within a domain may be managed by a _runtime environment_ or a _domain security manager_.  Switching between domains may be managed by a _root domain security manager_.  
+use cases can require more. The two domains are notionally labelled _hosting domain_ and _confidential domain_ but they have identical properties. _Workloads_ are run in a domain, and are isolated from each other within that domain. Isolation within a domain may be managed by a _runtime environment_ or a _domain security manager_.  Switching between domains may be managed by a _Root domain security manager_.  
 Isolated domains at the software level are typically reflected in isolated domains at the system hardware level, where hardware resources and _devices_ can be assigned or restricted to specific software domains. For example, device DMA transfers can be restricted to memory assigned to a particular domain. Additional platform services may be required in more complex systems. To illustrate this, _Platform QoS_ is shown in the two domain example.
 
 This specification does not imply or limit the number of domains or the type of use cases a RISC-V system can support. See
@@ -142,7 +142,7 @@ More privileged software controls memory access for less privileged software.
 * Domain isolation +
 Software in one domain cannot access or modify resources assigned to a different
 domain (without consent), regardless of privilege level. +
-(Higher privileged software in one domain cannot access resources assigned to a
+(Higher privileged software in one domain cannot access resources assigned to
 lower privileged software in a different domain)
 * Virtualization +
 Virtualization creates and manages _virtual resources_ - compute, memory,
@@ -248,7 +248,7 @@ HS - HS isolation )
 |
 
 | CHERI
-| Full Capability based access for memory safety and isolation
+| Full Capability-based access control for memory safety and isolation
 | M S U
 | Both
 | Fine Grained
@@ -260,7 +260,7 @@ HS - HS isolation )
 
 Isolation policy needs to extend to device assignment:
 
-* Physical memory access control for device initiated transactions - to allow only authorised access to a memory region assigned to a device
+* Physical memory access control for device initiated transactions - to allow only authorized access to a memory region assigned to a device
 * Virtual memory translation for virtualized device transactions - to prevent one domain from accessing another's memory via device or memory translation misconfiguration
 * Interrupt management across privilege and domain boundaries - to ensure interrupts are delivered only to the correct domain
 
@@ -274,7 +274,7 @@ break security guarantees, either directly or indirectly. For example:
 
 * External debug - may allow direct access to confidential data or runtime control
 * Power and timing management - may enable remote fault injection and side channel leakage
-* RAS (_reliability, accessibility, serviceability_) - features such as error correction may mask attacks, out of band management may give privileged access for remote diagnostics, error reporting can leak memory layout or address, stack traces etc.
+* RAS (_reliability, availability, serviceability_) - features such as error correction may mask attacks, out of band management may give privileged access for remote diagnostics, error reporting can leak memory layout or address, stack traces etc.
 
 [#cat_sr_sub_inv]
 [width=100%]
@@ -538,7 +538,7 @@ Ssstateen
 
 |===
 
-NOTE: Entropy provided through a RISC-V Zkr-compliant entropy source can be used to improve the effectiveness of several attack mitigations. 
+NOTE: Entropy obtained through a RISC-V Zkr-compliant entropy source can be used to improve the effectiveness of several attack mitigations. 
 Examples include address-space randomization, timing randomization, data masking, and noise-injection techniques. 
 These mechanisms rely on high-quality, unpredictable random values to hinder attacker observation and prediction.
 
@@ -558,7 +558,7 @@ These mechanisms rely on high-quality, unpredictable random values to hinder att
 | Analysis of physical leakage
 | Direct or indirect +
 Physical or remote
-| For example, observing radiation, power line patterns, or temperature.
+| For example, observing electromagnetic emissions, power consumption patterns, or temperature variations.
 |  Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs. +
 
 Implement Data Independent Execution Latency (Zkt, Zvkt) +
@@ -571,7 +571,7 @@ Utilise entropy source in randomisation (Zkr)
 Logical or physical
 | Using NVDIMMs (susceptible to remanence attack), interposers, or physical probing to read, record, replay or relocate data in physical memory.
 | Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding. +
-Supervisor domain ID, privilege level, or MPT attributes may be used to
+Supervisor Domain ID, privilege level, or MPT attributes may be used to
 derive separate memory encryption contexts at domain or workload granularity +
 
 Provide physical tamper resistance, such as an active mesh over critical logic, or case-opening sensors.
@@ -620,7 +620,7 @@ Enforce proper access control for the DVFS configuration. +
 
 Employ lockstep processors for security-critical devices. +
 
-Employ physical sensors to detect attack
+Employ physical sensors to detect attacks
 
 |===
 
@@ -687,8 +687,8 @@ provisioned assets.
 image::img_ch2_security-lifecycle.png[]
 
 [#security-lifecycle]
-A security life cycle reflects the trustworthiness of a system during its
-lifetime and reflects the life cycle state of hardware provisioned assets.
+A security life cycle reflects both the trustworthiness of a system during its
+lifetime and the life cycle state of hardware provisioned assets.
 
 It can be extended as indicated below to cover additional security provisioning
 steps such as device onboarding, device activation, user management, and RMA (Return Merchandise Authorization)
@@ -730,7 +730,7 @@ Additional specific provisioning stages can take place in this
 state - for example network onboarding and device activation, App/Device
 attestation or user identity management. This is out of scope of this
 specification.
-* Recoverable debug - part of the system is in a revealing debug state +
+* Recoverable debug - part of the system is in a revealing debug state. +
 At least the RoT is not compromised and hardware provisioned secrets remain
 protected. +
 This state is both attestable and recoverable. For example, revealing debug is
@@ -753,7 +753,7 @@ identifier.
 | Requirement
 
 | SR_LFC_002
-| Hardware provisioned assets MUST only be accessible while the system is in
+| After completion of security provisioning, hardware provisioned assets MUST only be accessible while the system is in
 secured state, or a recoverable debug state (with the recoverable debug state in
 attestation evidence).
 
@@ -806,8 +806,7 @@ an isolated application security service.
 | Requirement
 
 | SR_ATT_001
-| A confidential service, and all software and hardware components it depends
-on, MUST be attestable.
+| A confidential service, and all software and hardware components on which it depends, MUST be attestable.
 |===
 
 Attestation allows a remote relying party to determine the trustworthiness of a
@@ -883,7 +882,9 @@ software.
 Two complementary processes can be used to authorize software:
 
 * Measurement +
-In the context of this document, a measurement is a record of a present state of the system, which can be used by a remote party to verify the security state of the system. It is typically a cryptographic fingerprint, such as a running hash of memory combined with security lifecycle state and other attributes. Although depending on use case other kinds of measurements can be used.
+In the context of this document, a measurement is a record of a present state of the system, which can be used by a remote party to verify the security state of the system. 
+It is typically a cryptographic fingerprint, such as a running hash of memory combined with security life cycle state and other attributes. 
+Although depending on use case other kinds of measurements can be used.
 * Verification +
 Verification is a process of establishing that a measurement is correct
 (expected).
@@ -944,7 +945,7 @@ Verification ensures the system has loaded authorized software.
 | Requirement
 
 | SR_MSM_003
-| A system MUST only use authorizations from trusted authority.
+| A system MUST only use authorizations from a trusted authority.
 |===
 
 * Direct verification requires a signed image authorization from a trusted
@@ -994,7 +995,7 @@ subsystems can also include immutable software to meet specific security
 certification requirements.
 
 System updates are typically layered so that updates can target only parts of a
-system and not a whole system. The properties discussed below still apply to
+system and not only the whole system. The properties discussed below still apply to
 any system update.
 
 [width=100%]

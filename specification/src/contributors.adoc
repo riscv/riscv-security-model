@@ -1,7 +1,7 @@
 == Contributors
 
 This RISC-V specification has been contributed to directly or indirectly by (in
-alphabetical order): Ali Zhang, Andy Dellow, Carl Shaw, Colin O'Flynn, Dean
+alphabetical order): Ali Zhang, Andrew Dellow, Carl Shaw, Colin O'Flynn, Dean
 Liberty, Dong Du, Deepak Gupta, Fabrice Marinet, Guerney Hunt, Luis Fiolhais,
 Manuel Offenberg, Markku Juhani Saarinen, Munir Geden, Mark Hill, Nicholas Wood
 (editor), Paul Elliott, Ravi Sahita (co-editor), Robin Randhawa, Samuel Ortiz,

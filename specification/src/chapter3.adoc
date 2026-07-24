@@ -6,7 +6,7 @@ This chapter outlines brief descriptions of RISC-V security building blocks
 discussed in this specification, together with general guidelines and links to
 technical specifications. The requirement to use a specific mechanism is
 use case dependent. RISC-V has multiple mechanisms that can be used to achieve the
-same goal, the notes associated with SRs indicate where this is the case.
+same goal. The notes associated with SRs indicate where this is the case.
 
 See also the reference use cases chapter of this specification for common
 examples of how RISC-V security building blocks can be combined.
@@ -37,7 +37,7 @@ software.
 ISA] specification.*
 
 The Hypervisor extension supports standard supervisor level hypervisors. It extends
-S-Mode into Hypervisor-extended supervisor mode (HS-Mode), and a virtual supervisor
+S-Mode into hypervisor-extended supervisor mode (HS-Mode), and a virtual supervisor
 mode (VS-Mode) for guests. It also extends U-Mode into standard user mode (U-Mode) and
 virtual user mode (VU-Mode).
 
@@ -53,11 +53,11 @@ and VU-Mode.
 | Requirement
 
 | SR_HYP_001
-| For virtualised environments, Hypervisor extension MUST be supported
+| For virtualized environments, Hypervisor extension MUST be supported
 
 
 | SR_HYP_002
-| For non-virtualised environments, Hypervisor extension MUST be supported
+| For non-virtualized environments, Hypervisor extension MUST be supported
 |===
 
 
@@ -139,7 +139,7 @@ SPMP allows S-Mode to restrict its own access to memory allocated to
 lower privilege levels. This can be used to mitigate against privilege
 escalation attacks, for example.
 
-When combined with H-extension, SPMP and a virtualised SPMP - _vSPMP_ - can be nested so that the hypervisor can
+When combined with H-extension, SPMP and a virtualized SPMP - _vSPMP_ - can be nested so that the hypervisor can
 control memory allocations to its guests, and each guest can control its own
 memory allocations to its workloads.
 
@@ -159,17 +159,18 @@ memory allocations to its workloads.
 | SPMP configurations MUST only be directly accessible to M-Mode and S-Mode
 
 | SR_PMP_007
-| vSPMP configurations MUST only be directly accessible to M-Mode and HS-Mode and VS-mode. 
+| vSPMP configurations MUST only be directly accessible to M-Mode and HS-Mode and VS-Mode. 
 
 | SR_PMP_008
-| vSPMP MUST be used to protect VS-mode from VU-Mode.
+| vSPMP MUST be used to protect VS-Mode from VU-Mode.
 
 | SR_PMP_009
-| vSPMP MUST be used to protect VU-mode workloads from other VU-Mode workloads.
+| vSPMP MUST be used to protect VU-Mode workloads from other VU-Mode workloads.
 
 |===
 
-NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension). Address translation and protection may be an additional or alternative mechanism.
+NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension). 
+Address translation and protection may be an additional or alternative mechanism.
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of SPMP to isolate trusted applications from each other.
 Address translation and protection may be an additional or alternative mechanism
@@ -196,11 +197,11 @@ translation)
 
 | SR_ATP_001
 | If the Sv extension is supported then 1st-stage page tables MUST be used to protect
-the S-Mode Supervisor domain from accesses made by U-Mode.
+the S-Mode supervisor domain from accesses made by U-Mode.
 
 | SR_ATP_002
 | If the H extension is supported 1st-stage and/or G-stage page tables MUST be used to protect
-Supervisor domain H/S-Mode from lower privilege levels.
+supervisor domain H/S-Mode from lower privilege levels.
 
 | SR_ATP_003
 | Address translation and protection MUST be used to protect resources assigned to one workload from other workloads
@@ -214,7 +215,7 @@ NOTE: Dependent on the use case, Trusted Execution Environments may require or r
 
 _This extension is not ratified at the time of writing, but is stable enough to be included_
 
-To prevent timing side channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory must raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
+To prevent timing side-channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory should raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
 
 [#cat_sr_sub_KTE]
 [width=100%]
@@ -236,10 +237,10 @@ _This extension is not ratified at the time of writing, but is stable enough to 
 protection] specification.*
 
 Supervisor domains allow software components on the same hart to be developed,
-certified, deployed, and attested independently of each other.
+certified, deployed, and attested independently.
 
 A supervisor domain is an S-Mode compartment that is physically isolated from other supervisor domains. The memory,
-execution state and devices belonging to a supervisor domains are isolated from other supervisor domains.
+execution state and devices belonging to a supervisor domain are isolated from other supervisor domains.
 This isolation of supervisor domains and the context switching between them is managed by M-Mode firmware.
 
 A supervisor domain is identified at an architecture level by a _Supervisor Domain
@@ -249,7 +250,7 @@ the SDID, the mmpt CSR may specify a root PPN for a _Memory Protection Table (MP
 The MPT is a memory structure managed by M-Mode that is used to manage physical memory permissions across supervisor domains.
 It is designed to enable page-based dynamic memory management across supervisor
 domain boundaries.
-responsible for resource management.
+
 
 [#cat_sr_sub_mtt]
 [width=100%]
@@ -269,8 +270,8 @@ levels
 
 
 NOTE: The M-Mode resident software responsible for managing context switches and communication between supervisor
-domains is called the Root Domain. Depending on the use case, MPT can
-be sufficient for protecting the Root Domain by enabling M-Mode
+domains is called the Root domain. Depending on the use case, MPT can
+be sufficient for protecting the Root domain by enabling M-Mode
 to ensure that its own resources are never assigned to any another domain.
 PMP/Smepmp may be an additional or alternative protection for M-Mode, enabling the ability to
 implement temporal isolation boundaries within M-Mode (to protect
@@ -340,7 +341,7 @@ extensions for interrupts (Smsdia).
 
 | SR_SUD_007
 | A system supporting supervisor domains MUST support supervisor domain
-extensions for external debug (TBD).
+extensions for external debug.
 |===
 
 *See section Smsdia of the https://github.com/riscv/riscv-smmtt[RISC-V Supervisor
@@ -449,7 +450,7 @@ device-initiated transactions, complementing PMP and SPMP rules.
 | IOPMP MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
 
 | SR_IOP_004
-| IOPMP MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitely authorized 
+| IOPMP MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitly authorized 
 
 |===
 
@@ -484,7 +485,7 @@ device-initiated memory accesses.
 | IOMPT MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
 
 | SR_IOM_004
-| IOMPT MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains.
+| IOMPT MUST be used to guarantee that resources assigned to a domain cannot be accessed by devices assigned to other domains.
 
 |===
 
@@ -524,7 +525,7 @@ Worlds defines execution context IDs (or World IDs) which allow different
 access policies to be programmed between an agent and a resource in a system.
 The IDs are created and assigned before or at reset/boot time, and are
 immutable afterwards. Any bus transaction stemming from an agent within a World
-always carries its World ID.
+always carries its World ID (WID).
 
 [width=100%]
 [%header, cols="5,20"]
@@ -713,7 +714,8 @@ For example, architectural metadata storage may be implemented in on-chip memory
 
 |===
 
-Depending on the use case, architectural metadata may be visible to or managed by, for example, a supervisor level kernel or hypervisor, a kernel or a hypervisor within a supervisor domain, or by a M-Mode monitor. But it should be considered private within an isolation boundary and not accessible or guessable by lower privilege levels, or by code in a different supervisor domain.
+Depending on the use case, architectural metadata may be visible to or managed by, for example, a supervisor level kernel or hypervisor, a kernel or a hypervisor within a supervisor domain, or by a M-Mode monitor. 
+But it should be considered private within an isolation boundary and not accessible to, or guessable by lower privilege levels, or by code in a different supervisor domain.
 
 [width=100%]
 [%header, cols="5,20"]

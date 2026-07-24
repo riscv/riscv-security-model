@@ -42,11 +42,11 @@ towards use of PQC.
 | ID#
 | Requirement
 
-| SR_CPT_003
+| SR_CPT_004
 | In applications which require a migration path to PQC algorithms, all
 immutable components SHOULD support PQC alternatives.
 
-| SR_CPT_004
+| SR_CPT_005
 | All mutable components MUST at least have a migration path to quantum safe
 cryptography.
 
