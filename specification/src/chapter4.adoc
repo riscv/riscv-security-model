@@ -8,7 +8,7 @@ This chapter provides a selection of non-exhaustive example security use cases b
 deployment security models. The examples may be extended over time as required. This section is non-normative
 guidance only, detailing the recommended combination of security requirements for the associated use case.
 
-For ease of reference, for each usecase, cite:[rvi::sec-model-map] lists the mapping of the RISC-V
+For ease of reference, for each use case, cite:[rvi::sec-model-map] lists the mapping of the RISC-V
 ISA and non-ISA building blocks used along with links to the building block
 specification, POCs, and code repositories available.
 
@@ -514,7 +514,7 @@ Confidential domain.
 
 In the case of a Global Platform TEE system a rich OS in Normal domain is free
 to schedule services, including TEE services, on any hart available to it. The
-number and make-up of supervisor domains can be known, and a simple convention
+number and composition of supervisor domains can be known, and a simple convention
 can be used for common identification (SDID value, see
 xref:chapter3.adoc#_supervisor_domains[supervisor domains]) of Normal, TEE, and
 Root domains across multiple harts in a system.
@@ -792,7 +792,7 @@ See xref:chapter2.adoc#_attestable_services[attestable services].
 Attestation of confidential workloads is typically layered, for performance and
 separation of concern:
 
-* A security platform attestation, signed by a hardware root of trust
+* A security platform attestation, signed by a HW RoT
 * A confidential workload attestation, signed by TSM
 
 [width=100%]
@@ -865,7 +865,7 @@ to Confidential domain.
 
 ==== System integration
 
-In the case of a confidential compute system, hypervisor in Normal domain
+In the case of a confidential computing system, hypervisor in Normal domain
 typically controls scheduling and resource assignment on the system across all
 harts available to it. The number and make-up of supervisor domains can be
 known, and a simple convention can be used for common identification of Normal,
@@ -889,7 +889,7 @@ workload granularity.
 
 ==== Trusted device assignment
 
-The goal of confidential compute is to provide a minimum TCB for a confidential
+The goal of confidential compute is to provide a minimal TCB for a confidential
 service, and CPU isolation mechanisms discussed so far do that on a hart.
 
 But most confidential services also make use of devices, both on-chip and

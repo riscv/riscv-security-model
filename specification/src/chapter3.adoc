@@ -6,7 +6,7 @@ This chapter outlines brief descriptions of RISC-V security building blocks
 discussed in this specification, together with general guidelines and links to
 technical specifications. The requirement to use a specific mechanism is
 use case dependent. RISC-V has multiple mechanisms that can be used to achieve the
-same goal, the notes associated with SRs indicate where this is the case.
+same goal. The notes associated with SRs indicate where this is the case.
 
 See also the reference use cases chapter of this specification for common
 examples of how RISC-V security building blocks can be combined.
@@ -341,7 +341,7 @@ extensions for interrupts (Smsdia).
 
 | SR_SUD_007
 | A system supporting supervisor domains MUST support supervisor domain
-extensions for external debug (TBD).
+extensions for external debug.
 |===
 
 *See section Smsdia of the https://github.com/riscv/riscv-smmtt[RISC-V Supervisor
@@ -485,7 +485,7 @@ device-initiated memory accesses.
 | IOMPT MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
 
 | SR_IOM_004
-| IOMPT MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains.
+| IOMPT MUST be used to guarantee that resources assigned to a domain cannot be accessed by devices assigned to other domains.
 
 |===
 

@@ -274,7 +274,7 @@ break security guarantees, either directly or indirectly. For example:
 
 * External debug - may allow direct access to confidential data or runtime control
 * Power and timing management - may enable remote fault injection and side channel leakage
-* RAS (_reliability, accessibility, serviceability_) - features such as error correction may mask attacks, out of band management may give privileged access for remote diagnostics, error reporting can leak memory layout or address, stack traces etc.
+* RAS (_reliability, availability, serviceability_) - features such as error correction may mask attacks, out of band management may give privileged access for remote diagnostics, error reporting can leak memory layout or address, stack traces etc.
 
 [#cat_sr_sub_inv]
 [width=100%]
@@ -806,8 +806,7 @@ an isolated application security service.
 | Requirement
 
 | SR_ATT_001
-| A confidential service, and all software and hardware components it depends
-on, MUST be attestable.
+| A confidential service, and all software and hardware components on which it depends, MUST be attestable.
 |===
 
 Attestation allows a remote relying party to determine the trustworthiness of a
