@@ -25,13 +25,13 @@ The set of examples may be extended over time as required.
 RISC-V is not intending to create a security certification program.
 This specification is provided as guidance for developing secure
 RISC-V systems which are certifiable within existing third party security
-certification programmes.
+certification programs.
 
 This specification does not define any new RISC-V ISA or non-ISA extensions.
 Instead it refers to the existing RISC-V ISA and extensions, as well as commonly
 used non-RVI architecture agnostic security features and processes. It aims to show
 how those can be combined, in commonly used examples, to create systems which
-are certifiable within commonly used existing security certification programmes.
+are certifiable within commonly used existing security certification programs.
 
 The examples are not definitions of formal Protection Profilesfootnote:[
 https://csrc.nist.gov/glossary/term/protection_profile]. Formal protection

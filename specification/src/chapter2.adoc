@@ -260,7 +260,7 @@ HS - HS isolation )
 
 Isolation policy needs to extend to device assignment:
 
-* Physical memory access control for device initiated transactions - to allow only authorised access to a memory region assigned to a device
+* Physical memory access control for device initiated transactions - to allow only authorized access to a memory region assigned to a device
 * Virtual memory translation for virtualized device transactions - to prevent one domain from accessing another's memory via device or memory translation misconfiguration
 * Interrupt management across privilege and domain boundaries - to ensure interrupts are delivered only to the correct domain
 

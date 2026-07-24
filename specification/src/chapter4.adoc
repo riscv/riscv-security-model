@@ -4,7 +4,7 @@
 
 == Use Case Examples - Non Normative
 
-This chapter provides a selection of non-exhaustive example security usecases based on commonly used
+This chapter provides a selection of non-exhaustive example security use cases based on commonly used
 deployment security models. The examples may be extended over time as required. This section is non-normative
 guidance only, detailing the recommended combination of security requirements for the associated use case.
 
@@ -113,7 +113,7 @@ See xref:chapter2.adoc#_sealing[sealing].
 ==== Device access control
 
 For the purpose of this specification, a device can be a logical device. A
-physical device can present one or more logical devices, each with its own
+physical device can present one or more logical device, each with its own
 (logical) control interface.
 
 Isolation guarantees provided to software also apply to device initiated
@@ -387,7 +387,7 @@ The process can involve multiple stages (layered boot).
 | Requirement
 | Reference
 
-| Direct or indirect measurement of a system verifies the software is authorised
+| Direct or indirect measurement of a system verifies the software is authorized
 | SR_MSM_001, SR_MSM_002, SR_MSM_003
 
 | Immutable code ensures a trusted starting point
@@ -474,7 +474,7 @@ domain unique sealing key
 ==== Device access control
 
 For the purpose of this specification, a device can be a logical device. A
-physical device can present one or more logical devices, each with its own
+physical device can present one or more logical device, each with its own
 (logical) control interface.
 
 The security guarantees also apply to device initiated accesses, for example DMA
@@ -764,7 +764,7 @@ been verified:
 * Root domain
 * Boot state of all trusted subsystems
 
-Direct or indirect measurement of a system verifies the software is authorised
+Direct or indirect measurement of a system verifies the software is authorized
 | SR_MSM_001, SR_MSM_002, SR_MSM_003
 
 | Immutable code ensures a trusted starting point
@@ -890,7 +890,7 @@ workload granularity.
 ==== Trusted device assignment
 
 The goal of confidential compute is to provide a minimum TCB for a confidential
-service, and CPU isolation mechanisms discussed so far does that on a hart.
+service, and CPU isolation mechanisms discussed so far do that on a hart.
 
 But most confidential services also make use of devices, both on-chip and
 external. <<_cove_device_access_control, Device virtualization>> can guarantee
