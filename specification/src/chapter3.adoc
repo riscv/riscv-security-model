@@ -212,6 +212,8 @@ NOTE: Dependent on the use case, Trusted Execution Environments may require or r
 
 ==== Address‑Independent Latency of Faults 
 
+_This extension is not ratified at the time of writing, but is stable enough to be included_
+
 To prevent timing side channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory must raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
 
 [#cat_sr_sub_KTE]
@@ -316,10 +318,12 @@ to a lower trust level supervisor domain. The trust levels/policies are specifie
 security system designer.
 
 | SR_SUD_005
-| Resources assigned to an untrusted supervisor domain MUST be accessible to a trusted supervisor domain
+| Resources assigned to a lower trust level supervisor domain MUST be accessible to a higher trust level supervisor domain
 |===
 
-Supervisor domains allow resource isolation and sharing between domains under the control of M-Mode firmware. Trusted Execution Environments can require asymmetric sharing models, where one trusted domain has X/W/R access to other domain's resources.
+Supervisor domains allow resource isolation and sharing between domains under the control of M-Mode firmware. Trusted Execution Environments can require asymmetric sharing models, 
+where one trusted domain has X/W/R access to other domain's resources. 
+
 
 ===== Supervisor domain debug
 
@@ -445,7 +449,7 @@ device-initiated transactions, complementing PMP and SPMP rules.
 | IOPMP MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
 
 | SR_IOP_004
-| IOPMP MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains.
+| IOPMP MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitely authorized 
 
 |===
 
@@ -503,7 +507,7 @@ locations. It complements address translation and protection.
 | Requirement
 
 | SR_IOM_005
-| Systems supporting address translation and protection MUST also support IOMMU
+| Systems supporting address translation and protection MUST support IOMMU
 
 |===
 
@@ -600,6 +604,7 @@ RISC-V provides two defenses:
 * Shadow stacks (Zicfiss) - protect return addresses on call stacks
 * Labeled Landing pads (Zicfilp) - protect target addresses if indirect jumps
 
+
 [width=100%]
 [%header, cols="5,20"]
 |===
@@ -614,6 +619,15 @@ RISC-V provides two defenses:
 branches
 
 |===
+
+NOTE: NOP-sled and code-injection attacks increase the reliability of control-flow 
+hijacking by allowing redirected execution to land within a broad region of benign 
+instructions that ultimately lead execution to an attacker-controlled payload. 
+RISC-V HINT instructions, as well as other instructions with minimal architecturally 
+visible effects, may be incorporated into NOP-sled-style sequences by an attacker. 
+Detection of such sequences, including those constructed from ISA-defined NOP, HINT, 
+or other NOP-equivalent instruction encodings, is the responsibility of NOP-sled 
+detection software and security tools.
 
 === Cryptography
 
@@ -631,7 +645,7 @@ of cryptographic operations at the ISA level. This can both help reduce the TCB 
 an isolated component and also avoid hardware bottlenecks (for example, system
 level cryptographic subsystems).
 
-The entropy source extension provides an ISA level interface to a hardware
+The entropy source extension (Zkr) provides an ISA level interface to a hardware
 entropy source. Entropy source requirements can depend on use case or ecosystem
 specific requirements and RISC-V does not provide any entropy source technical
 specification. However, the entropy source ISA specification does contain general
@@ -695,7 +709,7 @@ For example, architectural metadata storage may be implemented in on-chip memory
 | Requirement
 
 | SR_AMS_004
-| Architectural metadata MUST be isolated by privilege level, and within supervisor domain boundaries
+| Architectural metadata MUST be isolated by execution context/domain and within domain boundaries
 
 |===
 
@@ -773,7 +787,7 @@ The fence.time instruction is a proposed RISC-V ISA extension designed to mitiga
 
 ==== Speculation Barriers
 
-*See https://github.com/riscv/spec-barrier[Speculation Barriers].*
+*See https://github.com/riscv/riscv-spec-barrier[Speculation Barriers].*
 
 Speculative execution attacks exploit vulnerabilities in modern processors that use speculative execution to improve performance. These attacks, such as Spectre and Meltdown, manipulate the CPU's speculative behavior to access sensitive data that should be inaccessible. Although the speculative operations are eventually discarded, the changes they make to system state can be measured and used to infer confidential information. This task group will propose a mechanism for software to signal hardware when not to speculate.
 

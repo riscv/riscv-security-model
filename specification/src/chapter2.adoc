@@ -31,9 +31,8 @@ is oriented around this reference model. The model is not tied to any particular
 
 Most systems are built with multiple software components each managing _assets_
 that need to be protected. These components are often sourced from multiple
-different supply chains. The security reference model uses the generic term
-_domain_ to identify an isolated environment, with at least some private
-resources and execution state not accessible to at least some other domain(s).
+different supply chains. The security reference model uses the generic term domain to identify a logical security 
+boundary containing execution state and resources that are inaccessible to at least some other domain(s) 
 The figure above shows two examples, one with a single domain, the other with two domains for illustrative purposes but some
 use cases can require more. The two domains are notionally labelled _hosting domain_ and _confidential domain_ but they have identical properties. _Workloads_ are run in a domain, and are isolated from each other within that domain. Isolation within a domain may be managed by a _runtime environment_ or a _domain security manager_.  Switching between domains may be managed by a _root domain security manager_.  
 Isolated domains at the software level are typically reflected in isolated domains at the system hardware level, where hardware resources and _devices_ can be assigned or restricted to specific software domains. For example, device DMA transfers can be restricted to memory assigned to a particular domain. Additional platform services may be required in more complex systems. To illustrate this, _Platform QoS_ is shown in the two domain example.
@@ -71,7 +70,8 @@ The following are examples of software components that can be a part of some fun
 
 ==== Root of trust
 
-A _root of trust (RoT)_ is the foundation on which all secure operations of a system depend. A RoT is typically a combination of a minimal amount of hardware and software that has to be implicitly trusted by all system components.
+A _root of trust (RoT)_ is the foundation on which all secure operations of a system depend. A RoT is typically a combination of a minimal amount of hardware 
+and software that has to be implicitly trusted by all other non-RoT HW and SW in a system.
 
 A RoT supports fundamental security services, for example:
 
@@ -79,6 +79,7 @@ A RoT supports fundamental security services, for example:
 * Security life cycle management
 * Key derivations and sealing (sealing is defined in a later section)
 * Security provisioning
+* Debug authorisation
 
 Depending on use case and ecosystem requirements, a RISC-V RoT can be:
 
@@ -168,7 +169,7 @@ RISC-V has a range of isolation mechanisms available and in development.
 
 [#cat_sr_sub_ism]
 [width=100%]
-[%header, cols="10,20,8,6,8,9"]
+[%header, cols="10,20,8,5,8,10"]
 |===
 | Technology
 | Use Case
@@ -197,8 +198,8 @@ level
 
 | RISC-V Worlds
 | Hardware World Identifiers for System level isolation
-| M, S
-| Physical, PMP, SPMP based
+| HW RoT, M, S
+| Physical
 | Fine Grained
 | Static boot configuration
 
@@ -438,7 +439,7 @@ Finally, this specification does not attempt to rate attacks by severity, or by 
 
 [#cat_sr_sub_lgc]
 [width=100%]
-[%header, cols="7,6,5,10,15,15"]
+[%header, cols="<8,<6,<5,<10,<15,<15"]
 |===
 | ID#
 | Threat
@@ -452,9 +453,9 @@ Finally, this specification does not attempt to rate attacks by severity, or by 
 | Direct +
 Logical
 | Unauthorized direct access to resources in normal operation.
-a| * RISC-V privilege levels
-* RISC-V isolation (for example: PMP/ePMP, SPMP, MTT, supervisor domains)
-* RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU)
+| RISC-V privilege levels +
+RISC-V isolation (for example: PMP/ePMP, SPMP, MTT, supervisor domains) +
+RISC-V hardware-enforced virtualization (H extension, MMU, IOMMU) +
 | Capability based architecture, such as CHERI, RISC-V Worlds +
 Architectural sandboxing, such as Hardware Fault Isolation (HFI).
 
@@ -463,20 +464,20 @@ Architectural sandboxing, such as Hardware Fault Isolation (HFI).
 | Chained +
 Logical
 | Attacks on speculative execution implementations.
-a| * Domain-bypass and Cross-domain attacks can be mitigated at a microarchitectural level by isolating predictive microarchitectural resources. Micro-architecture for RISC-V systems is implementation
+| Domain-bypass and Cross-domain attacks can be mitigated at a microarchitectural level by isolating predictive microarchitectural resources. Micro-architecture for RISC-V systems is implementation
 specific, and must consider such vulnerabilities. +
  +
-* This is an evolving area of research. +
+This is an evolving area of research. +
  +
  For example: +
 https://meltdownattack.com/[Spectre and meltdown papers] +
 https://www.intel.com/content/www/us/en/developer/topic-technology/software-security-guidance/processors-affected-consolidated-product-cpu-model.html[Intel
 security guidance] +
 https://developer.arm.com/documentation/#cf-navigationhierarchiesproducts=Arm%20Security%20Center,Speculative%20Processor%20Vulnerability[Arm speculative
-vulnerability]
-| CBQRI and Ssqosid may help isolate cache entries. +
-Zicflip and Zicfiss can mitigate against ROP/COP/JOP, limiting some compound attacks.
-Fence.time, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
+vulnerability] +
+CBQRI and Ssqosid may help isolate cache entries. +
+Zicfilp and Zicfiss can mitigate against ROP/COP/JOP, limiting some compound attacks.
+| Fence.time, Speculation barriers or similar future extensions, may at least partially mitigate against In-domain attacks (such as Spectre V1 , V4).
 
 | T_LGC_003
 | Interface abuse
@@ -484,8 +485,8 @@ Fence.time, Speculation barriers or similar future extensions, may at least part
 Logical
 | Abusing interfaces across privilege or isolation boundaries, for example to
 elevate privilege or to gain unauthorized access to resources.
-a| * RISC-V privilege levels
-* RISC-V isolation
+| RISC-V privilege levels +
+RISC-V isolation
 | High assurance cryptography can isolate key material from SW
 
 | T_LGC_004
@@ -494,8 +495,8 @@ a| * RISC-V privilege levels
 Logical
 | For example, timing processes across privilege or isolation boundaries to
 derive information about confidential assets.
-a| * Data-independent timing instructions (Zkt, Zkvt)
-* Performance counters restricted by privilege and isolation boundaries
+| Data-independent timing instructions (Zkt, Zkvt) +
+Performance counters restricted by privilege and isolation boundaries
 (sscofpmf, smcntrpmf)
 |
 
@@ -505,8 +506,9 @@ a| * Data-independent timing instructions (Zkt, Zkvt)
 Logical
 | Unauthorized manipulation of call stacks and jump targets to redirect a
 control flow to code controlled by an attacker.
-a| * Shadow stacks (Zicfiss)
-* Landing pads (Zicfilp)
+| Shadow stacks (Zicfiss) +
+Landing pads (Zicfilp) +
+Pointer Masking 
 | Capability based architecture, such as CHERI, +
   Memory Tagging
 
@@ -514,9 +516,9 @@ a| * Shadow stacks (Zicfiss)
 | Memory safety
 | Logical
 | Unauthorized access to resources within an isolated component. For example, pointer or allocation errors (temporal memory safety), or buffer overflows (spatial memory safety).
-a| * RISC-V pointer masking (Sspm, Supm) +
-* Shadow stacks (Zicfiss) +
-* Landing pads (Zicfilp) +
+| RISC-V pointer masking (Sspm, Supm) +
+Shadow stacks (Zicfiss) +
+Landing pads (Zicfilp) +
 Memory Tagging
  +
 Memory safe programming +
@@ -530,17 +532,21 @@ Capability based architecture, such as CHERI.
 | Architectural Covert Channel
 | Logical
 | Execution environment is unaware of, or doesn't swap/sanitize CSRs on context switch, creating covert communication channel between user threads or guest OSs
-a| * Smstateen +
-* Ssstateen
+| Smstateen +
+Ssstateen
 |
 
 |===
+
+NOTE: Entropy provided through a RISC-V Zkr-compliant entropy source can be used to improve the effectiveness of several attack mitigations. 
+Examples include address-space randomization, timing randomization, data masking, and noise-injection techniques. 
+These mechanisms rely on high-quality, unpredictable random values to hinder attacker observation and prediction.
 
 ==== Physical and remote
 
 [#cat_sr_sub_phy]
 [width=100%]
-[%header, cols="7,8,10,15,15"]
+[%header, cols="<7,<8,<10,<15,<15"]
 |===
 | ID#
 | Threat
@@ -553,9 +559,10 @@ a| * Smstateen +
 | Direct or indirect +
 Physical or remote
 | For example, observing radiation, power line patterns, or temperature.
-a|  Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs. +
+|  Implement power analysis mitigations such as cryptographic masking, constant time code, noise injection, timing decorrelation/randomisation, constant power logic designs. +
 
-Implement Data Independent Execution Latency (Zkt, Zvkt)
+Implement Data Independent Execution Latency (Zkt, Zvkt) +
+Utilise entropy source in randomisation (Zkr)
 
 
 | T_PHY_002
@@ -563,7 +570,7 @@ Implement Data Independent Execution Latency (Zkt, Zvkt)
 | Direct +
 Logical or physical
 | Using NVDIMMs (susceptible to remanence attack), interposers, or physical probing to read, record, replay or relocate data in physical memory.
-a| Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding. +
+| Implement cryptographic memory protection to provide confidentiality and authentication with temporal and spatial binding. +
 Supervisor domain ID, privilege level, or MPT attributes may be used to
 derive separate memory encryption contexts at domain or workload granularity +
 
@@ -579,7 +586,8 @@ Provide physical tamper resistance, such as an active mesh over critical logic, 
 Logical or physical
 | Glitching to bypass secure boot +
 Retrieving residual confidential memory after a system reset
-a| Implement robust power management, and adopt glitch-safe software techniques. +
+
+| Implement robust power management, and adopt glitch-safe software techniques. +
 
 Industry best practice should be followed. For example: ensuring un-initialized variables are not used; implementing integrity checking of critical data and hardware provisioned parameters; implementing redundancy in encoding, verification, branching, and critical logic. +
 
@@ -594,7 +602,7 @@ Hardware mitigation such as glitch detection, voltage and clock monitoring +
 supply chains and signing processes, hardware supply chains, attestation
 processes, development processes (for example, unfused development hardware or
 debug authorizations)
-a| Deploy appropriate governance, accreditation, and certification processes for
+| Deploy appropriate governance, accreditation, and certification processes for
 an ecosystem.
 
 | T_PHY_005
@@ -603,7 +611,8 @@ an ecosystem.
 Logical or physical
 | Rowhammer-type software attacks to manipulate nearby memory cells. +
 Fault injection attacks (glitching, laser, electromagnetic, etc.) to extract hardware-provisioned assets, modify the control flow, circumvent countermeasures, etc.
-a| Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance. +
+
+| Implement robust memory error detection, cryptographic memory protection, or physical tamper resistance. +
 
 Provide a level of tamper resistance, e.g., through RoT attestation, redundancy during execution, etc. +
 
@@ -745,7 +754,7 @@ identifier.
 
 | SR_LFC_002
 | Hardware provisioned assets MUST only be accessible while the system is in
-secured state, or a recoverable debug state.(with the recoverable debug state in
+secured state, or a recoverable debug state (with the recoverable debug state in
 attestation evidence).
 
 | SR_LFC_003
