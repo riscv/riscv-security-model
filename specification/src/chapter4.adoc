@@ -2,7 +2,7 @@
 
 [[chapter4]]
 
-== Use Case Examples - Non Normative
+== Use Case Examples - Non-Normative
 
 This chapter provides a selection of non-exhaustive example security use cases based on commonly used
 deployment security models. The examples may be extended over time as required. This section is non-normative
@@ -169,7 +169,7 @@ See https://github.com/riscv-non-isa/riscv-external-debug-security[RISC-V extern
 | Allow Debug of non-M-Mode software while blocking debug of higher privilege code
 | SR_DBG_002
 
-| Allow Self-hosted Debug of non M-Mode software
+| Allow Self-hosted Debug of non-M-Mode software
 | SR_DBG_003, SR_DBG_004
 
 |===
@@ -567,7 +567,7 @@ or by Root domain (supervisor domain external debug).
 
 
 
-For example, within normal domain an S-Mode or VS-Mode OS can enable
+For example, within Normal domain an S-Mode or VS-Mode OS can enable
 self-hosted debug for a user application. Or an HS-Mode hypervisor can enable
 self-hosted debug for a VS-Mode guest. Only Root domain should enable
 self-hosted debug for an S-Mode OS or an HS Mode hypervisor.
@@ -779,16 +779,6 @@ Direct or indirect measurement of a system verifies the software is authorized
 
 See xref:chapter2.adoc#_attestable_services[attestable services].
 
-Virtualized TEE attestation can be layered, for performance or separation of
-concern. For example:
-
-* A security platform attestation, signed by a RoT, covering trusted subsystems,
-Root domain, and SPM
-* Separate guest TEE attestation(s) signed by SPM
-
-
-See xref:chapter2.adoc#_attestable_services[attestable services].
-
 Attestation of confidential workloads is typically layered, for performance and
 separation of concern:
 
@@ -830,7 +820,7 @@ assets of its own.
 ==== Device access control
 
 For the purpose of this specification, a device can be a logical device. A
-physical device can present more than one logical device, each with its own
+physical device can present one or more logical device, each with its own
 (logical) control interface.
 
 The security guarantees also apply to device initiated accesses, for example
@@ -945,7 +935,7 @@ or by Root domain (supervisor domain external debug).
 
 |===
 
-For example, within normal domain an HS-Mode hypervisor can enable self-hosted
+For example, within Normal domain an HS-Mode hypervisor can enable self-hosted
 debug for a VS-Mode guest. Only Root domain should enable self-hosted debug for
 the HS-Mode hypervisor.
 

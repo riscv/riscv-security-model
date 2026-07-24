@@ -197,11 +197,11 @@ translation)
 
 | SR_ATP_001
 | If the Sv extension is supported then 1st-stage page tables MUST be used to protect
-the S-Mode Supervisor domain from accesses made by U-Mode.
+the S-Mode supervisor domain from accesses made by U-Mode.
 
 | SR_ATP_002
 | If the H extension is supported 1st-stage and/or G-stage page tables MUST be used to protect
-Supervisor domain H/S-Mode from lower privilege levels.
+supervisor domain H/S-Mode from lower privilege levels.
 
 | SR_ATP_003
 | Address translation and protection MUST be used to protect resources assigned to one workload from other workloads
@@ -215,7 +215,7 @@ NOTE: Dependent on the use case, Trusted Execution Environments may require or r
 
 _This extension is not ratified at the time of writing, but is stable enough to be included_
 
-To prevent timing side channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory should raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
+To prevent timing side-channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory should raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
 
 [#cat_sr_sub_KTE]
 [width=100%]
@@ -237,7 +237,7 @@ _This extension is not ratified at the time of writing, but is stable enough to 
 protection] specification.*
 
 Supervisor domains allow software components on the same hart to be developed,
-certified, deployed, and attested independently of each other.
+certified, deployed, and attested independently.
 
 A supervisor domain is an S-Mode compartment that is physically isolated from other supervisor domains. The memory,
 execution state and devices belonging to a supervisor domain are isolated from other supervisor domains.
@@ -270,8 +270,8 @@ levels
 
 
 NOTE: The M-Mode resident software responsible for managing context switches and communication between supervisor
-domains is called the Root Domain. Depending on the use case, MPT can
-be sufficient for protecting the Root Domain by enabling M-Mode
+domains is called the Root domain. Depending on the use case, MPT can
+be sufficient for protecting the Root domain by enabling M-Mode
 to ensure that its own resources are never assigned to any another domain.
 PMP/Smepmp may be an additional or alternative protection for M-Mode, enabling the ability to
 implement temporal isolation boundaries within M-Mode (to protect
