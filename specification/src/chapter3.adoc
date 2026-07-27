@@ -215,7 +215,7 @@ NOTE: Dependent on the use case, Trusted Execution Environments may require or r
 
 _This extension is not ratified at the time of writing, but is stable enough to be included_
 
-To prevent timing side-channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory should raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
+To prevent timing side-channels that may infer the address space layout of supervisor memory, U-Mode accesses to S-Mode memory are required to raise an exception in constant time. The Svukte extension ensures instruction fetches and explicit memory accesses from U-Mode to S-Mode addresses generate page faults independent of the target address, mitigating this timing attack.
 
 [#cat_sr_sub_KTE]
 [width=100%]
