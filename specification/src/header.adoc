@@ -2,7 +2,7 @@
 :description: RISC-V Security Model
 :company: RISC-V.org
 :revdate: 09/2026
-:revnumber: 0.9.1
+:revnumber: 0.9.2
 :revremark: This document is in development. Assume everything can change. See http://riscv.org/spec-state for details.
 :url-riscv: http://riscv.org
 :doctype: book
