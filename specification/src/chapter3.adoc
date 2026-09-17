@@ -24,7 +24,7 @@ as on device accesses. RISC-V enables:
 
 ==== Privilege levels
 
-*See section Privilege Levels of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Privilege Levels of the https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged
 ISA] specification.*
 
 Standard privilege levels - machine mode (M-Mode), supervisor mode (S-Mode), and user
@@ -33,7 +33,7 @@ software.
 
 ==== Hypervisor extension
 
-*See section Hypervisor Extension of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Hypervisor Extension of the https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged
 ISA] specification.*
 
 The Hypervisor extension supports standard supervisor level hypervisors. It extends
@@ -68,7 +68,7 @@ Address translation and protection, PMP/Smepmp, and SPMP are discussed later in 
 
 ==== PMA
 
-*See section Physical Memory Attributes of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Physical Memory Attributes of the https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged
 ISA] specification.*
 
 _Physical memory attributes (PMA)_ are intended to capture inherent properties
@@ -83,7 +83,7 @@ access, and typically configured by region.
 
 ==== PMP
 
-*See section Physical Memory Protection of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Physical Memory Protection of the https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged
 ISA] specification.*
 
 _Physical memory protection (PMP)_ enables M-Mode to access-control physical
@@ -108,8 +108,7 @@ Depending on the use case, MPT may be an acceptable additional or alternative me
 
 ==== Smepmp
 
-*See section PMP Enhancements for memory access and execution prevention in M-Mode of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
-ISA] specification.*
+*See section PMP Enhancements for memory access and execution prevention in M-Mode of the https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged ISA] specification.*
 
 Smepmp (ePMP) extends PMP protection by allowing M-Mode to restrict its own access to memory allocated to lower privilege levels. This can be
 used to mitigate against privilege escalation attacks.
@@ -178,7 +177,7 @@ Address translation and protection may be an additional or alternative mechanism
 [[atp]]
 ==== Address translation and protection
 
-*See section Page-Based Virtual-Memory Systems of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Page-Based Virtual-Memory Systems of the https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged
 ISA] specification.*
 
 _Address translation and protection_ enables:
@@ -418,7 +417,7 @@ NOTE: Enabling debug after measurement ensures the system remains attestable but
 confidentiality and trustworthiness of the affected components, and must be subject to an attested policy
 
 *See section Cycle and Instret Privilege Mode Filtering and section Counter Delegation
-Extensions of the https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+Extensions of the https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged
 ISA] specification on performance counters.*
 
 These extensions enable management of interrupts, external debug, and
@@ -495,7 +494,7 @@ may require that Root devices are not able to access memory assigned to TEE doma
 
 ==== IOMMU
 
-*See the https://github.com/riscv-non-isa/riscv-iommu[RISC-V IOMMU] specification.*
+*See the https://docs.riscv.org/reference/iommu/_attachments/riscv-iommu.pdf[RISC-V IOMMU] specification.*
 
 IOMMU is a system level component performing memory address translation from IO
 Virtual Addresses to Physical Addresses thereby allowing devices to access virtual memory
@@ -564,7 +563,7 @@ not be delegated to U-Mode (Smwiddeleg).
 
 === Software enforced memory tagging
 
-*See section Pointer Masking Extensions in https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged ISA] specification.*
+*See section Pointer Masking Extensions in https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged ISA] specification.*
 
 _Memory tagging (MT)_, is a technique which can improve the memory safety of an
 application. A part of the effective address of a pointer can be masked off
@@ -580,7 +579,7 @@ See also hardware enforced memory tagging below.
 
 === Control flow integrity
 
-*See section Control Flow Integrity in https://github.com/riscv/riscv-isa-manual/releases/latest[Privileged
+*See section Control Flow Integrity in https://docs.riscv.org/reference/isa/_attachments/riscv-privileged.pdf[Privileged
 ISA] specification.*
 
 Control-flow Integrity (CFI) capabilities help defend against Return-Oriented
@@ -632,7 +631,7 @@ detection software and security tools.
 
 === Cryptography
 
-*See section Vector Operations and section Cryptography Extensions of https://github.com/riscv/riscv-isa-manual/releases/latest[Unprivileged
+*See section Vector Operations and section Cryptography Extensions of https://docs.riscv.org/reference/isa/_attachments/riscv-unprivileged.pdf[Unprivileged
 ISA] specification.*
 
 RISC-V includes ISA extensions in the following cryptographic areas:
