@@ -127,9 +127,7 @@ used to mitigate against privilege escalation attacks.
 
 ==== SPMP
 
-_This extension is not ratified at the time of writing, but is stable enough to be included_
-
-*See the https://github.com/riscv/riscv-spmp[RISC-V S-Mode Physical Memory Protection (SPMP)] specification.*
+*See the ratified https://github.com/riscv/riscv-spmp[RISC-V S-Mode Physical Memory Protection (SPMP)] specification.*
 
 _Supervisor PMP (SPMP)_ enables S-Mode to control physical memory
 access for U-Mode.

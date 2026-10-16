@@ -1,9 +1,9 @@
 [[header]]
 :description: RISC-V Security Model
 :company: RISC-V.org
-:revdate: 09/2026
-:revnumber: 0.9.2
-:revremark: This document is in development. Assume everything can change. See http://riscv.org/spec-state for details.
+:revdate: 10/2026
+:revnumber: 0.9.3
+:revremark: This document is in the Frozen state. Change is extremely unlikely. See http://riscv.org/spec-state for details.
 :url-riscv: http://riscv.org
 :doctype: book
 :preface-title: Preamble
@@ -42,11 +42,12 @@ RISC-V Security Model Task Group
 
 // Preamble
 [WARNING]
-.This document is in the link:http://riscv.org/spec-state[Development state]
+.This document is in the link:http://riscv.org/spec-state[Frozen state]
 ====
-Assume everything can change. This draft specification will change before
-being accepted as informative, so implementations made to this draft
-specification will likely not follow the future informative specification.
+Change is extremely unlikely. A high threshold will be used, and a change
+will only occur because of some truly critical issue being identified during
+the public review cycle. Any other desired or needed changes can be the
+subject of a follow-on new extension.
 ====
 
 [preface]
