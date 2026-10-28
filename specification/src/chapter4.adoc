@@ -253,8 +253,9 @@ The TEE OS is primarily responsible for isolation of TA, and for providing root
 of trust services, within the TEE domain.
 
 The OS in Normal domain typically controls scheduling on the system, across all
-harts available to it. To interact with TA services in TEE domain, the OS in
-Normal domain interacts with a TEE OS through a secure monitor in Root domain.
+harts available to it. To interact with TA services in TEE domain, the
+OS in Normal domain interacts with a TEE OS through a secure monitor in Root
+domain.
 
 The secure monitor is responsible for context switching and isolation across
 domain boundaries, including event management.
@@ -271,9 +272,9 @@ allocation can be mostly static, making the system more deterministic. +
 _Use case examples:_ edge devices and IoT, automation, and automotive.
 * Virtualized TEE +
 On a virtualized system, TEE can also be virtualized. In this case a _secure
-partition manager_ (SPM) in TEE domain is responsible for isolation of multiple TEE
-guests (for example, an OEM TEE and separate third party TEE). This model can
-also support more dynamic resource allocation. +
+partition manager_ (SPM) in TEE domain is responsible for isolation of
+multiple TEE guests (for example, an OEM TEE and separate third party TEE).
+This model can also support more dynamic resource allocation. +
  +
 _Use case examples:_ mobile clients, and automotive.
 
@@ -320,7 +321,7 @@ to do so in specific use cases. For example, sharing media buffers in a secure
 media path. Such policies are enforced by SPM or TEE OS.
 
 Processes in Normal domain can share memory assigned to Normal domain when
-interacting with a TA in TEE world (default sharing rule). Such shared memory
+interacting with a TA in TEE domain (default sharing rule). Such shared memory
 can be cached when context switching between Normal and TEE domains.
 
 RISC-V hardware enforced isolation mechanisms can be used as follows to meet
@@ -412,7 +413,7 @@ platform attestation.
 | Requirement
 | Reference
 
-a| 
+a|
 Attestation is used to determine trustworthiness across all components +
 
 * TEE domain
@@ -454,8 +455,8 @@ exposure of cryptographic materials.
 | Requirement
 | Reference
 
-| Ensure Local sealing for a TA, or a TEE guest is unique to TEE domain and to a
-physical instance of a system.
+| Ensure Local sealing for a TA, or a TEE guest is unique to TEE
+domain and to a physical instance of a system.
 
 | SR_SUD_003, SR_SLG_002
 
@@ -467,9 +468,10 @@ or the TA. Local sealing may be layered
 
 For example:
 
-* TEE domain unique sealing keys derived by a RoT from a hardware unique key
-* TA, or guest TEE, unique sealing keys derived by TEE OS or SPM from a TEE
-domain unique sealing key
+* TEE domain unique sealing keys derived by a RoT from a hardware
+  unique key
+* TA, or guest TEE, unique sealing keys derived by TEE OS or SPM from a
+  TEE domain unique sealing key
 
 ==== Device access control
 
@@ -508,7 +510,7 @@ NOTE: IOMPT can also be sufficient for protecting Root devices in the sense that
 M-Mode can enforce that its own resources are never assigned to another domain.
 Use of IOPMP or similar could still add further protections. For example, a system
 may require that Root devices cannot be used to access memory assigned to
-Confidential domain.
+TEE domain.
 
 ==== System integration
 
@@ -516,8 +518,8 @@ In the case of a Global Platform TEE system a rich OS in Normal domain is free
 to schedule services, including TEE services, on any hart available to it. The
 number and composition of supervisor domains can be known, and a simple convention
 can be used for common identification (SDID value, see
-xref:chapter3.adoc#_supervisor_domains[supervisor domains]) of Normal, TEE, and
-Root domains across multiple harts in a system.
+xref:chapter3.adoc#_supervisor_domains[supervisor domains]) of Normal,
+TEE, and Root domains across multiple harts in a system.
 
 System integration in this context involves providing _security attributes_ on
 a system interconnect, tagging all transactions (CPU or system agent initiated)
@@ -572,8 +574,8 @@ self-hosted debug for a user application. Or an HS-Mode hypervisor can enable
 self-hosted debug for a VS-Mode guest. Only Root domain should enable
 self-hosted debug for an S-Mode OS or an HS Mode hypervisor.
 
-Within TEE domain a TEE OS can enable self-hosted debug for a TA. An SPM can
-enable self-hosted debug for guest TEE. Only Root domain should enable
+Within TEE domain a TEE OS can enable self-hosted debug for a TA. An
+SPM can enable self-hosted debug for guest TEE. Only Root domain should enable
 self-hosted debug of SPM (virtualized) or TEE OS (non-virtualized).
 
 A machine mode monitor can enable external debug of individual supervisor domains without affecting M-Mode, or any other supervisor domain.
@@ -588,8 +590,8 @@ A machine mode monitor can enable external debug of individual supervisor domain
 | SR_DBG_005
 |===
 
-For example, for all of TEE domain on a production system, for certification
-reasons.
+For example, for all of TEE domain on a production system, for
+certification reasons.
 
 [width=100%]
 [%header, cols="6,^4"]
@@ -863,7 +865,7 @@ Confidential, and Root domains across multiple harts in a system.
 
 System integration in this context involves providing _security attributes_ on
 the interconnect, tagging all transactions (CPU or system agent initiated) to
-either Root, Normal, or TEE domains.
+either Root, Normal, or Confidential domains.
 
 Possible use cases include:
 
