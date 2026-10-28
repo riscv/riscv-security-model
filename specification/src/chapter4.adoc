@@ -127,16 +127,16 @@ transaction.
 | Guarantee that devices assigned to lower
   privilege levels cannot access resources
   assigned to M-Mode.
-|  SR_IOM_005, +
+|  SR_IOMMU_001, +
   (SR_IOP_001, SR_IOP_002, SR_IOP_003) +
   OR +
-  (SR_IOM_001, SR_IOM_002, SR_IOM_003) +
+  (SR_IOMPT_001, SR_IOMPT_002, SR_IOMPT_003) +
 
 
 | Enforce access rules for devices assigned
   to user applications or guests on a virtualized
   system.
-| SR_IOP_004 OR SR_IOM_004
+| SR_IOP_004 OR SR_IOMPT_004
 
 |===
 
@@ -412,7 +412,7 @@ platform attestation.
 | Requirement
 | Reference
 
-a| 
+a|
 Attestation is used to determine trustworthiness across all components +
 
 * TEE domain
@@ -492,7 +492,7 @@ and interrupts.
 | Use IOMPT and IOMMU to enforce access rules for devices
 assigned to Normal or TEE domains with a virtualized TEE, and IOPMP to enforce access rules
 for Root devices.
-| SR_IOM_001, SR_IOM_002, SR_IOM_003, SR_IOM_004, SR_IOM_005
+| SR_IOMPT_001, SR_IOMPT_002, SR_IOMPT_003, SR_IOMPT_004, SR_IOMMU_001
 |===
 
 For a static partition TEE, domain level granularity can be sufficient as device
@@ -835,11 +835,11 @@ DMA and interrupts.
 | IOMPT and IOMMU are used to enforce access rules for devices assigned to
 Normal or Confidential domains, and IOPMP is used to enforce access rules
 for Root devices.
-|SR_IOM_001, SR_IOM_002, SR_IOM_003, SR_IOM_004, SR_IOM_005
+|SR_IOMPT_001, SR_IOMPT_002, SR_IOMPT_003, SR_IOMPT_004, SR_IOMMU_001
 
 | IOPMP and IOMPT configurations are only directly accessible by
 Root domain.
-| SR_PMP_001, SR_IOM_002
+| SR_PMP_001, SR_IOMPT_002
 
 |===
 
