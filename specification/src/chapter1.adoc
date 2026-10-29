@@ -111,6 +111,15 @@ include mutually exclusive requirements. A use case specific requirements docume
 MUST define if a requirement is recommended or mandatory, as well as any allowable
 alternatives.
 
+Some security requirements point to unratified extensions at the time of
+publication. Despite their ratification status, the specification still
+highlights their usage due to their importance in a contemporary security
+profile and computing system. Security requirements that rely on unratified
+extensions are marked with the text: "This extension is not ratified at the
+time of writing, but is stable enough to be included". All requirements
+provided by such extensions are considered stable and not expected to change
+during their ratification process.
+
 
 === Relationship with external protection profiles
 
