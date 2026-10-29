@@ -150,13 +150,13 @@ memory allocations to its workloads.
 | SPMP MUST be used to protect S-Mode from lower privilege levels.
 
 | SR_PMP_005
-| SPMP MUST be used to protect U-Mode workloads from other U-Mode workloads. 
+| SPMP MUST be used to protect U-Mode workloads from other U-Mode workloads.
 
 | SR_PMP_006
 | SPMP configurations MUST only be directly accessible to M-Mode and S-Mode
 
 | SR_PMP_007
-| vSPMP configurations MUST only be directly accessible to M-Mode and HS-Mode and VS-Mode. 
+| vSPMP configurations MUST only be directly accessible to M-Mode and HS-Mode and VS-Mode.
 
 | SR_PMP_008
 | vSPMP MUST be used to protect VS-Mode from VU-Mode.
@@ -166,7 +166,7 @@ memory allocations to its workloads.
 
 |===
 
-NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension). 
+NOTE: Dependent on the use case, it may be recommended or mandatory to use SPMP to protect S-Mode from lower privilege levels (with or without the H-extension).
 Address translation and protection may be an additional or alternative mechanism.
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of SPMP to isolate trusted applications from each other.
@@ -208,7 +208,7 @@ NOTE: Dependent on the use case, it may be recommended or mandatory to use addre
 
 NOTE: Dependent on the use case, Trusted Execution Environments may require or recommend the use of address translation and protection to isolate trusted applications from each other. The SPMP and PMP may be an additional or alternative mechanism.
 
-==== Address‑Independent Latency of Faults 
+==== Address‑Independent Latency of Faults
 
 _This extension is not ratified at the time of writing, but is stable enough to be included_
 
@@ -319,8 +319,8 @@ security system designer.
 | Resources assigned to a less trusted level supervisor domain MUST be accessible to a higher trust level supervisor domain
 |===
 
-Supervisor domains allow resource isolation and sharing between domains under the control of M-Mode firmware. Trusted Execution Environments can require asymmetric sharing models, 
-where one trusted domain has X/W/R access to other domain's resources. 
+Supervisor domains allow resource isolation and sharing between domains under the control of M-Mode firmware. Trusted Execution Environments can require asymmetric sharing models,
+where one trusted domain has X/W/R access to other domain's resources.
 
 
 ===== Supervisor domain debug
@@ -447,7 +447,7 @@ device-initiated transactions, complementing PMP and SPMP rules.
 | IOPMP MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
 
 | SR_IOP_004
-| IOPMP MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitly authorized 
+| IOPMP MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitly authorized
 
 |===
 
@@ -551,11 +551,11 @@ cannot be accessed by World IDs from lower privilege levels (Smlwid).
 
 | SR_WOR_006
 | If a hart supports multiple privilege levels, World IDs used by M-Mode
-MUST not be delegated to lower privilege levels (Smlwidlist).
+MUST NOT be delegated to lower privilege levels (Smlwidlist).
 
 | SR_WOR_007
 | If a hart supports S-Mode, World IDs used by S-Mode MUST
-not be delegated to U-Mode (Smwiddeleg).
+NOT be delegated to U-Mode (Smwiddeleg).
 
 |===
 
@@ -618,13 +618,13 @@ branches
 
 |===
 
-NOTE: NOP-sled and code-injection attacks increase the reliability of control-flow 
-hijacking by allowing redirected execution to land within a broad region of benign 
-instructions that ultimately lead execution to an attacker-controlled payload. 
-RISC-V HINT instructions, as well as other instructions with minimal architecturally 
-visible effects, may be incorporated into NOP-sled-style sequences by an attacker. 
-Detection of such sequences, including those constructed from ISA-defined NOP, HINT, 
-or other NOP-equivalent instruction encodings, is the responsibility of NOP-sled 
+NOTE: NOP-sled and code-injection attacks increase the reliability of control-flow
+hijacking by allowing redirected execution to land within a broad region of benign
+instructions that ultimately lead execution to an attacker-controlled payload.
+RISC-V HINT instructions, as well as other instructions with minimal architecturally
+visible effects, may be incorporated into NOP-sled-style sequences by an attacker.
+Detection of such sequences, including those constructed from ISA-defined NOP, HINT,
+or other NOP-equivalent instruction encodings, is the responsibility of NOP-sled
 detection software and security tools.
 
 === Cryptography
@@ -664,7 +664,7 @@ extensions
 extensions
 
 | SR_CPT_003
-| The entropy source ISA extension MUST be supported 
+| The entropy source ISA extension MUST be supported
 
 |===
 
@@ -711,7 +711,7 @@ For example, architectural metadata storage may be implemented in on-chip memory
 
 |===
 
-Depending on the use case, architectural metadata may be visible to or managed by, for example, a supervisor level kernel or hypervisor, a kernel or a hypervisor within a supervisor domain, or by a M-Mode monitor. 
+Depending on the use case, architectural metadata may be visible to or managed by, for example, a supervisor level kernel or hypervisor, a kernel or a hypervisor within a supervisor domain, or by a M-Mode monitor.
 But it should be considered private within an isolation boundary and not accessible to, or guessable by lower privilege levels, or by code in a different supervisor domain.
 
 [width=100%]
@@ -788,9 +788,9 @@ The fence.time instruction is a proposed RISC-V ISA extension designed to mitiga
 
 *See https://github.com/riscv/riscv-isa-manual/blob/3ce933494a287e2c762ce4cbc498fad0bf155f26/src/unpriv/ziteb.adoc[Transient Execution Barriers].*
 
-Speculative execution attacks exploit vulnerabilities in modern processors that use speculative execution to improve performance. These attacks, such as Spectre and Meltdown, manipulate the CPU's speculative behavior to access sensitive data that should be inaccessible. 
-Although the speculative operations are eventually discarded, the changes they make to system state can be measured and used to infer confidential information. 
-The transient-execution barrier instructions are a proposed RISC-V ISA extension designed to mitigate these vulnerabilities. Informally, certain instructions that follow a transient-execution barrier in program order cannot be speculatively executed before certain instructions (or parts of instructions) 
+Speculative execution attacks exploit vulnerabilities in modern processors that use speculative execution to improve performance. These attacks, such as Spectre and Meltdown, manipulate the CPU's speculative behavior to access sensitive data that should be inaccessible.
+Although the speculative operations are eventually discarded, the changes they make to system state can be measured and used to infer confidential information.
+The transient-execution barrier instructions are a proposed RISC-V ISA extension designed to mitigate these vulnerabilities. Informally, certain instructions that follow a transient-execution barrier in program order cannot be speculatively executed before certain instructions (or parts of instructions)
 preceding the barrier in program order have executed.
 
 
