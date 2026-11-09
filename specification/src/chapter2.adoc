@@ -194,7 +194,7 @@ level
 | S
 | Physical
 | Fine Grained
-| Reprogramming and Switching overhead, Constrained resourcefootnote:[On switching domains, the SPMP must be reprogrammed by S-Mode software, and SPMP and PMP entries may be limited in number.]
+| Reprogramming and Switching overhead, Constrained resourcefootnote:[On switching U-mode workloads, the SPMP must be reprogrammed by S-Mode software, and SPMP entries may be limited in number.]
 
 | RISC-V Worlds
 | Hardware World Identifiers for System level isolation
