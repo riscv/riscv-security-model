@@ -449,6 +449,11 @@ device-initiated transactions, complementing PMP and SPMP rules.
 | SR_IOP_004
 | IOPMP MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitly authorized
 
+| SR_IOP_005
+| IOPMP MUST be used to guarantee that resources assigned to a domain/workload
+cannot be accessed by other domains/workloads unless explicitly authorized,
+even if the device is shared across domains/workloads.
+
 |===
 
 NOTE: IOPMP defines multiple "models" for different system configurations.
@@ -483,6 +488,11 @@ device-initiated memory accesses.
 
 | SR_IOM_004
 | IOMPT MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitly authorized .
+
+| SR_IOM_005
+| IOMPT MUST be used to guarantee that resources assigned to a domain/workload
+cannot be accessed by other domains/workloads unless explicitly authorized,
+even if the device is shared across domains/workloads.
 
 |===
 
