@@ -487,9 +487,12 @@ device-initiated memory accesses.
 | IOMPT MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
 
 | SR_IOM_004
-| IOMPT MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitly authorized .
+| IOMPT MUST be used to guarantee that resources assigned to a domain cannot be accessed by devices assigned to other domains.
 
 | SR_IOM_005
+| IOMPT MUST be used to guarantee that devices assigned to a domain cannot be accessed by other domains unless explicitly authorized .
+
+| SR_IOM_006
 | IOMPT MUST be used to guarantee that resources assigned to a domain/workload
 cannot be accessed by other domains/workloads unless explicitly authorized,
 even if the device is shared across domains/workloads.
