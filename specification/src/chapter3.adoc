@@ -504,7 +504,7 @@ locations. It complements address translation and protection.
 | ID#
 | Requirement
 
-| SR_IOMMU_001
+| SR_IOU_001
 | Systems supporting address translation and protection MUST support IOMMU
 
 |===
