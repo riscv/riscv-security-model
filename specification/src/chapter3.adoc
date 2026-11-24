@@ -471,17 +471,17 @@ device-initiated transactions, by mapping transactions to IOMMU translation and 
 | ID#
 | Requirement
 
-| SR_IOMPT_001
+| SR_IOM_001
 | A system which supports MPT MUST implement IOMPT for access-control for
 device-initiated memory accesses.
 
-| SR_IOMPT_002
+| SR_IOM_002
 | IOMPT configurations MUST only be directly accessible to M-Mode.
 
-| SR_IOMPT_003
+| SR_IOM_003
 | IOMPT MUST be used to guarantee that devices assigned to lower privilege levels cannot access resources assigned to M-Mode.
 
-| SR_IOMPT_004
+| SR_IOM_004
 | IOMPT MUST be used to guarantee that resources assigned to a domain cannot be accessed by devices assigned to other domains.
 
 |===
