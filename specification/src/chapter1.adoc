@@ -106,6 +106,12 @@ A requirement or a group of requirements may be followed by non-normative text
 providing context or justification for the requirement. The non-normative text
 may also be used to reference sources that are the origin of the requirement.
 
+The specification provides a set of requirements that, if combined in certain
+ways, result in contradictory security properties. The possible set of
+contradictions are by design. A security architect chooses a valid set of
+security requirements for their implementation, security policy, and threat
+model.
+
 NOTE: All normative requirements are expressed as mandatory and some sections may
 include mutually exclusive requirements. A use case specific requirements document
 MUST define if a requirement is recommended or mandatory, as well as any allowable
