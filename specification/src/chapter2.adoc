@@ -1122,7 +1122,7 @@ accessible to other components.
 | Requirement
 
 | SR_ISO_002
-| Devices MUST not access memory belonging to an isolated component without
+| Devices MUST NOT access memory belonging to an isolated component without
 permission
 |===
 

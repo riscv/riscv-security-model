@@ -552,11 +552,11 @@ cannot be accessed by World IDs from lower privilege levels (Smlwid).
 
 | SR_WOR_006
 | If a hart supports multiple privilege levels, World IDs used by M-Mode
-MUST not be delegated to lower privilege levels (Smlwidlist).
+MUST NOT be delegated to lower privilege levels (Smlwidlist).
 
 | SR_WOR_007
 | If a hart supports S-Mode, World IDs used by S-Mode MUST
-not be delegated to U-Mode (Smwiddeleg).
+NOT be delegated to U-Mode (Smwiddeleg).
 
 |===
 
